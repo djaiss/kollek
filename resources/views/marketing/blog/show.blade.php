@@ -160,18 +160,6 @@
           <p class="mt-3 text-[11px] text-muted-soft">{{ __('Bars are scaled for legibility, not to 100%. Word counts from published editions.') }}</p>
         </section>
 
-        <section>
-          <h2 class="mb-3 text-[11px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('Reading pace') }}</h2>
-          <ul class="flex list-none flex-col gap-2 p-0 text-[13px]">
-            @foreach ($pace as $row)
-              <li class="flex items-baseline justify-between gap-4 border-b border-hairline-soft pb-2">
-                <span class="text-muted-soft">{{ $row['label'] }}</span>
-                <span class="font-medium text-ink">{{ $row['value'] }}</span>
-              </li>
-            @endforeach
-          </ul>
-        </section>
-
         @if ($post->tags->isNotEmpty())
           <section>
             <h2 class="mb-3 text-[11px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('Filed under') }}</h2>

@@ -199,7 +199,7 @@ it('renders the body, the contents list and the measurements', function () {
     $response->assertSee('Contents');
     $response->assertSee('Measurements');
     $response->assertSee('Shelved against the classics');
-    $response->assertSee('Reading pace');
+    $response->assertDontSee('Reading pace');
 });
 
 it('serves the feed', function () {
