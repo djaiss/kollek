@@ -4,7 +4,8 @@
 
 - Every model, controller, action, helper, job, mail, service and view model should have a corresponding test.
 - Tests should cover the main functionality and important edge cases, not every single line of code.
-- Use the popular tv show Friends when you need data to prove a point.
+- Use the popular tv show The Office (US version) when you need data to prove a point.
+- We use PHPunit for testing.
 
 ## Conventions (all tests)
 
@@ -14,9 +15,7 @@
 - Name test methods in snake_case describing the behavior, usually starting with `it_`.
 - Use named arguments when instantiating classes and calling actions.
 - Add `use RefreshDatabase;` only when the test touches the database.
-- Use the `TestCase` helpers `createUser()`, `createVault()` and `assignUserToVault()` to set up context.
 - Build models with `factory()->create()` for persisted records and `factory()->make()` for in-memory ones.
-- Data is encrypted in the database, so use `decrypt()` to assert values.
 
 ## Model tests
 
@@ -56,4 +55,3 @@
 - Test role restrictions: a non-owner performing an owner-only action gets `assertNotFound()`.
 - Assert persisted changes via `refresh()` and deletions via `assertModelMissing()`.
 - Fake the queue with `Queue::fake()` when the controller dispatches jobs.
-- Cover public/marketing pages with a simple `get()` and `assertOk()`.

@@ -16,7 +16,7 @@ The API reference is a single-page portal served at `/docs`. It is built by `App
 
 ## Step 1 — Research
 
-Read, for the resource being documented:
+For the resource being documented, you MUST read:
 
 - the API controller (`app/Http/Controllers/Api/…`): every public method,
 - `routes/api.php`: exact URL, verb and route name per endpoint,
@@ -26,7 +26,7 @@ Read, for the resource being documented:
 
 ## Step 2 — Write the definition file
 
-Create a numbered file in `resources/docs/api` (or add sections to an existing group). Each section supports:
+You MUST create a numbered file in `resources/docs/api`, or add sections to an existing group. Each section supports:
 
 ```php
 [
@@ -49,20 +49,20 @@ Create a numbered file in `resources/docs/api` (or add sections to an existing g
 ]
 ```
 
-A param is `['name' => …, 'type' => …, 'required' => bool, 'description' => …]`, plus optional `'default' => '10'` and `'example' => …`. Body params that define an `example` become the request body of the code samples; use `'exampleBody' => […]` on the section to override it.
+A param is `['name' => …, 'type' => …, 'required' => bool, 'description' => …]`, plus optional `'default' => '10'` and `'example' => …`. Body params that define an `example` become the request body of the code samples; you MUST use `'exampleBody' => […]` on the section to override it.
 
 Helpers on `ApiDocumentation`: `baseUrl()` returns the API base URL, and `paginated($data, $path)` wraps a list of resources in a realistic paginator body.
 
 Conventions:
 
-- Document endpoints in this order: list (`GET`), get one (`GET`), create (`POST`), update (`PUT`), delete (`DELETE`), then extra actions.
-- Match example values to the Resource exactly: `id` is a string, timestamps are Unix integers, and the JSON envelope is `type` / `id` / `attributes` / `links`.
-- State the role rules in `permissions` for account-scoped resources, and say that cross-account lookups return 404 in `returns`.
-- Never use em dashes in the copy; rephrase with periods, commas or parentheses.
+- You MUST document endpoints in this order: list (`GET`), get one (`GET`), create (`POST`), update (`PUT`), delete (`DELETE`), then extra actions.
+- You MUST match example values to the Resource exactly: `id` is a string, timestamps are Unix integers, and the JSON envelope is `type` / `id` / `attributes` / `links`.
+- You MUST state the role rules in `permissions` for account-scoped resources, and say in `returns` that cross-account lookups return 404.
+- You MUST NOT use em dashes in the copy. You MUST rephrase with periods, commas or parentheses.
 
 ## Step 3 — Test
 
-The route sync test fails on its own when an endpoint is missing, so there is usually no new test to write. When adding a new group, add an `assertSee()` for one of its titles to `tests/Feature/Controllers/Marketing/Docs/ApiDocsControllerTest.php`. Run:
+The route sync test fails on its own when an endpoint is missing, so there is usually no new test to write. When adding a new group, you MUST add an `assertSee()` for one of its titles to `tests/Feature/Controllers/Marketing/Docs/ApiDocsControllerTest.php`. You MUST then run:
 
 ```
 PAO_DISABLE=1 php artisan test tests/Unit/Services/ApiDocumentationTest.php tests/Feature/Controllers/Marketing/Docs/ApiDocsControllerTest.php

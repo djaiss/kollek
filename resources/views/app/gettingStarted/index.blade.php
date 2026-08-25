@@ -30,10 +30,6 @@
 
       {{-- A note from the founder --}}
       <div class="relative w-full rounded-[18px] border border-hairline bg-canvas px-10 pt-9.5 pb-8 text-left shadow-[0_18px_50px_rgba(17,17,17,0.07)] dark:shadow-[0_18px_50px_rgba(0,0,0,0.5)]">
-        <div class="absolute -top-3.5 left-9 flex items-center gap-2 bg-canvas px-3">
-          <span class="size-2 shrink-0 rounded-full bg-brand"></span>
-          <span class="text-xs font-semibold tracking-wide text-muted-soft uppercase">{{ __('A note from Regis') }}</span>
-        </div>
 
         <div class="flex flex-col gap-4 text-[16px] leading-[1.72] text-body">
           <p>{{ __('Thank you, genuinely. Trusting a small tool to hold the things you have spent years hunting down, saving up for, and caring about is a big deal, and I do not take it lightly.') }}</p>

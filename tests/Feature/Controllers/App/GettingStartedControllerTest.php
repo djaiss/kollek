@@ -16,7 +16,6 @@ it('shows the getting started screen', function () {
 
     $response->assertOk()
         ->assertSee('Hi Ross, so glad you are here.', false)
-        ->assertSee('A note from Regis')
         ->assertSee('Configure collection types')
         ->assertSee('Configure tags')
         ->assertSee('Add other members')
