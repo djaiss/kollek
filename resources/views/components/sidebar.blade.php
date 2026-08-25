@@ -55,10 +55,12 @@
 
             @php
                 $pendingTestimonials = \App\Models\Testimonial::query()->where('status', \App\Enums\TestimonialStatus::InReview)->count();
+                $draftPosts = \App\Models\BlogPost::query()->where('status', \App\Enums\BlogPostStatus::Draft)->count();
             @endphp
             <nav class="-mt-2 flex flex-col gap-0.5">
                 <p class="px-2 py-1.5 text-xs font-medium tracking-wide text-muted-soft uppercase">Marketing</p>
                 <x-sidebar-link :href="route('instanceAdmin.marketing.testimonials.index')" :active="request()->routeIs('instanceAdmin.marketing.testimonials.*')" icon="quote" :count="$pendingTestimonials > 0 ? $pendingTestimonials : null">Testimonials</x-sidebar-link>
+                <x-sidebar-link :href="route('instanceAdmin.marketing.blogPosts.index')" :active="request()->routeIs('instanceAdmin.marketing.blogPosts.*')" icon="notebook-pen" :count="$draftPosts > 0 ? $draftPosts : null">Blog posts</x-sidebar-link>
                 <x-sidebar-link :href="route('instanceAdmin.siteOptions.index')" :active="request()->routeIs('instanceAdmin.siteOptions.*')" icon="sliders-horizontal">Site options</x-sidebar-link>
             </nav>
         @elseif ($isProfile)

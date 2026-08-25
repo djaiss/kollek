@@ -46,7 +46,7 @@ enum BlogTranslationState: string
         };
     }
 
-    public function color(): ?string
+    public function color(): string
     {
         return match ($this) {
             self::Source => 'violet',

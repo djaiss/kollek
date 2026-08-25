@@ -22,6 +22,9 @@ use App\Http\Controllers\App\DocumentController;
 use App\Http\Controllers\App\DocumentDownloadController;
 use App\Http\Controllers\App\GettingStartedController;
 use App\Http\Controllers\App\Instance\AccountController as InstanceAccountController;
+use App\Http\Controllers\App\Instance\BlogPostController as InstanceBlogPostController;
+use App\Http\Controllers\App\Instance\BlogPostOgImageController as InstanceBlogPostOgImageController;
+use App\Http\Controllers\App\Instance\BlogPostTranslationController as InstanceBlogPostTranslationController;
 use App\Http\Controllers\App\Instance\CloudflareCacheController as InstanceCloudflareCacheController;
 use App\Http\Controllers\App\Instance\DeletionReasonController as InstanceDeletionReasonController;
 use App\Http\Controllers\App\Instance\OverviewController as InstanceOverviewController;
@@ -426,6 +429,22 @@ Route::middleware(['auth', 'verified', 'throttle:60,1', 'set.locale'])->group(fu
         // Publishing and rejecting are one update, told apart by the intent field.
         Route::get('marketing/testimonials/{status?}', [InstanceTestimonialController::class, 'index'])->where('status', 'in_review|published|rejected|draft|all')->name('marketing.testimonials.index');
         Route::put('marketing/testimonials/{testimonial}', [InstanceTestimonialController::class, 'update'])->where('testimonial', '[1-9][0-9]*')->name('marketing.testimonials.update');
+
+        // marketing — the blog. The status bucket lives in the path, so each
+        // bucket is its own URL; the search box is the one thing that reaches
+        // for a query string, the same as the accounts list. Writing is done one
+        // language at a time, so the locale is a path segment rather than a tab
+        // the server cannot see.
+        Route::get('marketing/blog-posts/new', [InstanceBlogPostController::class, 'new'])->name('marketing.blogPosts.new');
+        Route::post('marketing/blog-posts', [InstanceBlogPostController::class, 'create'])->name('marketing.blogPosts.create');
+        Route::get('marketing/blog-posts/{status?}', [InstanceBlogPostController::class, 'index'])->where('status', 'all|published|draft|archived')->name('marketing.blogPosts.index');
+        Route::put('marketing/blog-posts/{blogPost}', [InstanceBlogPostController::class, 'update'])->where('blogPost', '[1-9][0-9]*')->name('marketing.blogPosts.update');
+        Route::delete('marketing/blog-posts/{blogPost}', [InstanceBlogPostController::class, 'destroy'])->where('blogPost', '[1-9][0-9]*')->name('marketing.blogPosts.destroy');
+
+        Route::get('marketing/blog-posts/{blogPost}/translations/{locale}', [InstanceBlogPostTranslationController::class, 'edit'])->where('blogPost', '[1-9][0-9]*')->name('marketing.blogPosts.translations.edit');
+        Route::put('marketing/blog-posts/{blogPost}/translations/{locale}', [InstanceBlogPostTranslationController::class, 'update'])->where('blogPost', '[1-9][0-9]*')->name('marketing.blogPosts.translations.update');
+        Route::post('marketing/blog-posts/{blogPost}/translations/{locale}/og-image', [InstanceBlogPostOgImageController::class, 'create'])->where('blogPost', '[1-9][0-9]*')->name('marketing.blogPosts.translations.ogImage.create');
+        Route::delete('marketing/blog-posts/{blogPost}/translations/{locale}/og-image', [InstanceBlogPostOgImageController::class, 'destroy'])->where('blogPost', '[1-9][0-9]*')->name('marketing.blogPosts.translations.ogImage.destroy');
 
         // site options — the announcement banner on the marketing site, and the
         // Cloudflare cache that holds its rendered pages.

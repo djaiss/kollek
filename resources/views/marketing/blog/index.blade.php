@@ -89,7 +89,7 @@
         <div class="rounded-xl border border-hairline bg-canvas p-5">
           <div class="mb-2 flex items-baseline justify-between gap-2">
             <p class="text-[11px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ $shelf['label'] }}</p>
-            <p class="text-[11px] text-muted-soft">{{ __(':count entries', ['count' => $counts[$shelf['value']] ?? 0]) }}</p>
+            <p class="text-[11px] text-muted-soft">{{ trans_choice(':count entry|:count entries', $counts[$shelf['value']] ?? 0) }}</p>
           </div>
           <p class="text-[13px] leading-[1.5] text-pretty text-muted">{{ $shelf['description'] }}</p>
         </div>
