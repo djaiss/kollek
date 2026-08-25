@@ -71,6 +71,33 @@ it('searches by title and by slug', function () {
     $response->assertDontSee('threat-level-midnight');
 });
 
+it('searches without regard to case, which plain LIKE does not give on postgres', function () {
+    $michael = $this->createUser(['is_instance_administrator' => true]);
+    entryFor('threat-level-midnight');
+    $other = BlogPost::factory()->create();
+    BlogPostTranslation::factory()->create([
+        'blog_post_id' => $other->id,
+        'locale' => 'en',
+        'slug' => 'beet-farming',
+        'title' => 'Beet Farming Quarterly',
+    ]);
+
+    $response = $this->actingAs($michael)->get('instance-admin/marketing/blog-posts?search=BEET');
+
+    $response->assertOk();
+    $response->assertSee('Beet Farming Quarterly');
+});
+
+it('treats a wildcard in the search term literally', function () {
+    $michael = $this->createUser(['is_instance_administrator' => true]);
+    entryFor('threat-level-midnight');
+
+    $response = $this->actingAs($michael)->get('instance-admin/marketing/blog-posts?search=%25');
+
+    $response->assertOk();
+    $response->assertSee('No posts match this filter.');
+});
+
 it('shows the form for a new entry', function () {
     $michael = $this->createUser(['is_instance_administrator' => true]);
 

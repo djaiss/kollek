@@ -28,18 +28,24 @@ class BlogPostAdministration
      * schema, which is what lets the search box match a title or a slug in SQL
      * rather than having to read every row into memory first.
      *
+     * The search is case insensitive on every engine (whereLike writes ILIKE on
+     * Postgres, where plain LIKE is case sensitive), and the wildcards are
+     * escaped so a title containing % or _ is searched for literally.
+     *
      * @return array<int, array{id: int, reference: string, title: string, slug: string, shelf: string, status: BlogPostStatus, languages: array<int, array{code: string, label: string, state: ?BlogTranslationState}>, liveCount: int, localeCount: int, updatedAt: string}>
      */
     public function rows(string $status, string $search): array
     {
         return BlogPost::query()
             ->when($status !== 'all', fn (Builder $query): Builder => $query->where('status', $status))
-            ->when($search !== '', fn (Builder $query): Builder => $query->whereHas(
-                'translations',
-                fn (Builder $translations): Builder => $translations
-                    ->where('title', 'like', '%'.$search.'%')
-                    ->orWhere('slug', 'like', '%'.$search.'%'),
-            ))
+            ->when($search !== '', function (Builder $query) use ($search): void {
+                $term = '%'.addcslashes($search, '%_\\').'%';
+
+                $query->whereHas('translations', function (Builder $translations) use ($term): void {
+                    $translations->whereLike('title', $term, caseSensitive: false)
+                        ->orWhereLike('slug', $term, caseSensitive: false);
+                });
+            })
             ->with('translations')
             ->orderByDesc('updated_at')
             ->get()
