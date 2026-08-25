@@ -78,7 +78,6 @@ class BlogController extends Controller
             'toc' => $rendered['toc'],
             'readingMinutes' => $metrics['minutesReading'],
             'measurements' => $this->blog->measurements($metrics),
-            'pace' => $this->blog->pace($metrics),
             'classics' => $this->blog->classics($metrics['words']),
             'previous' => $this->catalogue->adjacent($post, $appLocale, newer: false),
             'next' => $this->catalogue->adjacent($post, $appLocale, newer: true),

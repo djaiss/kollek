@@ -33,19 +33,6 @@ it('reports a percentage to two decimals when it is under one', function () {
     expect(app(MarketingBlog::class)->classics(100)[5]['percentage'])->toBe(0.02);
 });
 
-it('lists the reading paces and the grade level', function () {
-    $pace = app(MarketingBlog::class)->pace([
-        'minutesReading' => 12,
-        'minutesSkimming' => 10,
-        'minutesAloud' => 18,
-        'gradeLevel' => 9,
-    ]);
-
-    expect($pace)->toHaveCount(4)
-        ->and($pace[0]['value'])->toBe('12 min')
-        ->and($pace[3]['value'])->toBe('Grade 9');
-});
-
 it('lists every measurement', function () {
     $measurements = app(MarketingBlog::class)->measurements([
         'words' => 2418,

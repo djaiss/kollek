@@ -9,7 +9,7 @@ use App\Enums\BlogShelf;
 /**
  * The copy and the reference tables the public blog is drawn from: the shelves a
  * reader can filter by, the books an entry is measured against, and the labels
- * on the reading pace list.
+ * on the measurements panel.
  *
  * Like the other marketing view models it asks the database nothing. The entries
  * themselves reach the views from the controller; what lives here is the writing
@@ -71,22 +71,6 @@ class MarketingBlog
                 'width' => round(max(2, min(100, $percentage * 11)), 1),
             ];
         }, self::CLASSICS);
-    }
-
-    /**
-     * How long the entry takes at each pace, plus how hard it reads.
-     *
-     * @param  array{minutesReading: int, minutesSkimming: int, minutesAloud: int, gradeLevel: int}  $metrics
-     * @return array<int, array{label: string, value: string}>
-     */
-    public function pace(array $metrics): array
-    {
-        return [
-            ['label' => __('At 200 wpm'), 'value' => __(':count min', ['count' => $metrics['minutesReading']])],
-            ['label' => __('At 250 wpm'), 'value' => __(':count min', ['count' => $metrics['minutesSkimming']])],
-            ['label' => __('Read aloud'), 'value' => __(':count min', ['count' => $metrics['minutesAloud']])],
-            ['label' => __('Grade level'), 'value' => __('Grade :level', ['level' => $metrics['gradeLevel']])],
-        ];
     }
 
     /**
