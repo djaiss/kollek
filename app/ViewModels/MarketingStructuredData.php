@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\ViewModels;
 
+use App\Models\BlogPost;
+use App\Models\BlogPostTranslation;
 use Illuminate\Http\Request;
 
 /**
@@ -69,6 +71,45 @@ class MarketingStructuredData
         }
 
         return $this->graph($entities);
+    }
+
+    /**
+     * The graph for one blog entry. Like the documentation, the entry is handed
+     * in rather than resolved here: the view has it already.
+     *
+     * There is no BreadcrumbList. The entry page shows a link back to the
+     * catalogue, not a visible trail, and this class does not claim a breadcrumb
+     * the reader cannot see.
+     *
+     * @return array<string, mixed>
+     */
+    public function forBlogPost(Request $request, BlogPost $post, BlogPostTranslation $translation): array
+    {
+        return $this->graph([$this->blogPosting($request, $post, $translation)]);
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function blogPosting(Request $request, BlogPost $post, BlogPostTranslation $translation): array
+    {
+        return array_filter([
+            '@type' => 'BlogPosting',
+            '@id' => $request->url().'#article',
+            'url' => $request->url(),
+            'headline' => $translation->title,
+            'description' => $translation->metaDescription(),
+            'inLanguage' => $this->language($translation->locale),
+            'datePublished' => $post->published_at?->toIso8601String(),
+            // Only claimed when the entry has genuinely been edited since it
+            // went out, rather than restating the publication date as a change.
+            'dateModified' => $translation->updated_at?->greaterThan($post->published_at) === true
+                ? $translation->updated_at->toIso8601String()
+                : null,
+            'author' => ['@type' => 'Person', 'name' => $post->author_name],
+            'isPartOf' => ['@id' => $this->id('website')],
+            'publisher' => ['@id' => $this->id('organization')],
+        ], fn (mixed $value): bool => $value !== null);
     }
 
     /**

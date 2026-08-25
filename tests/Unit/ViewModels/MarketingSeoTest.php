@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Services\BlogCatalogue;
 use App\Services\DocumentationPortal;
 use App\ViewModels\MarketingFeatures;
 use App\ViewModels\MarketingLanguages;
@@ -21,7 +22,7 @@ final class FakeMarketingLanguages extends MarketingLanguages
      */
     public function __construct(private array $fake)
     {
-        parent::__construct(app(DocumentationPortal::class));
+        parent::__construct(app(DocumentationPortal::class), app(BlogCatalogue::class));
     }
 
     public function links(Request $request): array

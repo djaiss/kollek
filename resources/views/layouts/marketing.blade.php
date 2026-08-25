@@ -2,8 +2,8 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
   <head>
     @php
-        $seo = app(\App\ViewModels\MarketingSeo::class)->forRequest(request(), $pageTitle ?? null, $pageDescription ?? null);
-        $structuredData = app(\App\ViewModels\MarketingStructuredData::class)->forRequest(request());
+        $seo = app(\App\ViewModels\MarketingSeo::class)->forRequest(request(), $pageTitle ?? null, $pageDescription ?? null, $pageImage ?? null);
+        $structuredData = $pageStructuredData ?? app(\App\ViewModels\MarketingStructuredData::class)->forRequest(request());
     @endphp
 
     @include('partials.meta', ['title' => $seo['title'], 'description' => $seo['description']])

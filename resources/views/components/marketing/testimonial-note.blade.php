@@ -1,4 +1,4 @@
-@props(['testimonial', 'tilt' => ''])
+@props (['testimonial', 'tilt' => ''])
 
 @php
   $safeLink = $testimonial->safeLink();
@@ -22,20 +22,13 @@
 @endphp
 
 <div class="mb-5 break-inside-avoid">
-  <div
-    class="relative rounded border p-6 shadow-[0_10px_24px_rgba(17,17,17,0.09),0_2px_6px_rgba(17,17,17,0.05)] transition-transform duration-200 hover:rotate-0 {{ $tilt }}"
-    style="background:{{ $note['paper'] }}; border-color:var(--tape-edge);"
-  >
+  <div class="relative rounded border p-6 shadow-[0_10px_24px_rgba(17,17,17,0.09),0_2px_6px_rgba(17,17,17,0.05)] transition-transform duration-200 hover:rotate-0 {{ $tilt }}" style="background:{{ $note['paper'] }}; border-color:var(--tape-edge);">
     {{-- A strip of tape holding the note to the wall. --}}
-    <div
-      class="absolute -top-[9px] left-1/2 -ml-[30px] h-[18px] w-[60px] rounded-[2px] border backdrop-blur-[1px]"
-      style="background:var(--tape); border-color:var(--tape-edge); transform:rotate({{ $note['tape'] }}deg);"
-      aria-hidden="true"
-    ></div>
+    <div class="absolute -top-[9px] left-1/2 -ml-[30px] h-[18px] w-[60px] rounded-[2px] border backdrop-blur-[1px]" style="background:var(--tape); border-color:var(--tape-edge); transform:rotate({{ $note['tape'] }}deg);" aria-hidden="true"></div>
 
     <div class="font-serif text-4xl leading-none text-hairline">&ldquo;</div>
     <p class="mt-1.5 text-[15px] leading-relaxed text-ink">{{ $testimonial->body }}</p>
-    <div class="mt-4 flex items-center gap-2.5 border-t border-dashed pt-3.5" style="border-color:var(--tape-edge);">
+    <div class="mt-4 flex items-center gap-2.5 border-t border-dashed pt-3.5" style="border-color: var(--tape-edge)">
       <span class="flex size-7 shrink-0 items-center justify-center rounded-full text-xs font-semibold text-white" style="background:{{ $note['accent'] }};">{{ $testimonial->initial() }}</span>
       <div class="min-w-0 flex-1">
         @if ($safeLink)

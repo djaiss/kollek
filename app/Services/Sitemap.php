@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Models\BlogPost;
 use App\Models\Testimonial;
 use App\ViewModels\MarketingFeatures;
 
@@ -25,7 +26,8 @@ use App\ViewModels\MarketingFeatures;
  *    the URL its canonical points at from behind all seven prefixes;
  *  - a documentation page keeps a different section and slug in every language,
  *    so its translations are found through its page id rather than by swapping
- *    the prefix the way every other route allows.
+ *    the prefix the way every other route allows. A blog entry works the same
+ *    way, and claims only the languages actually written for it.
  *
  * There is deliberately no lastmod. The only date available is the mtime of the
  * Markdown on disk, which a fresh clone or a Docker build sets to the moment it
@@ -48,6 +50,7 @@ class Sitemap
         return [
             ...$this->localizedPages(),
             ...$this->documentationPages(),
+            ...$this->blogEntries(),
             ...$this->englishOnlyPages(),
         ];
     }
@@ -106,7 +109,58 @@ class Sitemap
 
         $routes[] = ['marketing.docs.portal.home.show', []];
 
+        // As with the reviews, the catalogue is only worth crawling once there
+        // is something in it.
+        if (BlogPost::query()->published()->exists()) {
+            $routes[] = ['marketing.blog.index', []];
+        }
+
         return $routes;
+    }
+
+    /**
+     * The blog, one entry at a time. A slug is translated per language like a
+     * documentation page, so the translations of an entry are gathered from the
+     * entry itself rather than by swapping the prefix.
+     *
+     * Only the languages actually written for an entry are listed. A locale that
+     * falls back to English has no URL of its own, and claiming one would put a
+     * duplicate of the English page in the sitemap under seven prefixes.
+     *
+     * @return array<int, array{loc: string, alternates: array<int, array{hreflang: string, url: string}>}>
+     */
+    private function blogEntries(): array
+    {
+        $entries = [];
+        $locales = $this->locales();
+
+        $posts = BlogPost::query()
+            ->published()
+            ->with('translations')
+            ->get();
+
+        foreach ($posts as $post) {
+            $urls = [];
+
+            foreach ($post->translations as $translation) {
+                if (! $translation->isPublic() || ! isset($locales[$translation->locale])) {
+                    continue;
+                }
+
+                $urls[$translation->locale] = route('marketing.blog.show', [
+                    'locale' => $locales[$translation->locale],
+                    'slug' => $translation->slug,
+                ]);
+            }
+
+            $alternates = $this->alternates($urls);
+
+            foreach ($urls as $url) {
+                $entries[] = ['loc' => $url, 'alternates' => $alternates];
+            }
+        }
+
+        return $entries;
     }
 
     /**

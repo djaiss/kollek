@@ -1,4 +1,4 @@
-@props(['columns'])
+@props (['columns'])
 
 {{-- The desktop "Features" mega menu. It renders inside the header's Features
      wrapper, which owns the hover open/close via mouseenter/mouseleave. Because
@@ -29,19 +29,9 @@
 {{-- Dim the rest of the page behind the panel (visual only). Opacity is bound
      inline rather than through utility classes so the animation never depends on
      Tailwind emitting a class it only sees inside an Alpine expression. --}}
-<div
-  :style="featuresOpen ? 'opacity:1' : 'opacity:0'"
-  class="pointer-events-none fixed inset-0 top-16 z-40 hidden bg-ink/25 opacity-0 backdrop-blur-[1px] transition-opacity duration-200 lg:block"
-  aria-hidden="true"
-></div>
+<div :style="featuresOpen ? 'opacity:1' : 'opacity:0'" class="pointer-events-none fixed inset-0 top-16 z-40 hidden bg-ink/25 opacity-0 backdrop-blur-[1px] transition-opacity duration-200 lg:block" aria-hidden="true"></div>
 
-<div
-  :inert="! featuresOpen"
-  :style="featuresOpen
-    ? 'opacity:1; transform:translateY(0); transition:opacity .2s ease-out, transform .2s ease-out'
-    : 'opacity:0; transform:translateY(-8px); transition:opacity .15s ease-in, transform .15s ease-in'"
-  class="pointer-events-none absolute inset-x-0 top-full z-50 hidden opacity-0 lg:block"
->
+<div :inert="!featuresOpen" :style="featuresOpen ? 'opacity:1; transform:translateY(0); transition:opacity .2s ease-out, transform .2s ease-out' : 'opacity:0; transform:translateY(-8px); transition:opacity .15s ease-in, transform .15s ease-in'" class="pointer-events-none absolute inset-x-0 top-full z-50 hidden opacity-0 lg:block">
   {{-- The card plus the small bridge gap above it: the only pointer target. --}}
   <div class="pointer-events-auto relative mx-auto max-w-[1080px] px-5 pt-3.5">
     {{-- Caret pointing up toward the Features trigger. --}}
@@ -49,7 +39,6 @@
 
     <div class="overflow-hidden rounded-[18px] border border-hairline bg-page shadow-[0_32px_80px_rgba(17,17,17,0.18),0_8px_24px_rgba(17,17,17,0.08)]">
       <div class="grid grid-cols-1 lg:grid-cols-[1fr_300px]">
-
         {{-- Left: the feature grid. --}}
         <div class="p-9">
           <div class="mb-6 flex items-baseline justify-between">
@@ -102,7 +91,10 @@
             </span>
             <span class="block text-[15px] font-semibold tracking-[-0.2px]">{{ __('Self-host in one command') }}</span>
             <span class="mt-1.5 block text-[12.5px] leading-[1.5] text-[#a1a1aa]">{{ __('Spin up a full instance with Docker. Free forever, MIT licensed.') }}</span>
-            <span class="mt-3.5 block rounded-[7px] bg-[#1a1a1a] px-[11px] py-[9px] font-mono text-[11px] text-[#e5e7eb]"><span class="text-badge-emerald">$</span> docker run kollek/app</span>
+            <span class="mt-3.5 block rounded-[7px] bg-[#1a1a1a] px-[11px] py-[9px] font-mono text-[11px] text-[#e5e7eb]">
+              <span class="text-badge-emerald">$</span>
+              docker run kollek/app
+            </span>
           </a>
 
           <a href="{{ route('marketing.docs.portal.home.show') }}" data-turbo="true" class="flex items-center gap-3 rounded-xl border border-hairline bg-page p-4 transition-colors hover:bg-card">
@@ -117,10 +109,10 @@
 
           <div class="flex-1"></div>
           <div class="flex items-center gap-2 border-t border-hairline-soft pt-1.5 text-xs text-muted-soft">
-            <span class="text-badge-emerald">&bull;</span> {{ __(':count feature areas · MIT licensed', ['count' => 12]) }}
+            <span class="text-badge-emerald">&bull;</span>
+            {{ __(':count feature areas · MIT licensed', ['count' => 12]) }}
           </div>
         </div>
-
       </div>
     </div>
   </div>

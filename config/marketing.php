@@ -83,4 +83,24 @@ return [
 
     'cdn_cache_seconds' => (int) env('PUBLIC_PAGE_CDN_CACHE', 60 * 60 * 24 * 7),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Blog
+    |--------------------------------------------------------------------------
+    |
+    | The blog presents itself as a catalogue: every entry carries a permanent
+    | reference number (KLK-0031) that is assigned once and never reused, so a
+    | post can be corrected, retitled or moved to another shelf without the
+    | number that people cite ever changing.
+    |
+    | The licence is printed on the catalogue record of every entry, which is
+    | the only place the public site states the terms its writing is under.
+    |
+    */
+
+    'blog' => [
+        'reference_prefix' => env('BLOG_REFERENCE_PREFIX', 'KLK'),
+        'licence' => 'CC BY 4.0',
+    ],
+
 ];

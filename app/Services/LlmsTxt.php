@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Models\BlogPost;
 use App\ViewModels\MarketingFeatures;
 
 /**
@@ -19,6 +20,12 @@ use App\ViewModels\MarketingFeatures;
  */
 class LlmsTxt
 {
+    /**
+     * The blog is the one part of the site that grows without bound, so it is
+     * capped here. The feed and the catalogue carry the rest.
+     */
+    private const int BLOG_ENTRIES = 30;
+
     public function __construct(
         private DocumentationPortal $portal,
         private MarketingFeatures $features,
@@ -62,6 +69,29 @@ class LlmsTxt
 
             foreach ($section['items'] as $item) {
                 $lines[] = '- ['.$item['title'].']('.$item['markdownUrl'].')';
+            }
+        }
+
+        $blog = BlogPost::query()
+            ->published()
+            ->with('translations')
+            ->limit(self::BLOG_ENTRIES)
+            ->get();
+
+        if ($blog->isNotEmpty()) {
+            $lines[] = '';
+            $lines[] = '## Blog';
+            $lines[] = '';
+
+            foreach ($blog as $post) {
+                $translation = $post->translation($locale);
+
+                if ($translation === null) {
+                    continue;
+                }
+
+                $url = route('marketing.blog.show', ['locale' => $urlLocale, 'slug' => $translation->slug]);
+                $lines[] = '- ['.$translation->title.']('.$url.'): '.$translation->excerpt;
             }
         }
 
