@@ -54,11 +54,27 @@ class LocalizeCommand extends Command
      */
     private function extractTranslationKeys(): array
     {
+        // Everywhere user facing copy is written. The list used to stop at the
+        // controllers, the actions and the jobs, which meant a string on an enum
+        // or a view model was never extracted, and a key used from a model was
+        // reported as stale and deleted on the next run.
+        //
+        // app/Console stays out on purpose: it holds command output rather than
+        // screen copy, and the extractor reads comments as well as code, so the
+        // `__('10')` in this very file would become a key.
         $directories = [
             base_path('resources/views'),
-            base_path('app/Http/Controllers'),
             base_path('app/Actions'),
+            base_path('app/Enums'),
+            base_path('app/Helpers'),
+            base_path('app/Http'),
             base_path('app/Jobs'),
+            base_path('app/Mail'),
+            base_path('app/Models'),
+            base_path('app/Rules'),
+            base_path('app/Services'),
+            base_path('app/ValueObjects'),
+            base_path('app/ViewModels'),
         ];
 
         $keysByValue = [];

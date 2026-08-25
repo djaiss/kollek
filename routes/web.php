@@ -6,6 +6,7 @@ use App\Http\Controllers\App\Account\AccountController;
 use App\Http\Controllers\App\Account\InvitationController;
 use App\Http\Controllers\App\Account\MemberController;
 use App\Http\Controllers\App\CatalogController;
+use App\Http\Controllers\App\CatalogExportController;
 use App\Http\Controllers\App\CatalogItemViewController;
 use App\Http\Controllers\App\CatalogTypeController;
 use App\Http\Controllers\App\CatalogTypeExportController;
@@ -122,6 +123,12 @@ Route::middleware(['auth', 'verified', 'throttle:60,1', 'set.locale'])->group(fu
         Route::get('sets', [SetController::class, 'index'])->name('sets.index');
         // the statistics of a collection are read only, so any role may see them
         Route::get('statistics', [StatisticsController::class, 'index'])->name('statistics.index');
+
+        // exporting a collection reads it and writes nothing, so any role may do
+        // it. The selection runs to over a hundred field keys, which is why the
+        // file is asked for with a post rather than through the query string.
+        Route::get('export', [CatalogExportController::class, 'show'])->name('collections.export.show');
+        Route::post('export', [CatalogExportController::class, 'create'])->name('collections.export.create');
 
         // viewing an item is read only, so any role may do it
         // each tab of an item is its own page, with overview living on the item's own url

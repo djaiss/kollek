@@ -68,6 +68,11 @@
                     {{ __('Edit collection') }}
                 </x-menu-item>
 
+                <x-menu-item :href="route('collections.export.show', $catalog->id)" turbo data-test="export-collection-button">
+                    <x-slot:icon>@svg('lucide-download', 'size-4 text-muted')</x-slot>
+                    {{ __('Export') }}
+                </x-menu-item>
+
                 <div class="my-1 h-px bg-hairline"></div>
 
                 <x-menu-item type="submit" form="delete-collection-form" danger data-test="delete-collection-button">
@@ -75,6 +80,15 @@
                     {{ __('Delete collection') }}
                 </x-menu-item>
             </x-button.split>
+        </div>
+    @else
+        {{-- The menu above belongs to the managers, but reading a collection out
+             is open to any role, so a viewer gets the one action they may take. --}}
+        <div class="shrink-0">
+            <x-button.secondary :href="route('collections.export.show', $catalog->id)" turbo data-test="export-collection-button">
+                <x-slot:icon>@svg('lucide-download', 'size-4')</x-slot>
+                {{ __('Export') }}
+            </x-button.secondary>
         </div>
     @endif
 </div>
