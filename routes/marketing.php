@@ -3,6 +3,9 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Marketing\AboutController;
+use App\Http\Controllers\Marketing\BlogController;
+use App\Http\Controllers\Marketing\BlogFeedController;
+use App\Http\Controllers\Marketing\BlogOgImageController;
 use App\Http\Controllers\Marketing\Docs\ApiDocsController;
 use App\Http\Controllers\Marketing\Docs\ApiDocsMarkdownController;
 use App\Http\Controllers\Marketing\Docs\DocsPortalController;
@@ -87,6 +90,14 @@ Route::middleware(['marketing'])->group(function () use ($urlLocales): void {
         Route::get('features/{slug}', [FeaturesController::class, 'show'])->where('slug', '[a-z0-9\-]+')->name('marketing.features.show');
 
         Route::get('pricing', [PricingController::class, 'index'])->name('marketing.pricing.index');
+
+        // The blog. feed.xml and og.png are registered before blog/{slug} so
+        // the slug pattern does not swallow them; the slug constraint would not
+        // match either of them, but the order says the intent out loud.
+        Route::get('blog', [BlogController::class, 'index'])->name('marketing.blog.index');
+        Route::get('blog/feed.xml', [BlogFeedController::class, 'index'])->name('marketing.blog.feed.index');
+        Route::get('blog/{slug}/og.png', [BlogOgImageController::class, 'show'])->where('slug', '[a-z0-9\-]+')->name('marketing.blog.ogImage.show');
+        Route::get('blog/{slug}', [BlogController::class, 'show'])->where('slug', '[a-z0-9\-]+')->name('marketing.blog.show');
 
         Route::get('faq', [FaqController::class, 'index'])->name('marketing.faq.index');
 

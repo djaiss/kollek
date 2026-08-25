@@ -33,13 +33,13 @@ class MarketingSeo
     ) {}
 
     /**
-     * Everything the head needs for the page being served. A title or a
-     * description handed in by the view wins over the map below, so a page that
-     * already knows its own heading keeps it.
+     * Everything the head needs for the page being served. A title, description
+     * or social card handed in by the view wins over the map below, so a page
+     * that already knows its own heading keeps it.
      *
      * @return array{title: string, ogTitle: string, description: string, canonical: string, alternates: array<int, array{hreflang: string, url: string}>, locale: string, alternateLocales: array<int, string>, image: string, type: string}
      */
-    public function forRequest(Request $request, ?string $title = null, ?string $description = null): array
+    public function forRequest(Request $request, ?string $title = null, ?string $description = null, ?string $image = null): array
     {
         $copy = $this->copyFor($request);
         $links = $this->languages->links($request);
@@ -54,7 +54,7 @@ class MarketingSeo
             'alternates' => $this->alternates($request, $links),
             'locale' => $this->openGraphLocale(app()->getLocale()),
             'alternateLocales' => $this->alternateLocales($request, $links),
-            'image' => asset('images/og/default.png'),
+            'image' => $image ?? asset('images/og/default.png'),
             'type' => 'website',
         ];
     }
@@ -191,6 +191,10 @@ class MarketingSeo
             'marketing.index' => [
                 'title' => __('The open source home for everything you collect'),
                 'description' => __('Catalogue books, records, comics, watches, wine and anything else you collect. Track every physical copy you own, what it cost, what it is worth and where it lives. Self-host it for free.'),
+            ],
+            'marketing.blog.index' => [
+                'title' => __('Blog'),
+                'description' => __('Writing about collecting, about how KolleK is built, and about running your own instance. Every entry catalogued, numbered and kept.'),
             ],
             'marketing.features.index' => [
                 'title' => __('Features'),

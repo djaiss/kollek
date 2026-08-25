@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\ViewModels;
 
+use App\Services\BlogCatalogue;
 use App\Services\DocumentationPortal;
 use Illuminate\Http\Request;
 use Throwable;
@@ -14,16 +15,20 @@ use Throwable;
  *
  * The public site carries its language in the URL (getkollek.com/fr/pricing), so
  * switching language is mostly a matter of rebuilding the current route with
- * another {locale} prefix. The one place that does not work is the documentation
- * portal: its section and slug are translated per locale, so the same page has a
- * different URL in every language and has to be resolved through its page id.
+ * another {locale} prefix. Two places do not work that way, both because their
+ * slug is translated too, so the same page has a different URL in every
+ * language: the documentation portal, resolved through its page id, and the
+ * blog, resolved through the entry that owns the slug.
  */
 class MarketingLanguages
 {
     private const DOCUMENTATION_ROUTE = 'marketing.docs.portal.show';
 
+    private const BLOG_ROUTE = 'marketing.blog.show';
+
     public function __construct(
         private DocumentationPortal $portal,
+        private BlogCatalogue $blog,
     ) {}
 
     /**
@@ -42,6 +47,7 @@ class MarketingLanguages
         // Resolved once rather than per language: the page being read is the same
         // whichever language the visitor is about to pick.
         $documentationId = $this->documentationId($request);
+        $blogSlugs = $this->blogSlugs($request, $current);
 
         $links = [];
 
@@ -55,9 +61,9 @@ class MarketingLanguages
                 'code' => $meta['code'],
                 'label' => $meta['label'],
                 'flag' => $meta['flag'],
-                'url' => $this->urlFor($request, $locale, $meta['url'], $documentationId),
+                'url' => $this->urlFor($request, $locale, $meta['url'], $documentationId, $blogSlugs),
                 'current' => $locale === $current,
-                'translated' => $this->isTranslatedInto($request, $locale, $documentationId),
+                'translated' => $this->isTranslatedInto($request, $locale, $documentationId, $blogSlugs),
             ];
         }
 
@@ -73,7 +79,10 @@ class MarketingLanguages
         return count($this->portal->availableLocales()) > 1;
     }
 
-    private function urlFor(Request $request, string $locale, string $urlLocale, ?string $documentationId): string
+    /**
+     * @param  array<string, string>  $blogSlugs
+     */
+    private function urlFor(Request $request, string $locale, string $urlLocale, ?string $documentationId, array $blogSlugs): string
     {
         $route = $request->route();
 
@@ -83,6 +92,10 @@ class MarketingLanguages
 
         if ($route->getName() === self::DOCUMENTATION_ROUTE) {
             return $this->documentationUrl($locale, $urlLocale, $documentationId);
+        }
+
+        if ($route->getName() === self::BLOG_ROUTE) {
+            return $this->blogUrl($locale, $urlLocale, $blogSlugs);
         }
 
         // Every other public route keeps its parameters and swaps the prefix. A
@@ -97,12 +110,21 @@ class MarketingLanguages
 
     /**
      * Whether the page being read exists in that language. Only the documentation
-     * portal can answer no: everywhere else the page is the same route with
-     * another prefix, and the interface around it is translated in full.
+     * portal and the blog can answer no: everywhere else the page is the same
+     * route with another prefix, and the interface around it is translated in
+     * full.
+     *
+     * @param  array<string, string>  $blogSlugs
      */
-    private function isTranslatedInto(Request $request, string $locale, ?string $documentationId): bool
+    private function isTranslatedInto(Request $request, string $locale, ?string $documentationId, array $blogSlugs): bool
     {
-        if ($request->route()?->getName() !== self::DOCUMENTATION_ROUTE) {
+        $name = $request->route()?->getName();
+
+        if ($name === self::BLOG_ROUTE) {
+            return array_key_exists($locale, $blogSlugs);
+        }
+
+        if ($name !== self::DOCUMENTATION_ROUTE) {
             return true;
         }
 
@@ -130,6 +152,38 @@ class MarketingLanguages
         );
 
         return $resolved === null ? null : (string) $resolved['page']['id'];
+    }
+
+    /**
+     * The slugs of the blog entry being read, by locale, or an empty list when
+     * the current page is not one.
+     *
+     * @return array<string, string>
+     */
+    private function blogSlugs(Request $request, string $locale): array
+    {
+        if ($request->route()?->getName() !== self::BLOG_ROUTE) {
+            return [];
+        }
+
+        return $this->blog->slugsByLocale($locale, (string) $request->route('slug'));
+    }
+
+    /**
+     * The same entry in another language. One that has not been translated yet
+     * has no URL in that language, so the picker points at the catalogue rather
+     * than at the English entry, which would leave the visitor in the language
+     * they just left.
+     *
+     * @param  array<string, string>  $blogSlugs
+     */
+    private function blogUrl(string $locale, string $urlLocale, array $blogSlugs): string
+    {
+        if (! array_key_exists($locale, $blogSlugs)) {
+            return route('marketing.blog.index', ['locale' => $urlLocale]);
+        }
+
+        return route(self::BLOG_ROUTE, ['locale' => $urlLocale, 'slug' => $blogSlugs[$locale]]);
     }
 
     /**

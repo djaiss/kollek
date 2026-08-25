@@ -48,6 +48,7 @@
                   'title' => __('Company'),
                   'links' => [
                       ['label' => __('About'), 'url' => route('marketing.about.index')],
+                      ['label' => __('Blog'), 'url' => route('marketing.blog.index')],
                       ['label' => __('Media kit'), 'url' => route('marketing.mediaKit.index')],
                   ],
               ],
@@ -77,7 +78,7 @@
             @foreach ($column['links'] as $link)
               {{-- Drive the in app links through Turbo; the GitHub and placeholder
                    links point off site (or nowhere) and are left alone. --}}
-              <a href="{{ $link['url'] }}" @if(str_starts_with($link['url'], config('app.url'))) data-turbo="true" @endif class="text-sm text-[#a1a1aa] transition-colors hover:text-white">{{ $link['label'] }}</a>
+              <a href="{{ $link['url'] }}" @if (str_starts_with($link['url'], config('app.url'))) data-turbo="true" @endif class="text-sm text-[#a1a1aa] transition-colors hover:text-white">{{ $link['label'] }}</a>
             @endforeach
           </div>
         </div>

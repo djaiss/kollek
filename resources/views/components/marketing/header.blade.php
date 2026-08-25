@@ -4,6 +4,7 @@
     // out of this list.
     $navigation = [
         ['label' => __('Pricing'), 'url' => route('marketing.pricing.index')],
+        ['label' => __('Blog'), 'url' => route('marketing.blog.index')],
         ['label' => __('Docs'), 'url' => route('marketing.docs.portal.home.show')],
         ['label' => __('API'), 'url' => route('marketing.docs.api.index')],
         ['label' => __('FAQ'), 'url' => route('marketing.faq.index')],
@@ -29,12 +30,16 @@
     mobileFeaturesOpen: false,
     featuresOpen: false,
     featuresTimer: null,
-    openFeatures() { clearTimeout(this.featuresTimer); this.featuresOpen = true; },
-    closeFeatures() { this.featuresTimer = setTimeout(() => this.featuresOpen = false, 140); },
+    openFeatures() {
+      clearTimeout(this.featuresTimer);
+      this.featuresOpen = true;
+    },
+    closeFeatures() {
+      this.featuresTimer = setTimeout(() => (this.featuresOpen = false), 140);
+    },
   }"
   @keydown.escape.window="featuresOpen = false"
-  class="contents"
->
+  class="contents">
   {{-- Skip to content. The wrapper is display:contents, so this stays the first
        thing in the tab order of every page the header sits on, and a keyboard
        visitor reaches the page without walking the whole navigation first. It is
@@ -78,15 +83,7 @@
              fires once the pointer has left both (the panel is a descendant),
              which is what makes the hover close reliable. --}}
         <div @mouseenter="openFeatures()" @mouseleave="closeFeatures()">
-          <a
-            href="{{ route('marketing.features.index') }}"
-            data-turbo="true"
-            @click="featuresOpen = false"
-            aria-haspopup="true"
-            :aria-expanded="featuresOpen"
-            class="flex items-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-sidebar"
-            :class="featuresOpen ? 'bg-sidebar text-ink' : 'text-body'"
-          >
+          <a href="{{ route('marketing.features.index') }}" data-turbo="true" @click="featuresOpen = false" aria-haspopup="true" :aria-expanded="featuresOpen" class="flex items-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-sidebar" :class="featuresOpen ? 'bg-sidebar text-ink' : 'text-body'">
             {{ __('Features') }}
             <x-lucide-chevron-down class="h-3.5 w-3.5 transition-transform duration-200" ::class="featuresOpen ? 'rotate-180' : ''" />
           </a>
@@ -134,7 +131,7 @@
         {{-- Features: a collapsible section listing every feature area, with the
              hub itself one tap away. Replaces the hover mega menu on touch. --}}
         <div class="border-b border-hairline-soft">
-          <button type="button" @click="mobileFeaturesOpen = ! mobileFeaturesOpen" :aria-expanded="mobileFeaturesOpen" class="flex w-full items-center justify-between py-3.5 text-base font-semibold text-ink">
+          <button type="button" @click="mobileFeaturesOpen = !mobileFeaturesOpen" :aria-expanded="mobileFeaturesOpen" class="flex w-full items-center justify-between py-3.5 text-base font-semibold text-ink">
             {{ __('Features') }}
             <x-lucide-chevron-down class="h-5 w-5 text-muted transition-transform duration-200" ::class="mobileFeaturesOpen ? 'rotate-180' : ''" />
           </button>
