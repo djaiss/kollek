@@ -7,16 +7,20 @@
 
 ## General PHP
 
+- You MUST declare one class, interface, trait or enum per file. This has no exception, and applies to tests exactly as it applies to the rest of the application.
 - Follow PSR-1, PSR-2, and PSR-12 standards.
 - Use camelCase for non-public-facing string-like elements.
 - Avoid using the `final` keyword; assume users write tests for overridden behavior.
 - Prefer short nullable notation (`?string`) over union types with null.
 - Use the `void` return type when a method returns nothing.
+- Class names use PascalCase; methods and variables use camelCase.
+- Prefer string interpolation over concatenation.
 
 ## Typed Properties & Type Hints
 
 - Always type properties when possible.
 - Use actual type declarations instead of docblock `@var` annotations.
+- Always specify return types, including `void`.
 
 ## Enums
 
@@ -56,15 +60,20 @@
 
 ## Comments
 
-- Minimize comments by writing expressive code.
+- Minimize comments by writing expressive code. Adding a comment should never be the first tactic to make code readable.
+- Comments often become outdated and mislead over time, so be critical about adding them.
+- Only explain *why* something non-obvious is done, never *what* the code does.
+- Prefer a descriptive variable name over a generic name plus a comment.
 - Format single-line comments with a space before the text.
 - Multi-line comments use `/*` with a single `*` on the first line.
 - Refactor comments into named functions when possible.
+- Never add comments to tests; the test names should be descriptive enough.
 
 ## Test Classes
 
-- Keep test-specific classes within the same test file when possible.
-- Extract to dedicated classes only when reused across tests.
+- A test file MUST contain the test class and nothing else.
+- Every class a test needs (a mailable, a stub, a fake) MUST live in its own file under `tests/Fixtures`, in a namespace that mirrors the application (e.g. `Tests\Fixtures\Mail\NewLoginDetected`), whether or not it is used by a single test.
+- Use descriptive test method names and follow the arrange, act, assert pattern.
 
 ## Whitespace
 
@@ -88,12 +97,12 @@
 ## Routing
 
 - Public-facing URLs use kebab-case.
-- Prefer tuple notation using class arrays over string notation.
+- Prefer string notation over class array notation.
 - Route names use camelCase.
 - Place the HTTP verb first, followed by other options.
 - Route parameters use camelCase.
 - Don't start routes with `/` except for the root path `/`.
-- Carry navigational state in the path, not the query string. Which tab is open, which record is selected, which sub view is shown: each of these is its own path segment and its own URL (for example `support/open` and `support/open/42`, never `support?tab=open&ticket=42`). A query string is reserved for the few genuinely free-form inputs where it is the conventional tool: a search box (`?search=`) and pagination (`?page=`). If you reach for a query parameter to remember a choice the user made by clicking, model it as a route instead.
+- Unless you have a good reason, do not use query strings.
 
 ## API Routing
 
@@ -108,7 +117,11 @@
 
 ## Views
 
-- View files use camelCase.
+- View files use kebab-case.
+
+## Migrations
+
+- Write only the `up()` method; never write a `down()` method.
 
 ## Validation
 
@@ -117,7 +130,7 @@
 
 ## Blade Templates
 
-- Use four spaces for indentation.
+- Use two spaces for indentation.
 - Don't add spaces after control structure keywords.
 
 ## Authorization
