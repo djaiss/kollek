@@ -18,6 +18,7 @@
     "erag/laravel-disposable-email": "^5.0",
     "intervention/image": "^4.2",
     "laravel/framework": "^13.8",
+    "laravel/mcp": "^0.9.4",
     "laravel/nightwatch": "^1.28",
     "laravel/octane": "^2.18",
     "laravel/sanctum": "^4.0",

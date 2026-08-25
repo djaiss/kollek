@@ -20,7 +20,7 @@ KolleK is a self hostable web application for cataloguing collections of any kin
 [![Laravel 13](https://img.shields.io/badge/Laravel-13-FF2D20.svg?logo=laravel&logoColor=white)](https://laravel.com)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-2ea44f.svg)](#contributing)
 
-[What it is](#what-kollek-is) · [Features](#features) · [Run your own instance](#run-your-own-instance) · [Development](#development) · [API](#api) · [Contributing](#contributing)
+[What it is](#what-kollek-is) · [Features](#features) · [Run your own instance](#run-your-own-instance) · [Development](#development) · [API](#api) · [MCP server](#mcp-server) · [Contributing](#contributing)
 
 </div>
 
@@ -65,6 +65,7 @@ The model is small enough to hold in your head:
 ### Platform
 
 - **[JSON API](https://getkollek.com/en/docs/developers/api-overview).** A token authenticated REST API covers the whole catalogue. See [API](#api).
+- **MCP server.** An assistant can run the instance administration over the Model Context Protocol, starting with the blog. See [MCP server](#mcp-server).
 - **[Self hosting](https://getkollek.com/en/docs/self-hosting/install-with-docker).** A production Docker image and Compose stack, with data safe upgrades. See [Run your own instance](#run-your-own-instance).
 - **[Localized](https://getkollek.com/en/docs/account-and-profile/change-your-language).** Available in English, French, Spanish, German, Portuguese (Brazil), Chinese (Simplified), and Japanese, each user picking their own. Translations live as one file per locale under `lang/`.
 - **[Documentation](https://getkollek.com/en/docs).** A full portal, also served from your own instance at `/en/docs`.
@@ -173,6 +174,63 @@ curl https://your-instance.example/api/collections \
 ```
 
 The complete reference, with request and response examples for every endpoint, is generated from the codebase and served at `/en/docs/api` on your instance.
+
+## MCP server
+
+KolleK exposes its instance administration over the [Model Context Protocol](https://modelcontextprotocol.io), so an assistant can run the panel instead of a person clicking through it. Today it covers the blog on the marketing site: listing and reading entries, writing and filing them, publishing and archiving, and writing each language, marking it proofread or withdrawing it.
+
+The server speaks streamable HTTP at `/mcp/instance` and is gated the same way the panel is. You need two things.
+
+**1. A user who administers the instance.** Grant it from the command line (`docker compose exec app php artisan ...` on a Docker install):
+
+```bash
+php artisan kollek:make-instance-administrator you@example.com
+```
+
+**2. A personal access token for that user.** Create one in the interface, under Settings, then API keys (`/profile/api-keys/new`). It is the same kind of token the [JSON API](#api) uses.
+
+Anyone else, including a signed in user who does not administer the instance, is answered 404, so the server does not announce itself.
+
+**Connect a client.** With Claude Code:
+
+```bash
+claude mcp add --transport http kollek https://your-instance.example/mcp/instance \
+  --header "Authorization: Bearer YOUR_TOKEN"
+```
+
+With any client that keeps its servers in a JSON config file:
+
+```json
+{
+  "mcpServers": {
+    "kollek": {
+      "type": "http",
+      "url": "https://your-instance.example/mcp/instance",
+      "headers": {
+        "Authorization": "Bearer YOUR_TOKEN"
+      }
+    }
+  }
+}
+```
+
+**The tools it offers**
+
+| Tool                                | What it does                                                              |
+| ----------------------------------- | ------------------------------------------------------------------------- |
+| `list-blog-posts`                   | List the entries, filtered by status or searched by title and slug.        |
+| `show-blog-post`                    | Read one entry and how far along every language of it is.                  |
+| `create-blog-post`                  | Start an entry, as a draft, with its English text.                         |
+| `update-blog-post`                  | Change the shelf, the tags, the featured flag, and the crawler settings.   |
+| `publish-blog-post`                 | Put an entry in the public catalogue and purge the CDN cache.              |
+| `archive-blog-post`                 | Retire an entry while its URL keeps answering.                             |
+| `show-blog-post-translation`        | Read one language: its text, its URL, and its metadata.                    |
+| `write-blog-post-translation`       | Write one language, creating it if it does not exist yet.                  |
+| `copy-blog-post-source-translation` | Copy the English source across as a starting point to translate over.      |
+| `publish-blog-post-translation`     | Mark a language proofread, so readers in it stop falling back to English.  |
+| `withdraw-blog-post-translation`    | Take a language back off the public site.                                  |
+
+There is deliberately no tool that deletes an entry. Archiving retires one without breaking the links pointing at it, and wiping an entry for good stays a decision somebody makes by hand in the panel.
 
 ## Contributing
 

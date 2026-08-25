@@ -32,7 +32,7 @@ class BlogPostAdministration
      * Postgres, where plain LIKE is case sensitive), and the wildcards are
      * escaped so a title containing % or _ is searched for literally.
      *
-     * @return array<int, array{id: int, reference: string, title: string, slug: string, shelf: string, status: BlogPostStatus, languages: array<int, array{code: string, label: string, state: ?BlogTranslationState}>, liveCount: int, localeCount: int, updatedAt: string}>
+     * @return array<int, array{id: int, reference: string, title: string, slug: string, shelf: string, shelfValue: string, status: BlogPostStatus, languages: array<int, array{code: string, label: string, state: ?BlogTranslationState}>, liveCount: int, localeCount: int, updatedAt: string}>
      */
     public function rows(string $status, string $search): array
     {
@@ -184,7 +184,7 @@ class BlogPostAdministration
     }
 
     /**
-     * @return array{id: int, reference: string, title: string, slug: string, shelf: string, status: BlogPostStatus, languages: array<int, array{code: string, label: string, state: ?BlogTranslationState}>, liveCount: int, localeCount: int, updatedAt: string}
+     * @return array{id: int, reference: string, title: string, slug: string, shelf: string, shelfValue: string, status: BlogPostStatus, languages: array<int, array{code: string, label: string, state: ?BlogTranslationState}>, liveCount: int, localeCount: int, updatedAt: string}
      */
     private function row(BlogPost $post): array
     {
@@ -207,6 +207,7 @@ class BlogPostAdministration
             'title' => $source !== null ? $source->title : 'Untitled',
             'slug' => '/blog/'.($source !== null ? $source->slug : ''),
             'shelf' => $post->shelf->label(),
+            'shelfValue' => $post->shelf->value,
             'status' => $post->status,
             'languages' => $languages,
             'liveCount' => count($post->liveLocales()),
