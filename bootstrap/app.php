@@ -43,6 +43,17 @@ return Application::configure(basePath: dirname(__DIR__))
         },
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Which proxies are trusted is set in config/trustedproxy.php, because
+        // the framework's TrustProxies middleware reads it per request and
+        // configuration is not loaded yet at this point.
+        //
+        // A trusted proxy also gets to say which host was asked for, and an
+        // invitation or magic link email is built from that host, so the host
+        // has to be one of ours. Without this, a forged X-Forwarded-Host would
+        // send someone's login link to an attacker. The framework matches
+        // APP_URL and its subdomains, and skips the check locally and in tests.
+        $middleware->trustHosts();
+
         // Runs before CSRF verification: a body over post_max_size arrives without
         // its token, so this must catch it before the token mismatch fires.
         $middleware->web(prepend: [HandleOversizedUpload::class]);
