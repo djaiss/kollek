@@ -45,11 +45,63 @@ values that matter most:
   unreadable.
 - `APP_URL`: the public URL of your instance.
 - `APP_PORT`: the host port the web container is published on.
+- `TRUSTED_PROXIES`: required when a reverse proxy terminates TLS. See below.
 - `DB_PASSWORD` and `DB_ROOT_PASSWORD`: set real secrets before first boot.
 - `MAIL_*`: configure SMTP or Resend to send real email (defaults to the log).
 - `HOSTED_INSTANCE`: leave it `false`. It marks the managed instance we run and
   charge for, where an account holds ten items for free before it has to be
   unlocked. A self hosted instance has no item limit and nothing to buy.
+
+## Running behind a reverse proxy
+
+The `app` container speaks plain http on port 80 and never terminates TLS
+itself, so a real instance almost always has something in front of it: Traefik,
+Caddy, nginx, or a CDN such as Cloudflare.
+
+That proxy has to tell the application what it hid, and the application has to
+be told to believe it. Set `TRUSTED_PROXIES` in `.env`:
+
+```dotenv
+TRUSTED_PROXIES=*
+```
+
+Use `*` when the proxy has no fixed address, which is the normal case for a
+container on the same Docker network. Name the addresses or CIDR ranges instead
+(`TRUSTED_PROXIES=10.0.0.0/8,172.18.0.0/16`) if you know them and want to be
+strict.
+
+Leave it empty and the `X-Forwarded-*` headers are ignored, which shows up as:
+
+- **Mixed content.** Stylesheets and scripts are written as `http://` on an
+  `https://` page, and the browser blocks them, so the instance loads unstyled
+  or not at all.
+- **One shared rate limit.** Every visitor appears to come from the proxy, so
+  the six attempts a minute on the sign in form are shared by everyone, and the
+  "new sign in" security emails report the proxy's address.
+
+Two things to get right alongside it:
+
+- `APP_URL` must be the public `https://` URL. Email links and the trusted host
+  check are both built from it, so an instance reachable at
+  `https://kollek.example.com` needs exactly that, not `http://localhost:8000`.
+- Stop publishing the container to the host. With `TRUSTED_PROXIES=*` the
+  application believes the forwarded headers of whoever connects to it, so the
+  proxy should be the only thing that can. Remove the `ports:` block from the
+  `app` service in `docker-compose.yml` and put the proxy on the same network,
+  or bind it to the loopback address only (`APP_PORT` published as
+  `127.0.0.1:8000:80`).
+
+A Traefik label set for the `app` service looks like this, with no `ports:`
+block and Traefik attached to the same network:
+
+```yaml
+labels:
+  - "traefik.enable=true"
+  - "traefik.http.routers.kollek.rule=Host(`kollek.example.com`)"
+  - "traefik.http.routers.kollek.entrypoints=websecure"
+  - "traefik.http.routers.kollek.tls.certresolver=letsencrypt"
+  - "traefik.http.services.kollek.loadbalancer.server.port=80"
+```
 
 ## Data and persistence
 
@@ -152,3 +204,9 @@ docker compose down -v                     # stop and DELETE all data
   means the database was not reachable or a migration failed.
 - **Uploads fail.** Ensure the `storage-data` volume is mounted and writable
   (the entrypoint fixes ownership automatically on boot).
+- **The page loads unstyled over https, or the browser reports blocked mixed
+  content.** A reverse proxy is terminating TLS and `TRUSTED_PROXIES` is not
+  set. See "Running behind a reverse proxy".
+- **Every request answers 400 after setting `TRUSTED_PROXIES`.** The host being
+  asked for does not match `APP_URL`, which is what the trusted host check
+  compares against. Set `APP_URL` to the public URL, including `https://`.
