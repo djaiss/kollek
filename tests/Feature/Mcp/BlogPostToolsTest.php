@@ -305,3 +305,38 @@ it('refuses a picture from somebody who does not administer the instance', funct
 
     $response->assertHasErrors();
 });
+
+it('refuses a picture that does not match the checksum sent with it', function () {
+    Queue::fake();
+    Storage::fake(config('filesystems.default'));
+    $michael = $this->createUser(['is_instance_administrator' => true]);
+    $post = pilotedEntry();
+
+    $response = InstanceServer::actingAs($michael)->tool(UploadBlogPostImage::class, [
+        'blog_post_id' => $post->id,
+        'content' => base64Png(),
+        'alt' => 'The dashboard of a collection',
+        'sha256' => hash('sha256', 'not what was actually sent'),
+    ]);
+
+    $response->assertHasErrors();
+    expect(Storage::disk(config('filesystems.default'))->files('blog/'.$post->id.'/body'))->toHaveCount(0);
+});
+
+it('stores a picture sent with the checksum that matches it', function () {
+    Queue::fake();
+    Storage::fake(config('filesystems.default'));
+    $michael = $this->createUser(['is_instance_administrator' => true]);
+    $post = pilotedEntry();
+    $encoded = base64Png();
+
+    $response = InstanceServer::actingAs($michael)->tool(UploadBlogPostImage::class, [
+        'blog_post_id' => $post->id,
+        'content' => $encoded,
+        'alt' => 'The dashboard of a collection',
+        'sha256' => hash('sha256', (string) base64_decode($encoded, true)),
+    ]);
+
+    $response->assertOk();
+    expect(Storage::disk(config('filesystems.default'))->files('blog/'.$post->id.'/body'))->toHaveCount(1);
+});
