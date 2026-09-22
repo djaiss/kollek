@@ -24,7 +24,7 @@
 
             <x-select id="shelf" label="Shelf" :options="$shelves" :selected="old('shelf')" :error="$errors->get('shelf')" required />
 
-            <x-textarea id="excerpt" label="Excerpt" :value="old('excerpt')" :error="$errors->get('excerpt')" rows="3" help="The standfirst under the headline. Also the fallback meta description, so aim for 70 to 160 characters." required />
+            <x-textarea id="meta_description" label="Meta description" :value="old('meta_description')" :error="$errors->get('meta_description')" rows="3" help="Aim for 70 to 160 characters. It is the description tag, and the line that sells the entry in the feed and in search results." required />
 
             <x-textarea id="body" label="Body" :value="old('body')" :error="$errors->get('body')" rows="18" help="Markdown. Headings become the contents list, and footnotes work." required />
           </div>

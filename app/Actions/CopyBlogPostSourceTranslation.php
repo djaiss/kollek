@@ -74,7 +74,7 @@ class CopyBlogPostSourceTranslation
             'locale' => $this->locale,
             'slug' => $source->slug,
             'title' => $source->title,
-            'excerpt' => $source->excerpt,
+            'meta_description' => $source->meta_description,
             'body' => $source->body,
             'state' => BlogTranslationState::InReview,
         ]);

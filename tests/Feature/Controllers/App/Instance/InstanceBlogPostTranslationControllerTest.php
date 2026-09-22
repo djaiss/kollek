@@ -25,7 +25,7 @@ function writtenEntry(BlogPostStatus $status = BlogPostStatus::Published): BlogP
         'locale' => 'en',
         'slug' => 'the-dundies',
         'title' => 'The Dundies',
-        'excerpt' => 'An awards ceremony.',
+        'meta_description' => 'An awards ceremony.',
         'body' => 'The original body.',
         'state' => BlogTranslationState::Source,
     ]);
@@ -71,7 +71,6 @@ it('saves a language', function () {
     $response = $this->actingAs($michael)->put('instance-admin/marketing/blog-posts/'.$post->id.'/translations/fr_FR', [
         'intent' => 'save',
         'title' => 'Les Dundies',
-        'excerpt' => 'Une remise de prix.',
         'body' => 'Le corps.',
         'slug' => 'les-dundies',
         'meta_title' => 'Les Dundies, la cérémonie',
@@ -95,7 +94,7 @@ it('leaves a redirect behind when a published slug changes', function () {
     $this->actingAs($michael)->put('instance-admin/marketing/blog-posts/'.$post->id.'/translations/en', [
         'intent' => 'save',
         'title' => 'The Dundies',
-        'excerpt' => 'An awards ceremony.',
+        'meta_description' => 'An awards ceremony.',
         'body' => 'The original body.',
         'slug' => 'the-dundie-awards',
     ]);
@@ -175,7 +174,7 @@ it('rejects a save with no body', function () {
     $response = $this->actingAs($michael)->put('instance-admin/marketing/blog-posts/'.$post->id.'/translations/en', [
         'intent' => 'save',
         'title' => 'The Dundies',
-        'excerpt' => 'An awards ceremony.',
+        'meta_description' => 'An awards ceremony.',
         'slug' => 'the-dundies',
     ]);
 

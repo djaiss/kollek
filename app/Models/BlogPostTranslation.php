@@ -15,8 +15,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * Class BlogPostTranslation
  *
- * One blog entry as written in one language: its headline, its standfirst, its
- * Markdown body and everything the URL and the tags in the head are built from.
+ * One blog entry as written in one language: its headline, its Markdown body
+ * and everything the URL and the tags in the head are built from.
  *
  * The slug is per language, so a French reader gets a French URL rather than an
  * English one behind a French prefix. It is therefore unique per locale rather
@@ -27,10 +27,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $locale
  * @property string $slug
  * @property string $title
- * @property string $excerpt
  * @property string $body
  * @property string|null $meta_title
- * @property string|null $meta_description
+ * @property string $meta_description
  * @property string|null $focus_keyword
  * @property string|null $og_image_path
  * @property BlogTranslationState $state
@@ -55,7 +54,6 @@ class BlogPostTranslation extends Model
         'locale',
         'slug',
         'title',
-        'excerpt',
         'body',
         'meta_title',
         'meta_description',
@@ -116,11 +114,11 @@ class BlogPostTranslation extends Model
     }
 
     /**
-     * The meta description, falling back to the standfirst, which is already
-     * written to be the one sentence that sells the entry.
+     * The meta description, which is also the one line that sells the entry
+     * wherever it is listed rather than read.
      */
     public function metaDescription(): string
     {
-        return $this->meta_description ?: $this->excerpt;
+        return $this->meta_description;
     }
 }

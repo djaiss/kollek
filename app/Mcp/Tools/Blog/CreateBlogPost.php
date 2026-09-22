@@ -22,7 +22,7 @@ class CreateBlogPost extends Tool
     {
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
-            'excerpt' => ['required', 'string', 'max:1000'],
+            'meta_description' => ['required', 'string', 'max:500'],
             'body' => ['required', 'string'],
             'shelf' => ['required', 'string', Rule::in(array_column(BlogShelf::cases(), 'value'))],
             'slug' => ['nullable', 'string', 'max:255'],
@@ -34,7 +34,7 @@ class CreateBlogPost extends Tool
         $post = new CreateBlogPostAction(
             user: $user,
             title: $validated['title'],
-            excerpt: $validated['excerpt'],
+            metaDescription: $validated['meta_description'],
             body: $validated['body'],
             shelf: BlogShelf::from($validated['shelf']),
             slug: $validated['slug'] ?? null,
@@ -56,7 +56,7 @@ class CreateBlogPost extends Tool
     {
         return [
             'title' => $schema->string()->max(255)->description('The headline, in English.')->required(),
-            'excerpt' => $schema->string()->max(1000)->description('The standfirst printed under the headline and in the catalogue, in English.')->required(),
+            'meta_description' => $schema->string()->max(500)->description('The description tag, in English. It is also the one line that sells the entry wherever it is listed rather than read, such as the feed. Aim for 70 to 160 characters.')->required(),
             'body' => $schema->string()->description('The article itself, in English, written in Markdown.')->required(),
             'shelf' => $schema->string()
                 ->enum(array_column(BlogShelf::cases(), 'value'))

@@ -31,11 +31,10 @@ class WriteBlogPostTranslation extends Tool
 
         $validated = $request->validate([
             'title' => [$required, 'string', 'max:255'],
-            'excerpt' => [$required, 'string', 'max:1000'],
             'body' => [$required, 'string'],
             'slug' => [$required, 'string', 'max:255'],
             'meta_title' => ['nullable', 'string', 'max:255'],
-            'meta_description' => ['nullable', 'string', 'max:500'],
+            'meta_description' => [$required, 'string', 'max:500'],
             'focus_keyword' => ['nullable', 'string', 'max:255'],
         ]);
 
@@ -47,11 +46,10 @@ class WriteBlogPostTranslation extends Tool
             blogPost: $post,
             locale: $identity['locale'],
             title: (string) ($validated['title'] ?? $existing?->title),
-            excerpt: (string) ($validated['excerpt'] ?? $existing?->excerpt),
             body: (string) ($validated['body'] ?? $existing?->body),
             slug: (string) ($validated['slug'] ?? $existing?->slug),
             metaTitle: $validated['meta_title'] ?? $existing?->meta_title,
-            metaDescription: $validated['meta_description'] ?? $existing?->meta_description,
+            metaDescription: (string) ($validated['meta_description'] ?? $existing?->meta_description),
             focusKeyword: $validated['focus_keyword'] ?? $existing?->focus_keyword,
         )->execute();
 
@@ -76,11 +74,10 @@ class WriteBlogPostTranslation extends Tool
                 ->description('The language being written.')
                 ->required(),
             'title' => $schema->string()->max(255)->description('The headline in this language.'),
-            'excerpt' => $schema->string()->max(1000)->description('The standfirst in this language.'),
             'body' => $schema->string()->description('The article in this language, written in Markdown.'),
             'slug' => $schema->string()->max(255)->description('The last segment of the URL in this language. Slugs are unique per language, not across the blog.'),
             'meta_title' => $schema->string()->max(255)->description('The title tag. Falls back to the headline when left out. Aim for 30 to 60 characters.'),
-            'meta_description' => $schema->string()->max(500)->description('The description tag. Falls back to the standfirst when left out. Aim for 70 to 160 characters.'),
+            'meta_description' => $schema->string()->max(500)->description('The description tag in this language. It is also the one line that sells the entry wherever it is listed rather than read. Aim for 70 to 160 characters.'),
             'focus_keyword' => $schema->string()->max(255)->description('The phrase this entry is meant to be found on.'),
         ];
     }

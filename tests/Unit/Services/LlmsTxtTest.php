@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Models\BlogPost;
+use App\Models\BlogPostTranslation;
 use App\Services\LlmsTxt;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -52,4 +54,20 @@ it('stays in english regardless of the current app locale', function () {
     expect($content)
         ->toContain('Getting Started')
         ->not->toContain('Démarrage');
+});
+
+it('describes a blog entry with its meta description', function () {
+    $post = BlogPost::factory()->create();
+
+    BlogPostTranslation::factory()->create([
+        'blog_post_id' => $post->id,
+        'locale' => 'en',
+        'slug' => 'the-dundies',
+        'title' => 'The Dundies',
+        'meta_description' => 'An awards ceremony.',
+    ]);
+
+    expect(app(LlmsTxt::class)->content())
+        ->toContain('[The Dundies]')
+        ->toContain('): An awards ceremony.');
 });

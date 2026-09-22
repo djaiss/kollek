@@ -25,7 +25,7 @@ function pilotedTranslatedEntry(): BlogPost
         'locale' => 'en',
         'slug' => 'the-dundies',
         'title' => 'The Dundies',
-        'excerpt' => 'An awards night.',
+        'meta_description' => 'An awards night.',
         'body' => 'Held at Chili s.',
         'state' => BlogTranslationState::Source,
     ]);
@@ -79,7 +79,7 @@ it('writes a language that did not exist', function () {
         'blog_post_id' => $post->id,
         'locale' => 'fr_FR',
         'title' => 'Les Dundies',
-        'excerpt' => 'Une soiree de recompenses.',
+        'meta_description' => 'Une soiree de recompenses.',
         'body' => 'Chez Chili s.',
         'slug' => 'les-dundies',
     ]);

@@ -22,7 +22,7 @@ it('starts a blog entry as a draft with its english text', function () {
     $post = new CreateBlogPost(
         user: $michael,
         title: 'Why Dunder Mifflin still uses paper',
-        excerpt: 'A short defence of the ream.',
+        metaDescription: 'A short defence of the ream.',
         body: '## The case for paper',
         shelf: BlogShelf::Collecting,
     )->execute();
@@ -48,7 +48,7 @@ it('slugs the title when no slug is given', function () {
     $post = new CreateBlogPost(
         user: $michael,
         title: 'Threat Level Midnight: a retrospective',
-        excerpt: 'Eleven years in the making.',
+        metaDescription: 'Eleven years in the making.',
         body: 'It was worth it.',
         shelf: BlogShelf::Releases,
     )->execute();
@@ -63,7 +63,7 @@ it('slugs a slug that was given', function () {
     $post = new CreateBlogPost(
         user: $michael,
         title: 'Threat Level Midnight',
-        excerpt: 'Eleven years in the making.',
+        metaDescription: 'Eleven years in the making.',
         body: 'It was worth it.',
         shelf: BlogShelf::Releases,
         slug: 'Golden Face Returns!',
@@ -79,7 +79,7 @@ it('gives the first entry the reference number one', function () {
     $post = new CreateBlogPost(
         user: $michael,
         title: 'Hello',
-        excerpt: 'The first one.',
+        metaDescription: 'The first one.',
         body: 'Hello.',
         shelf: BlogShelf::Releases,
     )->execute();
@@ -96,7 +96,7 @@ it('never reissues the reference of a deleted entry', function () {
     $post = new CreateBlogPost(
         user: $michael,
         title: 'The one after thirty',
-        excerpt: 'Numbering is permanent.',
+        metaDescription: 'Numbering is permanent.',
         body: 'It really is.',
         shelf: BlogShelf::Engineering,
     )->execute();
@@ -112,7 +112,7 @@ it('logs the creation', function () {
     new CreateBlogPost(
         user: $michael,
         title: 'Hello',
-        excerpt: 'The first one.',
+        metaDescription: 'The first one.',
         body: 'Hello.',
         shelf: BlogShelf::Releases,
     )->execute();
@@ -127,7 +127,7 @@ it('refuses to let somebody who is not an instance administrator write', functio
     new CreateBlogPost(
         user: $dwight,
         title: 'Beet farming quarterly',
-        excerpt: 'Schrute Farms.',
+        metaDescription: 'Schrute Farms.',
         body: 'Beets.',
         shelf: BlogShelf::Collecting,
     )->execute();

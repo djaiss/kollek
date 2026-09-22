@@ -9,6 +9,7 @@ use App\Models\BlogPost;
 use App\Models\BlogPostRedirect;
 use App\Models\BlogPostTranslation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 
 uses(RefreshDatabase::class);
 
@@ -33,7 +34,7 @@ function publicEntry(string $slug = 'the-dundies', BlogPostStatus $status = Blog
         'locale' => 'en',
         'slug' => $slug,
         'title' => 'The Dundies',
-        'excerpt' => 'An awards ceremony.',
+        'meta_description' => 'An awards ceremony.',
         'body' => "The opening.\n\n## An object is not a row\n\nA row is flat.",
         'state' => BlogTranslationState::Source,
     ]);
@@ -80,6 +81,16 @@ it('shows one entry', function () {
     $response->assertSee('Michael Scott');
 });
 
+it('describes an entry in the head without printing a standfirst above it', function () {
+    publicEntry();
+
+    $html = $this->get('en/blog/the-dundies')->getContent();
+    $body = Str::after($html, '</head>');
+
+    expect($html)->toContain('An awards ceremony.')
+        ->and($body)->not->toContain('An awards ceremony.');
+});
+
 it('answers not found for a draft', function () {
     publicEntry('a-draft', BlogPostStatus::Draft);
 
@@ -117,7 +128,7 @@ it('serves a live translation in its own language', function () {
         'locale' => 'fr_FR',
         'slug' => 'les-dundies',
         'title' => 'Les Dundies',
-        'excerpt' => 'Une remise de prix.',
+        'meta_description' => 'Une remise de prix.',
         'body' => 'Le corps.',
     ]);
 

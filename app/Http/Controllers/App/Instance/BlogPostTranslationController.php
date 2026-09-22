@@ -67,11 +67,10 @@ class BlogPostTranslationController extends Controller
         $validated = $request->validate([
             'intent' => ['required', 'string', Rule::in(['save', 'copy_source', 'publish', 'withdraw'])],
             'title' => ['required_if:intent,save', 'string', 'max:255'],
-            'excerpt' => ['required_if:intent,save', 'string', 'max:1000'],
             'body' => ['required_if:intent,save', 'string'],
             'slug' => ['required_if:intent,save', 'string', 'max:255'],
             'meta_title' => ['nullable', 'string', 'max:255'],
-            'meta_description' => ['nullable', 'string', 'max:500'],
+            'meta_description' => ['required_if:intent,save', 'string', 'max:500'],
             'focus_keyword' => ['nullable', 'string', 'max:255'],
         ]);
 
@@ -118,11 +117,10 @@ class BlogPostTranslationController extends Controller
             blogPost: $blogPost,
             locale: $locale,
             title: $validated['title'],
-            excerpt: $validated['excerpt'],
+            metaDescription: $validated['meta_description'],
             body: $validated['body'],
             slug: $validated['slug'],
             metaTitle: $validated['meta_title'] ?? null,
-            metaDescription: $validated['meta_description'] ?? null,
             focusKeyword: $validated['focus_keyword'] ?? null,
         )->execute();
 

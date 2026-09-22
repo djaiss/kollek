@@ -113,7 +113,7 @@ it('creates an entry and lands on its english text', function () {
 
     $response = $this->actingAs($michael)->post('instance-admin/marketing/blog-posts', [
         'title' => 'Why Dunder Mifflin still uses paper',
-        'excerpt' => 'A short defence of the ream.',
+        'meta_description' => 'A short defence of the ream.',
         'body' => '## The case for paper',
         'shelf' => BlogShelf::Collecting->value,
     ]);
@@ -130,12 +130,25 @@ it('rejects an entry with no title', function () {
     $michael = $this->createUser(['is_instance_administrator' => true]);
 
     $response = $this->actingAs($michael)->post('instance-admin/marketing/blog-posts', [
-        'excerpt' => 'A short defence of the ream.',
+        'meta_description' => 'A short defence of the ream.',
         'body' => 'Body.',
         'shelf' => BlogShelf::Collecting->value,
     ]);
 
     $response->assertSessionHasErrors('title');
+});
+
+it('rejects an entry with no meta description', function () {
+    Queue::fake();
+    $michael = $this->createUser(['is_instance_administrator' => true]);
+
+    $response = $this->actingAs($michael)->post('instance-admin/marketing/blog-posts', [
+        'title' => 'Why Dunder Mifflin still uses paper',
+        'body' => 'Body.',
+        'shelf' => BlogShelf::Collecting->value,
+    ]);
+
+    $response->assertSessionHasErrors('meta_description');
 });
 
 it('publishes an entry', function () {

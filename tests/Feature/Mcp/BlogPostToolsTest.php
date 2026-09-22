@@ -95,7 +95,7 @@ it('creates an entry as a draft, in english', function () {
 
     $response = InstanceServer::actingAs($michael)->tool(CreateBlogPost::class, [
         'title' => 'Grading a Dundie',
-        'excerpt' => 'What the award is worth.',
+        'meta_description' => 'What the award is worth.',
         'body' => 'It is a paper plate.',
         'shelf' => BlogShelf::Collecting->value,
     ]);
@@ -116,8 +116,21 @@ it('refuses to create an entry without a shelf', function () {
 
     $response = InstanceServer::actingAs($michael)->tool(CreateBlogPost::class, [
         'title' => 'Grading a Dundie',
-        'excerpt' => 'What the award is worth.',
+        'meta_description' => 'What the award is worth.',
         'body' => 'It is a paper plate.',
+    ]);
+
+    $response->assertHasErrors();
+    $this->assertDatabaseCount('blog_posts', 0);
+});
+
+it('refuses to create an entry without a meta description', function () {
+    $michael = $this->createUser(['is_instance_administrator' => true]);
+
+    $response = InstanceServer::actingAs($michael)->tool(CreateBlogPost::class, [
+        'title' => 'Grading a Dundie',
+        'body' => 'It is a paper plate.',
+        'shelf' => BlogShelf::Collecting->value,
     ]);
 
     $response->assertHasErrors();
@@ -202,7 +215,7 @@ it('refuses a user who does not administer the instance, even inside the tool', 
 
     $response = InstanceServer::actingAs($toby)->tool(CreateBlogPost::class, [
         'title' => 'Grading a Dundie',
-        'excerpt' => 'What the award is worth.',
+        'meta_description' => 'What the award is worth.',
         'body' => 'It is a paper plate.',
         'shelf' => BlogShelf::Collecting->value,
     ]);
