@@ -62,5 +62,5 @@ Never use dashes (— or -) as punctuation in documentation or README files. Rep
 
 ## Checklist for each feature or change
 
-- You MUST run `php artisan monica:localize` and translate what it reports as missing, in every configured locale. Never edit `lang/*.json` keys by hand.
+- You MUST run `php artisan kollek:localize` and translate what it reports as missing, in every configured locale. Never edit `lang/*.json` keys by hand.
 - You MUST make sure what you wrote is covered by a test

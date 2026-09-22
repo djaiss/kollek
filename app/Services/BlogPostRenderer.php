@@ -76,7 +76,22 @@ class BlogPostRenderer
         $html = Purify::config(['Attr.EnableID' => true])
             ->clean((string) $this->markdown->convert($body));
 
-        return $this->extractTableOfContents($html);
+        return $this->extractTableOfContents($this->deferImages($html));
+    }
+
+    /**
+     * Defer every picture in the body. An entry is a column of prose with the
+     * pictures spread down it, so the browser should fetch one as the reader
+     * nears it rather than fetch all of them before the first line is read.
+     *
+     * This runs after the sanitiser rather than before it. The sanitiser is
+     * configured for HTML 4, where neither attribute exists, so it drops both
+     * when they arrive already on the tag. It is also why nothing here has to
+     * check for an attribute that is already present: none can have survived.
+     */
+    private function deferImages(string $html): string
+    {
+        return str_replace('<img ', '<img loading="lazy" decoding="async" ', $html);
     }
 
     /**
