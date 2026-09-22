@@ -55,3 +55,16 @@ it('refuses an unsafe link scheme', function () {
 
     expect($rendered['html'])->not->toContain('javascript:');
 });
+
+it('defers every picture in the body', function () {
+    $rendered = app(BlogPostRenderer::class)->convert('![A card](/images/a.webp)');
+
+    expect($rendered['html'])->toContain('<img loading="lazy" decoding="async" src="/images/a.webp"');
+});
+
+it('leaves an img written inside a code block alone', function () {
+    $rendered = app(BlogPostRenderer::class)->convert("```html\n<img src=\"a.png\">\n```");
+
+    expect($rendered['html'])->toContain('&lt;img src="a.png"&gt;')
+        ->and($rendered['html'])->not->toContain('loading="lazy"');
+});

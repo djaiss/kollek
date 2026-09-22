@@ -47,7 +47,7 @@
     <h1 class="mt-4 max-w-[860px] text-[32px] leading-[1.08] font-semibold tracking-[-1px] text-balance text-ink sm:text-[44px] lg:tracking-[-1.6px]">{{ $translation->title }}</h1>
 
     <div class="mt-7 flex items-center gap-3 border-b border-hairline pb-4">
-      <x-image src="{{ asset('images/regis.png') }}" srcset="{{ asset('images/regis.png') }}, {{ asset('images/regis@2x.png') }} 2x" height="40" width="40" alt="" loading="eager" aria-hidden="true" class="size-10 shrink-0 rounded-full" />
+      <x-image src="{{ asset('images/regis.png') }}" srcset="{{ asset('images/regis.png') }}, {{ asset('images/regis@2x.png') }} 2x" height="40" width="40" alt="" aria-hidden="true" class="size-10 shrink-0 rounded-full" />
       <div>
         <p class="text-[14px] font-semibold text-ink">{{ $post->author_name }}</p>
         <p class="text-[12px] text-muted-soft">{{ __('Written for the :name blog', ['name' => config('app.name')]) }}</p>
