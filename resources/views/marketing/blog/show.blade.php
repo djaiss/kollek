@@ -46,15 +46,15 @@
 
     <h1 class="mt-4 max-w-[860px] text-[32px] leading-[1.08] font-semibold tracking-[-1px] text-balance text-ink sm:text-[44px] lg:tracking-[-1.6px]">{{ $translation->title }}</h1>
 
-    <div class="mt-7 flex items-center gap-3 border-b border-hairline pb-8">
-      <span aria-hidden="true" class="flex size-10 shrink-0 items-center justify-center rounded-full bg-card text-sm font-semibold text-ink">{{ Str::upper(Str::substr($post->author_name, 0, 1)) }}</span>
+    <div class="mt-7 flex items-center gap-3 border-b border-hairline pb-4">
+      <x-image src="{{ asset('images/regis.png') }}" srcset="{{ asset('images/regis.png') }}, {{ asset('images/regis@2x.png') }} 2x" height="40" width="40" alt="" loading="eager" aria-hidden="true" class="size-10 shrink-0 rounded-full" />
       <div>
         <p class="text-[14px] font-semibold text-ink">{{ $post->author_name }}</p>
         <p class="text-[12px] text-muted-soft">{{ __('Written for the :name blog', ['name' => config('app.name')]) }}</p>
       </div>
     </div>
 
-    <div class="mt-10 grid gap-14 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-16">
+    <div class="mt-5 grid gap-14 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-16">
       {{-- The entry itself --}}
       <div class="prose prose-gray dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight prose-a:font-normal prose-a:text-ink hover:prose-a:underline prose-code:rounded prose-code:bg-hairline-soft prose-code:px-1.5 prose-code:py-0.5 prose-code:font-normal prose-code:before:content-none prose-code:after:content-none prose-pre:rounded-xl prose-pre:border prose-pre:border-hairline prose-pre:bg-sidebar prose-pre:text-body prose-img:rounded-xl prose-img:border prose-img:border-hairline min-w-0 max-w-none">
         {!! $body !!}
