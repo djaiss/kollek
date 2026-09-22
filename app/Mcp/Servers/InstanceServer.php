@@ -13,6 +13,7 @@ use App\Mcp\Tools\Blog\PublishBlogPostTranslation;
 use App\Mcp\Tools\Blog\ShowBlogPost;
 use App\Mcp\Tools\Blog\ShowBlogPostTranslation;
 use App\Mcp\Tools\Blog\UpdateBlogPost;
+use App\Mcp\Tools\Blog\UploadBlogPostImage;
 use App\Mcp\Tools\Blog\WithdrawBlogPostTranslation;
 use App\Mcp\Tools\Blog\WriteBlogPostTranslation;
 use Laravel\Mcp\Server;
@@ -46,6 +47,10 @@ use Laravel\Mcp\Server\Tool;
     An entry is a draft until it is published, and archiving takes it out of the
     catalogue without breaking the links pointing at it.
 
+    A picture is put on the instance first with `upload-blog-post-image`, which
+    hands back the Markdown that shows it. Writing that Markdown into a body is
+    what makes it appear, and the same picture can be shown by every language.
+
     Work in this order: create the entry with its English text, write the other
     languages, then publish. The write tools change only the fields they are
     given, but they replace those fields outright, so read a language with
@@ -68,5 +73,6 @@ class InstanceServer extends Server
         CopyBlogPostSourceTranslation::class,
         PublishBlogPostTranslation::class,
         WithdrawBlogPostTranslation::class,
+        UploadBlogPostImage::class,
     ];
 }

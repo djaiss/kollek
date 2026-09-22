@@ -27,6 +27,20 @@ it('deletes the entry', function () {
     $this->assertModelMissing($post);
 });
 
+it('deletes the pictures shown in the text off the disk', function () {
+    Queue::fake();
+    Storage::fake(config('filesystems.default'));
+
+    $michael = $this->createUser(['is_instance_administrator' => true]);
+    $post = BlogPost::factory()->create();
+    $path = 'blog/'.$post->id.'/body/a-picture.png';
+    Storage::disk(config('filesystems.default'))->put($path, 'a picture');
+
+    new DestroyBlogPost(user: $michael, blogPost: $post->refresh())->execute();
+
+    Storage::disk(config('filesystems.default'))->assertMissing($path);
+});
+
 it('deletes the social cards off the disk', function () {
     Queue::fake();
     Storage::fake(config('filesystems.default'));
