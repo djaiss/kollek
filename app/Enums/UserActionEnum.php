@@ -114,6 +114,7 @@ enum UserActionEnum: string
     case BlogPostTranslationStateUpdate = 'blog_post_translation_state_updated';
     case BlogPostOgImageUpdate = 'blog_post_og_image_updated';
     case BlogPostOgImageDeletion = 'blog_post_og_image_deleted';
+    case BlogPostImageUpload = 'blog_post_image_uploaded';
     case SiteOptionsUpdate = 'site_options_updated';
     case CloudflareCachePurged = 'cloudflare_cache_purged';
     case PurchaseConsentRecorded = 'purchase_consent_recorded';
@@ -229,6 +230,7 @@ enum UserActionEnum: string
             self::BlogPostTranslationStateUpdate => 'Changed how far along the :locale text of the blog entry :reference is',
             self::BlogPostOgImageUpdate => 'Replaced the :locale social card of the blog entry :reference',
             self::BlogPostOgImageDeletion => 'Removed the :locale social card of the blog entry :reference',
+            self::BlogPostImageUpload => 'Added a picture to the blog entry :reference',
             self::SiteOptionsUpdate => 'Updated the site options from the instance administration',
             self::CloudflareCachePurged => 'Purged the Cloudflare cache from the instance administration',
             self::PurchaseConsentRecorded => 'Confirmed the terms of unlocking the account',

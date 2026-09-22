@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Http\Controllers\Marketing\AboutController;
 use App\Http\Controllers\Marketing\BlogController;
 use App\Http\Controllers\Marketing\BlogFeedController;
+use App\Http\Controllers\Marketing\BlogImageController;
 use App\Http\Controllers\Marketing\BlogOgImageController;
 use App\Http\Controllers\Marketing\Docs\ApiDocsController;
 use App\Http\Controllers\Marketing\Docs\ApiDocsMarkdownController;
@@ -78,6 +79,17 @@ Route::middleware(['marketing'])->group(function () use ($urlLocales): void {
     Route::get('llms.txt', [LlmsTxtController::class, 'index'])
         ->middleware('marketing.cache')
         ->name('marketing.llms.index');
+
+    // A picture shown inside the text of a blog entry. It carries no language
+    // prefix and no slug on purpose: the URL is written into the Markdown of a
+    // body and kept there as text, so it has to survive a rename and be the
+    // same for every language. The name is constrained to a uuid and an
+    // extension, so no path outside the entry's own folder can be asked for.
+    Route::get('blog-images/{blogPost}/{image}', [BlogImageController::class, 'show'])
+        ->where('blogPost', '[1-9][0-9]*')
+        ->where('image', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\.(jpg|png|webp)')
+        ->middleware('marketing.cache')
+        ->name('marketing.blog.image.show');
 
     // Every localized page is a public GET that changes only when the site is
     // redeployed, so the whole group carries the cache headers that let a CDN

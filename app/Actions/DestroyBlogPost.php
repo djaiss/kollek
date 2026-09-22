@@ -35,6 +35,7 @@ class DestroyBlogPost
     {
         $this->validate();
         $this->deleteSocialCards();
+        $this->deleteImages();
         $this->delete();
         $this->flushMarketingCache();
         $this->log();
@@ -57,6 +58,15 @@ class DestroyBlogPost
         $this->blogPost->translations
             ->filter(fn (BlogPostTranslation $translation): bool => $translation->og_image_path !== null)
             ->each(fn (BlogPostTranslation $translation) => $this->disk()->delete((string) $translation->og_image_path));
+    }
+
+    /**
+     * The pictures shown inside the text. They are not recorded anywhere, so
+     * the folder is what has to go, rather than a list of paths.
+     */
+    private function deleteImages(): void
+    {
+        $this->disk()->deleteDirectory('blog/'.$this->blogPost->id.'/body');
     }
 
     private function delete(): void

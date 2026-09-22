@@ -12,10 +12,12 @@ use App\Mcp\Tools\Blog\ListBlogPosts;
 use App\Mcp\Tools\Blog\PublishBlogPost;
 use App\Mcp\Tools\Blog\ShowBlogPost;
 use App\Mcp\Tools\Blog\UpdateBlogPost;
+use App\Mcp\Tools\Blog\UploadBlogPostImage;
 use App\Models\BlogPost;
 use App\Models\BlogPostTranslation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Queue;
+use Illuminate\Support\Facades\Storage;
 
 uses(RefreshDatabase::class);
 
@@ -222,4 +224,84 @@ it('refuses a user who does not administer the instance, even inside the tool', 
 
     $response->assertHasErrors();
     $this->assertDatabaseCount('blog_posts', 0);
+});
+
+function base64Png(int $width = 400, int $height = 300): string
+{
+    $image = imagecreatetruecolor($width, $height);
+
+    ob_start();
+    imagepng($image);
+    $bytes = (string) ob_get_clean();
+    imagedestroy($image);
+
+    return base64_encode($bytes);
+}
+
+it('stores a picture and hands back the markdown that shows it', function () {
+    Queue::fake();
+    Storage::fake(config('filesystems.default'));
+    $michael = $this->createUser(['is_instance_administrator' => true]);
+    $post = pilotedEntry();
+
+    $response = InstanceServer::actingAs($michael)->tool(UploadBlogPostImage::class, [
+        'blog_post_id' => $post->id,
+        'content' => base64Png(),
+        'alt' => 'The dashboard of a collection',
+    ]);
+
+    $response->assertOk();
+    $response->assertSee(['blog-images/'.$post->id.'/', '![The dashboard of a collection](']);
+    expect(Storage::disk(config('filesystems.default'))->files('blog/'.$post->id.'/body'))->toHaveCount(1);
+});
+
+it('refuses a picture that is not an image at all', function () {
+    Storage::fake(config('filesystems.default'));
+    $michael = $this->createUser(['is_instance_administrator' => true]);
+
+    $response = InstanceServer::actingAs($michael)->tool(UploadBlogPostImage::class, [
+        'blog_post_id' => pilotedEntry()->id,
+        'content' => base64_encode('Dear Michael, this is a text file.'),
+        'alt' => 'Not a picture',
+    ]);
+
+    $response->assertHasErrors();
+});
+
+it('refuses a picture without the alt text that goes in the markdown', function () {
+    Storage::fake(config('filesystems.default'));
+    $michael = $this->createUser(['is_instance_administrator' => true]);
+
+    $response = InstanceServer::actingAs($michael)->tool(UploadBlogPostImage::class, [
+        'blog_post_id' => pilotedEntry()->id,
+        'content' => base64Png(),
+    ]);
+
+    $response->assertHasErrors();
+});
+
+it('refuses a picture for an entry that does not exist', function () {
+    Storage::fake(config('filesystems.default'));
+    $michael = $this->createUser(['is_instance_administrator' => true]);
+
+    $response = InstanceServer::actingAs($michael)->tool(UploadBlogPostImage::class, [
+        'blog_post_id' => 9999,
+        'content' => base64Png(),
+        'alt' => 'Nothing',
+    ]);
+
+    $response->assertHasErrors();
+});
+
+it('refuses a picture from somebody who does not administer the instance', function () {
+    Storage::fake(config('filesystems.default'));
+    $toby = $this->createUser();
+
+    $response = InstanceServer::actingAs($toby)->tool(UploadBlogPostImage::class, [
+        'blog_post_id' => pilotedEntry()->id,
+        'content' => base64Png(),
+        'alt' => 'Nothing',
+    ]);
+
+    $response->assertHasErrors();
 });
