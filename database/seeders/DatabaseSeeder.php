@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CatalogSeeder::class,
             TestimonialSeeder::class,
+            BlogPostSeeder::class,
         ]);
 
         $this->displayLoginInfo();
