@@ -1,14 +1,4 @@
-{{--
-  The "Collaboration" feature page. Like the rest of the marketing site, the copy is
-  hardcoded next to the markup it belongs to rather than read from a database, and every
-  user facing string goes through __() so the page can be translated later. The product
-  captures (member list, invitation journey, permissions matrix, activity feed) are drawn
-  as markup rather than screenshots, so they stay crisp and follow the theme.
-
-  The permissions matrix mirrors the real role gates: owners and editors write the
-  collection (and may delete it), while inviting members and changing account settings are
-  owner only. Keep it in step with the actual Actions if the rules ever move.
---}}
+{{-- The "Collaboration" feature page of the marketing site. --}}
 
 @php
     // Role accents reused across the member list, the matrix and the activity feed. The
@@ -69,8 +59,6 @@
 @endphp
 
 <x-marketing-layout :title="$feature['title']">
-    {{-- SIBLING FEATURE SELECTOR. Mirrors the mega menu so the feature pages cross link
-         without drifting. Hidden on small screens, where the header nav does the job. --}}
     <section class="hidden border-b border-hairline bg-sidebar md:block">
         <div class="mx-auto max-w-[1200px] px-5 py-5 sm:px-8">
             <div class="mb-4 flex items-center justify-between">
@@ -111,7 +99,6 @@
         </div>
     </section>
 
-    {{-- HERO --}}
     <section id="top" class="mx-auto max-w-[1080px] px-5 pt-16 text-center sm:px-8 sm:pt-24">
         <p class="mx-auto mb-5 max-w-[640px] text-[12.5px] leading-[1.5] font-semibold tracking-[0.8px] text-muted-soft uppercase">
             {{ __('For households, clubs, and the one person who always edits the wrong field') }}
@@ -131,7 +118,6 @@
         </div>
     </section>
 
-    {{-- HERO CAPTURE: MEMBER LIST --}}
     <section class="mx-auto mt-14 max-w-[980px] px-5 sm:px-8">
         <div class="overflow-hidden rounded-xl border border-hairline bg-canvas shadow-[0_24px_60px_rgba(17,17,17,0.10),0_4px_12px_rgba(17,17,17,0.05)]">
             <div class="flex h-11 items-center gap-x-2 border-b border-hairline-soft bg-sidebar px-4">
@@ -170,7 +156,6 @@
         </div>
     </section>
 
-    {{-- INVITE THE RIGHT PEOPLE (journey) --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="mb-11 max-w-[660px]">
             <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('Invite the right people') }}</p>
@@ -181,7 +166,6 @@
         </div>
 
         <div class="grid grid-cols-1 items-stretch gap-5 md:grid-cols-3">
-            {{-- Step 1: invitation form --}}
             <div class="flex flex-col gap-y-3.5">
                 <div class="flex items-center gap-2.5">
                     <span class="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-[12px] font-semibold text-on-primary">1</span>
@@ -210,7 +194,6 @@
                 </div>
             </div>
 
-            {{-- Step 2: invitation email --}}
             <div class="flex flex-col gap-y-3.5">
                 <div class="flex items-center gap-2.5">
                     <span class="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-[12px] font-semibold text-on-primary">2</span>
@@ -234,7 +217,6 @@
                 </div>
             </div>
 
-            {{-- Step 3: first access --}}
             <div class="flex flex-col gap-y-3.5">
                 <div class="flex items-center gap-2.5">
                     <span class="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-[12px] font-semibold text-on-primary">3</span>
@@ -269,7 +251,6 @@
         </div>
     </section>
 
-    {{-- THREE ROLES (permissions matrix) --}}
     <section id="roles" class="mx-auto max-w-[1200px] scroll-mt-24 px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="mb-11 max-w-[660px]">
             <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('Three roles') }}</p>
@@ -281,7 +262,6 @@
 
         <div class="overflow-x-auto">
             <div class="min-w-[640px] overflow-hidden rounded-2xl border border-hairline bg-canvas">
-                {{-- header row --}}
                 <div class="grid grid-cols-[1.6fr_1fr_1fr_1fr] border-b border-hairline">
                     <div class="px-6 py-5 text-[13px] font-semibold tracking-[0.5px] text-muted-soft uppercase">{{ __('What they can do') }}</div>
                     @foreach (['viewer', 'editor', 'owner'] as $key)
@@ -296,7 +276,6 @@
                     @endforeach
                 </div>
 
-                {{-- task rows --}}
                 @foreach ($matrix as $row)
                     <div @class(['grid grid-cols-[1.6fr_1fr_1fr_1fr]', 'border-t border-hairline-soft' => ! $loop->first])>
                         <div class="flex items-center px-6 py-3.5 text-[15px] font-medium text-ink">{{ $row['task'] }}</div>
@@ -315,7 +294,6 @@
         </div>
     </section>
 
-    {{-- KNOW WHAT CHANGED (activity feed) --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
             <div>
@@ -368,7 +346,6 @@
         </div>
     </section>
 
-    {{-- SOURCE OF TRUTH + PRIMARY CTA --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="rounded-3xl bg-card px-6 py-16 text-center sm:px-12 sm:py-[72px]">
             <p class="mb-4 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('A shared collection') }}</p>
@@ -384,7 +361,6 @@
         </div>
     </section>
 
-    {{-- REQUIRED TRANSPARENCY FOOTER (two equal columns, strong rules, caveats first) --}}
     <section class="mx-auto max-w-[1080px] px-5 pt-24 pb-8 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-14">
             <div>

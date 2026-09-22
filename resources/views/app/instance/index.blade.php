@@ -21,7 +21,6 @@
         <p class="mt-1 text-sm text-muted">Activity across every account on this KolleK instance.</p>
       </div>
 
-      {{-- Counts --}}
       <div class="grid grid-cols-2 gap-3 lg:grid-cols-4">
         @foreach ($tiles as $tile)
           <div class="rounded-lg border border-hairline bg-canvas p-4">
@@ -34,7 +33,6 @@
         @endforeach
       </div>
 
-      {{-- Signups --}}
       <x-box title="New accounts">
         <x-slot:description>
           Accounts created per month over the last year.
@@ -55,8 +53,6 @@
         </div>
       </x-box>
 
-      {{-- Everything the mockup showed that KolleK cannot answer yet. Better to
-           name them than to invent numbers. --}}
       <x-box title="Not tracked yet">
         <x-slot:description>
           KolleK does not have the data behind these yet.

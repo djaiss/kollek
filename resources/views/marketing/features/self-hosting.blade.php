@@ -1,16 +1,4 @@
-{{--
-  The "Self-hosting" feature page. Like the rest of the marketing site, the copy is
-  hardcoded next to the markup it belongs to rather than read from a database, and every
-  user facing string goes through __() so the page can be translated. Shell commands, service
-  names, volume paths and env keys are code, so they stay literal (you do not translate code).
-
-  Everything here is grounded in the real Docker setup: the docker-compose.yml services are
-  app, queue, scheduler and mysql; the named volumes are db-data (/var/lib/mysql) and
-  storage-data (/var/www/html/storage); the CLI is php artisan; migrations run on boot from
-  the entrypoint. There is deliberately no invented "backup command": backups are a documented
-  checklist of the two volumes plus the APP_KEY, handled with standard tooling. Keep this page
-  honest with docker-compose.yml, the Dockerfile and .env.docker.example if any of that moves.
---}}
+{{-- The "Self-hosting" feature page of the marketing site. --}}
 
 @php
     $repo = config('marketing.github_url');
@@ -75,8 +63,6 @@
 @endphp
 
 <x-marketing-layout :title="$feature['title']">
-    {{-- SIBLING FEATURE SELECTOR. Mirrors the mega menu so the feature pages cross link
-         without drifting. Hidden on small screens, where the header nav does the job. --}}
     <section class="hidden border-b border-hairline bg-sidebar md:block">
         <div class="mx-auto max-w-[1200px] px-5 py-5 sm:px-8">
             <div class="mb-4 flex items-center justify-between">
@@ -117,7 +103,6 @@
         </div>
     </section>
 
-    {{-- HERO --}}
     <section id="top" class="mx-auto max-w-[1200px] px-5 pt-16 sm:px-8 sm:pt-24">
         <div class="max-w-[820px]">
             <p class="text-[12px] font-semibold tracking-[1px] text-muted-soft uppercase">{{ __('Some assembly required. Not much, though.') }}</p>
@@ -132,8 +117,6 @@
             </div>
         </div>
 
-        {{-- HERO: TERMINAL — FOUR-STEP INSTALL PATH. A terminal is dark in both themes on
-             purpose, so it uses fixed colours rather than theme tokens. --}}
         <div class="mt-13 overflow-hidden rounded-2xl border border-[#20242c] bg-[#0f1115] shadow-[0_24px_60px_rgba(17,17,17,0.16),0_4px_12px_rgba(17,17,17,0.06)]">
             <div class="flex items-center gap-x-2 border-b border-[#20242c] px-4.5 py-3">
                 <span class="h-[11px] w-[11px] rounded-full bg-[#ff5f57]"></span>
@@ -165,7 +148,6 @@
         </p>
     </section>
 
-    {{-- A SHORT ROUTE FROM NOTHING TO RUNNING --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="mb-10 max-w-[660px]">
             <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('A short route from nothing to running') }}</p>
@@ -189,7 +171,6 @@
         </div>
     </section>
 
-    {{-- SMALL ENOUGH TO UNDERSTAND (architecture) --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="mb-10 max-w-[660px]">
             <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('Small enough to understand') }}</p>
@@ -244,7 +225,6 @@
         </div>
     </section>
 
-    {{-- UPGRADE WITHOUT HOLDING YOUR BREATH --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-14">
             <div>
@@ -261,7 +241,6 @@
                 </div>
             </div>
 
-            {{-- upgrade sequence capture --}}
             <div class="overflow-hidden rounded-2xl border border-hairline bg-canvas shadow-[0_24px_60px_rgba(17,17,17,0.08),0_4px_12px_rgba(17,17,17,0.04)]">
                 <div class="flex items-center gap-x-2.5 border-b border-hairline-soft px-5 py-4">
                     <span class="h-2 w-2 rounded-full bg-brand"></span>
@@ -284,7 +263,6 @@
         </div>
     </section>
 
-    {{-- BACKUPS ARE PART OF THE DEAL --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="mb-10 max-w-[660px]">
             <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('Backups are part of the deal') }}</p>
@@ -323,7 +301,6 @@
         </div>
     </section>
 
-    {{-- PRIMARY CTA --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="flex flex-col items-start justify-between gap-8 rounded-3xl bg-[#101010] px-6 py-14 sm:px-12 lg:flex-row lg:items-center">
             <div class="max-w-[580px]">
@@ -336,7 +313,6 @@
         </div>
     </section>
 
-    {{-- REQUIRED TRANSPARENCY FOOTER (two equal columns, strong rules, caveats first) --}}
     <section class="mx-auto max-w-[1080px] px-5 pt-24 pb-8 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-14">
             <div>

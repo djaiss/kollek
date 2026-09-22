@@ -1,9 +1,4 @@
-{{--
-  The work performed on the copy: cleanings, repairs, servicings, conservations,
-  restorations, replacements and inspections. Records read newest first, each
-  showing the condition before and after so the work reads as a real
-  before-and-after. A record whose next care is due soon carries a due indicator.
---}}
+{{-- The work performed on the copy: cleanings, repairs, servicings and inspections. --}}
 
 @use('App\Helpers\Money')
 

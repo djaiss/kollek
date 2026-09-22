@@ -30,11 +30,6 @@ class DestroyCustomFieldGroup
         $this->destroy();
     }
 
-    /**
-     * The fields are released before the group goes, rather than leaning on the
-     * foreign key to null them, so the rule holds on any connection whether or
-     * not it enforces foreign keys.
-     */
     private function destroy(): void
     {
         DB::transaction(function (): void {

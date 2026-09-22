@@ -14,10 +14,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Take a blog entry out of the catalogue without taking it off the web.
- *
- * An archived entry no longer appears on the index, in the feed or in the
- * sitemap, but its URL keeps answering. That is the whole point of archiving
- * rather than deleting: the links already pointing at it stay honest.
  */
 class ArchiveBlogPost
 {

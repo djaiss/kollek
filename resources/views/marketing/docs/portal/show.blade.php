@@ -40,10 +40,8 @@
       <div class="mx-auto flex max-w-[1440px]">
         <x-docs.portal-sidebar :navigation="$navigation" :locale="$locale" :currentId="$page['id']" />
 
-        {{-- Center: content --}}
         <main id="main-content" tabindex="-1" class="min-w-0 flex-1 scroll-mt-20 px-6 py-10 focus:outline-none sm:px-10 lg:px-16 lg:pb-24">
           <div class="mx-auto max-w-[720px]">
-            {{-- Breadcrumb --}}
             <nav class="mb-5 flex items-center gap-2.5 text-sm text-muted">
               <a href="{{ route('marketing.docs.portal.home.show', ['locale' => $urlLocale]) }}" data-turbo="true" class="hover:text-ink">{{ __('Home') }}</a>
               @if ($sectionTitle)
@@ -54,7 +52,6 @@
 
             <h1 class="mb-4 text-3xl font-bold tracking-tight text-ink">{{ $page['title'] }}</h1>
 
-            {{-- Content actions: copy the page's Markdown source, or open it directly. --}}
             <div
               x-data="{
                   copied: false,
@@ -79,12 +76,10 @@
 
             <div class="mb-7 h-px bg-hairline-soft"></div>
 
-            {{-- Rendered Markdown --}}
             <div class="doc-content prose prose-gray max-w-none dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight prose-a:font-normal prose-a:text-ink hover:prose-a:underline prose-code:rounded prose-code:bg-hairline-soft prose-code:px-1.5 prose-code:py-0.5 prose-code:font-normal prose-code:before:content-none prose-code:after:content-none prose-pre:rounded-xl prose-pre:border prose-pre:border-hairline prose-pre:bg-sidebar prose-pre:text-body prose-img:rounded-xl prose-img:border prose-img:border-hairline">
               {!! $content !!}
             </div>
 
-            {{-- Edit link (static). --}}
             <div class="mt-11 flex flex-wrap items-center justify-between gap-3 border-t border-hairline-soft pt-6">
               <span class="text-[13px] text-muted-soft">{{ __('Documentation for :name', ['name' => config('app.name')]) }}</span>
               <a href="{{ config('marketing.github_url') }}" target="_blank" rel="noopener" class="flex items-center gap-2 text-[13px] font-medium text-muted hover:text-ink">
@@ -93,7 +88,6 @@
               </a>
             </div>
 
-            {{-- Was this page useful (out of scope for now, shown for parity with the design). --}}
             <div class="mt-6 rounded-xl border border-hairline p-5">
               <div class="flex flex-wrap items-center gap-3.5">
                 <span class="text-[15px] font-semibold text-ink">{{ __('Was this page useful?') }}</span>

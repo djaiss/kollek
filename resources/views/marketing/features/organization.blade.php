@@ -1,15 +1,4 @@
-{{--
-  The "Organization" feature page. Like the rest of the marketing site, the copy is
-  hardcoded next to the markup it belongs to rather than read from a database, and every
-  user facing string goes through __() so the page can be translated. The product captures
-  (grid/list/table views, the nested location tree, set completion, and the in-collection
-  filter) are drawn as themed markup rather than screenshots, so they stay crisp and follow
-  the theme.
-
-  Claim boundary: the filter shown here narrows the items already loaded for one collection.
-  It is deliberately never called account-wide search, which is not shipped. Keep it honest
-  if that ever changes.
---}}
+{{-- The "Organization" feature page of the marketing site. --}}
 
 @php
     // Sample collection data, kept illustrative (real album titles and artists) so the
@@ -96,8 +85,6 @@
 @endphp
 
 <x-marketing-layout :title="$feature['title']">
-    {{-- SIBLING FEATURE SELECTOR. Mirrors the mega menu so the feature pages cross link
-         without drifting. Hidden on small screens, where the header nav does the job. --}}
     <section class="hidden border-b border-hairline bg-sidebar md:block">
         <div class="mx-auto max-w-[1200px] px-5 py-5 sm:px-8">
             <div class="mb-4 flex items-center justify-between">
@@ -138,7 +125,6 @@
         </div>
     </section>
 
-    {{-- HERO --}}
     <section id="top" class="mx-auto max-w-[1200px] px-5 pt-16 sm:px-8 sm:pt-24">
         <div class="max-w-[820px]">
             <p class="text-[12px] font-semibold tracking-[1px] text-muted-soft uppercase">{{ __('The shelf is not a database. Sadly.') }}</p>
@@ -153,7 +139,6 @@
             </div>
         </div>
 
-        {{-- HERO CAPTURE: COLLECTION IN GRID VIEW --}}
         <div class="mt-13 overflow-hidden rounded-2xl border border-hairline bg-canvas shadow-[0_24px_60px_rgba(17,17,17,0.08),0_4px_12px_rgba(17,17,17,0.04)]">
             <div class="flex items-center gap-x-2 border-b border-hairline-soft px-4.5 py-3">
                 <span class="h-[11px] w-[11px] rounded-full bg-hairline"></span>
@@ -202,7 +187,6 @@
         </div>
     </section>
 
-    {{-- BROWSE (LIST + TABLE) --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-14">
             <div>
@@ -214,7 +198,6 @@
             </div>
 
             <div class="flex flex-col gap-4">
-                {{-- list view --}}
                 <div class="overflow-hidden rounded-2xl border border-hairline bg-canvas shadow-[0_12px_32px_rgba(17,17,17,0.06)]">
                     <div class="flex items-center gap-x-2 border-b border-hairline-soft px-4 py-3 text-ink">
                         @svg('lucide-list', 'size-3.5')
@@ -232,7 +215,6 @@
                     @endforeach
                 </div>
 
-                {{-- table view --}}
                 <div class="overflow-hidden rounded-2xl border border-hairline bg-canvas shadow-[0_12px_32px_rgba(17,17,17,0.06)]">
                     <div class="flex items-center gap-x-2 border-b border-hairline-soft px-4 py-3 text-ink">
                         @svg('lucide-table', 'size-3.5')
@@ -256,10 +238,8 @@
         </div>
     </section>
 
-    {{-- GIVE THINGS A PLACE (LOCATION TREE) --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
-            {{-- location tree capture --}}
             <div class="order-2 overflow-hidden rounded-2xl border border-hairline bg-canvas shadow-[0_24px_60px_rgba(17,17,17,0.08),0_4px_12px_rgba(17,17,17,0.04)] lg:order-1">
                 <div class="flex items-center gap-x-2.5 border-b border-hairline-soft px-5 py-4 text-ink">
                     @svg('lucide-house', 'size-4')
@@ -302,7 +282,6 @@
         </div>
     </section>
 
-    {{-- MISSING PIECES (SETS COMPLETION) --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-14">
             <div>
@@ -313,7 +292,6 @@
                 </p>
             </div>
 
-            {{-- set completion capture --}}
             <div class="overflow-hidden rounded-2xl border border-hairline bg-canvas shadow-[0_24px_60px_rgba(17,17,17,0.08),0_4px_12px_rgba(17,17,17,0.04)]">
                 <div class="flex items-center border-b border-hairline-soft px-5 py-4">
                     <span class="text-[15px] font-semibold text-ink">{{ __('Sets') }}</span>
@@ -353,7 +331,6 @@
         </div>
     </section>
 
-    {{-- FILTER (IN-COLLECTION FILTER) --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="mb-10 max-w-[660px]">
             <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('In-collection filter') }}</p>
@@ -363,9 +340,7 @@
             </p>
         </div>
 
-        {{-- filter capture --}}
         <div class="grid grid-cols-1 overflow-hidden rounded-2xl border border-hairline bg-canvas shadow-[0_24px_60px_rgba(17,17,17,0.08),0_4px_12px_rgba(17,17,17,0.04)] md:grid-cols-[280px_1fr]">
-            {{-- filter panel --}}
             <div class="border-b border-hairline-soft bg-sidebar p-5 md:border-r md:border-b-0">
                 <div class="mb-4.5 flex items-center gap-x-2 text-ink">
                     @svg('lucide-funnel', 'size-3.5')
@@ -394,7 +369,6 @@
                     <span class="rounded-[7px] border border-hairline bg-canvas px-2.5 py-1.5 text-[12px] font-medium text-muted">Sealed</span>
                 </div>
             </div>
-            {{-- filtered results --}}
             <div class="p-5 sm:p-6">
                 <div class="mb-4 flex flex-wrap items-center gap-2.5">
                     <span class="text-[13px] font-semibold text-ink">{{ __('Showing :shown of :total', ['shown' => 18, 'total' => 128]) }}</span>
@@ -420,7 +394,6 @@
         </div>
     </section>
 
-    {{-- PRIMARY CTA --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="flex flex-col items-start justify-between gap-8 rounded-3xl bg-[#101010] px-6 py-14 sm:px-12 lg:flex-row lg:items-center">
             <div class="max-w-[560px]">
@@ -433,7 +406,6 @@
         </div>
     </section>
 
-    {{-- REQUIRED TRANSPARENCY FOOTER (two equal columns, strong rules, caveats first) --}}
     <section class="mx-auto max-w-[1080px] px-5 pt-24 pb-8 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16">
             <div>

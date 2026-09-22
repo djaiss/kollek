@@ -2,8 +2,6 @@
 
 <div class="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
     @if ($view !== ItemViewEnum::Table && $catalog->categories->isNotEmpty())
-        {{-- Each category is a page of its own, so the filter is a set of links
-             rather than something the browser hides and shows. --}}
         <div class="flex flex-wrap gap-1.5 rounded-full bg-card p-1.5">
             <a
                 href="{{ route('collections.show', $catalog) }}"
@@ -44,7 +42,6 @@
             />
         </div>
 
-        {{-- View switcher: list / grid / table. Each button persists the choice for this user. --}}
         <div class="flex items-center gap-0.5 rounded-md border border-hairline p-0.5">
             @php
                 $views = [

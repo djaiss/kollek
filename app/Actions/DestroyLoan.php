@@ -16,9 +16,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 /**
  * Delete a loan recorded against a copy. Only owners and editors of its account
  * may do so.
- *
- * The provenance events the loan generated were only there because of it, so
- * they go with it. Removing an outstanding loan puts the copy back in hand.
  */
 class DestroyLoan
 {
@@ -52,9 +49,6 @@ class DestroyLoan
         }
     }
 
-    /**
-     * Log before the row goes, so the entry can still describe what was deleted.
-     */
     private function log(): void
     {
         $item = $this->loan->copy->item;

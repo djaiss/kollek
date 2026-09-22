@@ -1,12 +1,6 @@
+{{-- Everything known about one item, then each of its copies. --}}
 @use('App\Enums\ExportSection')
 
-{{--
-  Everything known about one item: what it is, then each of its copies with the
-  money, the coverage and the history behind it.
-
-  Rendered on its own by the writer rather than inside the document's loop, so a
-  collection of several hundred items is turned into markup one item at a time.
---}}
 @php
   $currency = $payload->meta()['currency'];
   $identification = $item['item'];

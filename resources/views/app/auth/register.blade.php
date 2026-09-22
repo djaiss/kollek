@@ -47,9 +47,6 @@
             <!-- Email address -->
             <x-input type="email" id="email" :value="old('email')" :label="__('Email address')" required placeholder="john@doe.com" :error="$errors->get('email')" :passManagerDisabled="false" autocomplete="username" :help="__('We will never, ever send you marketing emails.')" />
 
-            {{-- new-password on both, and passwordrules stating the floor the server
-                 actually enforces, so a password manager offers to generate one that
-                 will pass rather than filling an existing password in. --}}
             <div class="flex flex-col gap-2 sm:flex-row sm:gap-4">
               <div class="w-full">
                 <x-input type="password" id="password" :label="__('Password')" :help="__('Minimum 8 characters.')" passwordrules="minlength: 8" required :error="$errors->get('password')" :passManagerDisabled="false" autocomplete="new-password" />
@@ -60,10 +57,6 @@
               </div>
             </div>
 
-            {{-- The legal pages live on the public site, behind its language prefix.
-                 This form is not one of those pages, so it names the prefix itself
-                 rather than inheriting it. Both open in a new tab so a half filled
-                 form is not lost on the way. --}}
             @php
               $urlLocale = app(DocumentationPortal::class)->urlLocaleFor(app()->getLocale());
               $linkClasses = 'font-medium text-ink underline underline-offset-2';

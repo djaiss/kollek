@@ -1,11 +1,4 @@
-{{--
-  The light/dark switch used in the marketing footer: a sun, a track with a knob, and a moon.
-
-  It sits on the footer's near black background in both themes, so its colours are written
-  as literals rather than as theme tokens. Which side the knob rests on is driven by the
-  `dark` class the inline script in partials/meta puts on <html> before paint, so it is
-  painted in the right position straight away instead of jumping once Alpine boots.
---}}
+{{-- The light and dark switch used in the marketing footer. --}}
 <button
     type="button"
     x-data

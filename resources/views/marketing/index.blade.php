@@ -1,16 +1,6 @@
-{{--
-  The marketing homepage. Everything lives in this one file on purpose: the content is
-  hardcoded rather than read from the database, so keeping the copy next to the markup it
-  belongs to is easier to follow than chasing it through partials and a service.
-
-  Every user facing string goes through __(), and those keys are in every file in lang/,
-  so a string you add here has to be added to all of them (in the same order, which
-  scripts/check-translations.sh enforces) before the suite is green. Proper nouns are the
-  exception and stay as plain text: an album title or a person's name is not translated.
---}}
+{{-- The public homepage of the marketing site. --}}
 
 <x-marketing-layout>
-  {{-- HERO --}}
   <section id="top" class="mx-auto max-w-[1200px] px-5 pt-16 text-center sm:px-8 sm:pt-24">
     <a href="{{ config('marketing.github_url') }}" target="_blank" rel="noopener" class="mb-7 inline-flex items-center gap-x-2 rounded-full bg-card py-1.5 pr-3.5 pl-1.5 text-[13px] font-medium text-body">
       <span class="rounded-full bg-primary px-2 py-[3px] text-[11px] font-semibold text-on-primary">{{ __('MIT') }}</span>
@@ -34,9 +24,6 @@
       </a>
     </div>
 
-    {{-- The two claims read as one line from the small breakpoint up. A phone stacks them
-         instead of wrapping them, which is what left a separator dot stranded on a line
-         of its own once a translation ran long. --}}
     <div class="mt-6 flex flex-col items-center gap-y-1.5 text-[13px] text-muted-soft sm:flex-row sm:justify-center sm:gap-x-6">
       <span>{{ __('Pay once, own it forever') }}</span>
       <span aria-hidden="true" class="hidden sm:inline">&middot;</span>
@@ -44,15 +31,6 @@
     </div>
   </section>
 
-  {{-- HERO PRODUCT MOCKUP. The product drawn as markup rather than a screenshot, so it
-       stays crisp, follows the theme and gets translated with the rest of the page.
-
-       It is a copy of the real dashboard, and the point is that it stays one: the same
-       sidebar, the same six figures across the top, and the same three panels below.
-       When app/dashboard/index.blade.php or components/sidebar.blade.php gain or lose
-       something, change it here too, otherwise the first thing a visitor sees is a
-       product we no longer ship. The numbers are invented but they add up: the location
-       values sum to the estimated value, and that over the item count is the average. --}}
   <section class="mx-auto mt-10 max-w-[1200px] px-5 sm:mt-14 sm:px-8">
     <div class="overflow-hidden rounded-xl border border-hairline bg-canvas shadow-[0_24px_60px_rgba(17,17,17,0.10),0_4px_12px_rgba(17,17,17,0.05)]">
       <div class="flex h-11 items-center gap-x-2 border-b border-hairline-soft bg-sidebar px-4">
@@ -65,7 +43,6 @@
       </div>
 
       <div class="flex min-h-[440px]">
-        {{-- Sidebar. Hidden on small screens, where the real app collapses it too. --}}
         <div class="hidden w-[212px] shrink-0 flex-col gap-y-4 border-r border-hairline-soft bg-sidebar p-4 md:flex">
           <div class="flex items-center justify-between px-1.5">
             <div class="flex items-center gap-x-2">
@@ -132,9 +109,6 @@
         </div>
 
         <div class="min-w-0 flex-1 p-5 sm:p-7">
-          {{-- Stacked on a phone and side by side above it, the way the real dashboard
-               header does it, so the greeting keeps the full width instead of being
-               squeezed into a column next to the button. --}}
           <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
             <div class="min-w-0">
               <p class="text-lg font-semibold tracking-[-0.4px] text-ink sm:text-[22px]">{{ __('Good afternoon, :name', ['name' => 'Monica']) }}</p>
@@ -152,7 +126,6 @@
             </div>
           </div>
 
-          {{-- The six headline figures, in the order the dashboard lists them. --}}
           <div class="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
             @foreach ([
                 ['label' => __('Collections'), 'value' => '6', 'note' => __('across your account'), 'dot' => 'bg-badge-violet'],
@@ -163,8 +136,6 @@
                 ['label' => __('Average per item'), 'value' => '$38', 'note' => __('across the whole account'), 'dot' => 'bg-badge-pink'],
             ] as $kpi)
               <div class="flex flex-col gap-1 rounded-xl border border-hairline bg-canvas p-3.5">
-                {{-- Six tiles across a column this narrow leaves the longest label about
-                     90px, so it is set a notch smaller than the dashboard's own. --}}
                 <div class="flex items-center gap-1.5">
                   <span class="size-2 shrink-0 rounded-sm {{ $kpi['dot'] }}"></span>
                   <span class="truncate text-[10px] font-semibold text-muted">{{ $kpi['label'] }}</span>
@@ -176,7 +147,6 @@
           </div>
 
           <div class="grid grid-cols-1 gap-5 lg:grid-cols-[1.6fr_1fr] lg:items-start">
-            {{-- Recent additions: the part that says "this is your shelf", so it leads. --}}
             <div class="overflow-hidden rounded-xl border border-hairline bg-canvas">
               <div class="flex items-center gap-2.5 border-b border-hairline-soft px-4 py-3">
                 <span class="size-2.5 shrink-0 rounded-full bg-brand"></span>
@@ -195,8 +165,6 @@
                   <div class="flex h-14 w-10 shrink-0 items-center justify-center rounded-lg bg-card text-lg">{{ $row['emoji'] }}</div>
                   <div class="min-w-0 flex-1">
                     <div class="truncate text-sm font-semibold text-ink">{{ $row['name'] }}</div>
-                    {{-- A phone has room for the collection and nothing else, and half a
-                         truncated condition reads as a bug rather than as a screenshot. --}}
                     <div class="mt-0.5 truncate text-xs text-muted-soft">{{ $row['collection'] }}<span class="hidden sm:inline"> &middot; {{ $row['condition'] }} &middot; {{ $row['location'] }}</span></div>
                   </div>
                   <div class="shrink-0 text-right">
@@ -208,9 +176,6 @@
             </div>
 
             <div class="flex flex-col gap-5">
-              {{-- Loans, because tracking what left the shelf is the part people do not
-                   expect a collection manager to do. It is the one panel here that is
-                   only numbers, so it is the one a phone drops to keep the hero short. --}}
               <div class="hidden rounded-xl border border-hairline bg-canvas p-4 lg:block">
                 <div class="mb-3 flex items-center justify-between gap-3">
                   <h3 class="text-sm font-semibold text-ink">{{ __('Loan snapshot') }}</h3>
@@ -233,8 +198,6 @@
                 </div>
               </div>
 
-              {{-- Where things are: value by location, the panel nothing else on the page
-                   can show, and the one that reads as a real catalog at a glance. --}}
               <div class="rounded-xl border border-hairline bg-canvas p-4">
                 <h3 class="text-sm font-semibold text-ink">{{ __('Where things are') }}</h3>
                 <p class="mt-0.5 mb-3.5 text-xs text-muted">{{ __('Estimated value by location.') }}</p>
@@ -263,7 +226,6 @@
     </div>
   </section>
 
-  {{-- TRUST --}}
   <section class="mx-auto max-w-[1200px] px-5 pt-16 sm:px-8 sm:pt-24">
     <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
       @foreach ([
@@ -302,7 +264,6 @@
     </div>
   </section>
 
-  {{-- ORGANIZE --}}
   <section id="features" class="mx-auto max-w-[1200px] scroll-mt-24 px-5 pt-16 sm:px-8 sm:pt-24">
     <div class="mb-12 max-w-[640px]">
       <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('Organize everything') }}</p>
@@ -332,7 +293,6 @@
     </div>
   </section>
 
-  {{-- CUSTOM TYPES --}}
   @php
       // Alpine swaps the schema panel client side, so the three types travel to the browser.
       $itemTypes = [
@@ -419,7 +379,6 @@
     </div>
   </section>
 
-  {{-- PHYSICAL COPIES --}}
   <section class="mx-auto max-w-[1200px] px-5 pt-16 sm:px-8 sm:pt-24">
     <div class="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
       <div class="overflow-hidden rounded-lg border border-hairline">
@@ -463,7 +422,6 @@
     </div>
   </section>
 
-  {{-- SUPPORTED COLLECTIONS --}}
   <section class="mx-auto max-w-[1200px] px-5 pt-16 text-center sm:px-8 sm:pt-24">
     <h2 class="text-[28px] leading-[1.1] font-semibold tracking-[-1px] text-ink sm:text-4xl lg:text-5xl lg:tracking-[-1.5px]">{{ __('One app for every collection.') }}</h2>
     <p class="mx-auto mt-4.5 max-w-[520px] text-[17px] text-muted">
@@ -486,7 +444,6 @@
         ];
     @endphp
 
-    {{-- The illustrations lift and grow on hover; discs (records, CDs, film reels) turn as they do. --}}
     <div class="mt-12 grid grid-cols-3 gap-4 sm:grid-cols-4 lg:grid-cols-6 lg:gap-5">
       @foreach ($catalogs as $catalog)
         <div class="group flex flex-col items-center gap-y-3.5">
@@ -516,8 +473,6 @@
   </section>
 
   @if ($testimonialCount > 0)
-  {{-- TESTIMONIALS. Sourced from the database (the one section on this otherwise
-       hardcoded page that is), and hidden entirely when nothing is published. --}}
   <section id="testimonials" class="mx-auto max-w-[1200px] scroll-mt-24 px-5 pt-16 sm:px-8 sm:pt-24">
     <div class="mx-auto max-w-[560px] text-center">
       <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('Loved by collectors') }}</p>
@@ -525,8 +480,6 @@
       <p class="mx-auto mt-4.5 max-w-[520px] text-[17px] text-muted">{{ __('Real notes from people who catalog their world in :name.', ['name' => config('app.name')]) }}</p>
     </div>
 
-    {{-- A masonry-ish wall of notes. Each card tilts a touch, cycling through a
-         small set of angles so the wall reads as pinned-up rather than gridded. --}}
     <div class="mt-12 gap-5 sm:columns-2 lg:columns-3">
       @php
         $tilts = ['-rotate-2', 'rotate-1', '-rotate-1', 'rotate-2', '-rotate-1', 'rotate-1'];
@@ -545,7 +498,6 @@
   </section>
   @endif
 
-  {{-- OPEN SOURCE --}}
   <section id="opensource" class="mx-auto max-w-[1200px] scroll-mt-24 px-5 pt-16 sm:px-8 sm:pt-24">
     <div class="rounded-xl bg-[#101010] p-6 text-white sm:p-12 lg:p-16">
       <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-14">
@@ -605,7 +557,6 @@
     </div>
   </section>
 
-  {{-- PRIVACY --}}
   <section id="privacy" class="mx-auto max-w-[1200px] scroll-mt-24 px-5 pt-16 sm:px-8 sm:pt-24">
     <div class="mb-12 max-w-[640px]">
       <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('Privacy') }}</p>
@@ -639,7 +590,6 @@
     </div>
   </section>
 
-  {{-- PRICING --}}
   <section id="pricing" class="mx-auto max-w-[1200px] scroll-mt-24 px-5 pt-16 sm:px-8 sm:pt-24">
     <div class="mb-8 text-center">
       <div class="mb-5 inline-flex items-center gap-x-2 rounded-full bg-card py-1.5 pr-3.5 pl-1.5 text-[13px] font-semibold text-ink">
@@ -695,7 +645,6 @@
     </div>
   </section>
 
-  {{-- FAQ --}}
   <section id="faq" class="mx-auto max-w-[760px] scroll-mt-24 px-5 pt-16 sm:px-8 sm:pt-24">
     <h2 class="mb-10 text-center text-[28px] leading-[1.15] font-semibold tracking-[-1px] text-ink sm:text-4xl">{{ __('Questions, answered.') }}</h2>
 
@@ -753,7 +702,6 @@
     </p>
   </section>
 
-  {{-- FINAL CTA --}}
   <section class="mx-auto max-w-[1200px] px-5 pt-16 sm:px-8 sm:pt-24">
     <div class="rounded-xl bg-card px-6 py-14 text-center sm:px-12 sm:py-18">
       <h2 class="mx-auto max-w-[620px] text-[28px] leading-[1.15] font-semibold tracking-[-1px] text-balance text-ink sm:text-[40px]">

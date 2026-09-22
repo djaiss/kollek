@@ -1,9 +1,4 @@
-{{--
-  One loan as a clickable row that opens its detail drawer. Custody, not ownership:
-  the row shows which exact copy is out, with whom, in what condition it left, and
-  when it is due. Opening the drawer is a real url (loans.show), so the row is a
-  plain link and needs no client state.
---}}
+{{-- One loan as a clickable row that opens its detail drawer. --}}
 @props(['loan', 'direction', 'tab', 'compact' => false])
 
 @use('App\Enums\LoanDirection')

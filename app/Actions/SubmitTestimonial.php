@@ -52,10 +52,6 @@ class SubmitTestimonial
         );
     }
 
-    /**
-     * An empty or whitespace-only link is stored as null rather than an empty
-     * string, so "has a link" is a simple null check everywhere downstream.
-     */
     private function normalizedLink(): ?string
     {
         $link = $this->link === null ? null : trim($this->link);

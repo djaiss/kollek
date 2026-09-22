@@ -61,10 +61,6 @@ class UpdateCategory
         }
     }
 
-    /**
-     * Whether $candidate is the category being updated, or a descendant of
-     * it — either would create a cycle if used as the new parent.
-     */
     private function isDescendantOf(Category $candidate): bool
     {
         $current = $candidate;

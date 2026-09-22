@@ -1,10 +1,4 @@
-{{--
-  A titled group of loans: a coloured dot, a heading, a one-line description, a
-  count, and the rows, with a friendly line when the group is empty. Shared by the
-  Due & overdue and Risk & exceptions tabs.
-
-  Expects: $title, $description, $dot, $loans, $emptyMessage, $direction, $tab.
---}}
+{{-- A titled group of loans with its heading, count and rows, used by the loan overview tabs. --}}
 <div class="rounded-xl border border-hairline bg-canvas">
   <div class="flex items-center gap-2 border-b border-hairline px-4 py-3">
     <span class="size-2 rounded-full {{ $dot }}"></span>

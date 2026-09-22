@@ -66,10 +66,6 @@ class ResizeItemPhoto
         );
     }
 
-    /**
-     * The variant sits beside the original, named after the requested box so a
-     * later call for the same size overwrites it rather than piling up files.
-     */
     private function variantPath(): string
     {
         $extension = pathinfo($this->itemPhoto->path, PATHINFO_EXTENSION);
@@ -78,9 +74,6 @@ class ResizeItemPhoto
         return $stem.'_'.$this->width.'x'.$this->height.'.'.$extension;
     }
 
-    /**
-     * The disk lives here alone so it can be swapped in one place.
-     */
     private function disk(): Filesystem
     {
         return Storage::disk((string) config('filesystems.default'));

@@ -60,11 +60,6 @@ class AttachTagToItem
         }
     }
 
-    /**
-     * A tag name is encrypted, so the database cannot match one. The account's
-     * tags are read and compared here instead, which is also what keeps typing
-     * an existing name from creating a second tag that reads the same.
-     */
     private function resolve(): void
     {
         $account = $this->item->catalog->account;
@@ -86,10 +81,6 @@ class AttachTagToItem
         )->execute();
     }
 
-    /**
-     * An item carries a tag once, so tagging it again is not an error. The pivot
-     * would refuse the duplicate anyway.
-     */
     private function attach(): void
     {
         $changes = $this->item->tags()->syncWithoutDetaching([$this->tag->id]);
@@ -97,10 +88,6 @@ class AttachTagToItem
         $this->attached = $changes['attached'] !== [];
     }
 
-    /**
-     * Tagging touches the pivot rather than the item, so nothing has told the
-     * search index that the item is now findable under the tag.
-     */
     private function reindexSearch(): void
     {
         if (! $this->attached) {
@@ -112,10 +99,6 @@ class AttachTagToItem
         new IndexSearchable(searchable: $this->item)->execute();
     }
 
-    /**
-     * Tagging an item that already carries the tag changes nothing, and an
-     * activity feed repeating "Added the tag" for it would read as a lie.
-     */
     private function log(): void
     {
         if (! $this->attached) {

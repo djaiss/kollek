@@ -1,11 +1,4 @@
-{{--
-  One section card: a master checkbox that ticks the whole thing, the count of
-  what is ticked inside it, and the field pills.
-
-  The master checkbox is not a field of its own, so it posts under `sections[]`
-  while the pills post under `fields[]`. That is what lets a section be left out
-  whole without having to untick everything inside it.
---}}
+{{-- One section card: a master checkbox, the count of what is ticked, and the field pills. --}}
 <div class="rounded-xl border border-hairline" data-test="section-{{ $section['key'] }}">
   <div class="flex items-center gap-3 p-4">
     <input

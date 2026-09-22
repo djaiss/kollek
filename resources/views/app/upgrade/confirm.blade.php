@@ -31,15 +31,12 @@
         {{ __('Back to the plan') }}
       </a>
 
-      {{-- One form wraps both columns: the boxes are on the left and the button is
-           on the right, and they have to submit together. --}}
       <x-form
         method="post"
         :action="route('upgrade.confirm.create')"
         x-data="{ ticked: {{ $alreadyTicked }} }"
         class="mt-6 flex flex-col gap-5 lg:flex-row lg:items-start"
       >
-        {{-- The ask --}}
         <div class="flex min-w-0 flex-1 flex-col gap-4">
           <div>
             <h1 class="max-w-xl text-[30px] leading-tight font-semibold tracking-tight text-ink">
@@ -50,7 +47,6 @@
             </p>
           </div>
 
-          {{-- No refunds --}}
           <div class="overflow-hidden rounded-lg border border-hairline bg-canvas">
             <div class="flex items-center gap-2.5 border-b border-hairline bg-warning/10 px-5 py-4">
               @svg('lucide-circle-alert', 'size-4 shrink-0 text-warning')
@@ -77,7 +73,6 @@
             </div>
           </div>
 
-          {{-- The free alternative --}}
           <div class="flex flex-wrap items-center gap-4 rounded-lg border border-hairline bg-canvas p-5">
             <div class="min-w-0 flex-1">
               <p class="text-[15px] font-semibold tracking-tight text-ink">{{ __('Still unsure? Self-hosting is free and always will be.') }}</p>
@@ -89,8 +84,6 @@
             </x-button.secondary>
           </div>
 
-          {{-- The confirmations. Real checkboxes, each validated on the server, so the
-               page works with no JavaScript at all. Alpine only counts them. --}}
           <div class="overflow-hidden rounded-lg border border-hairline bg-canvas">
             <div class="flex flex-wrap items-center justify-between gap-3 border-b border-hairline-soft px-5 py-4">
               <p class="text-[15px] font-semibold tracking-tight text-ink">{{ __('Please confirm you have read the above') }}</p>
@@ -124,7 +117,6 @@
           </p>
         </div>
 
-        {{-- The order --}}
         <div class="flex w-full shrink-0 flex-col gap-3.5 lg:sticky lg:top-6 lg:w-80">
           <div class="overflow-hidden rounded-lg border border-hairline bg-canvas">
             <p class="border-b border-hairline-soft px-5 py-3.5 text-[11.5px] font-bold tracking-wide text-muted-soft uppercase">{{ __('Your order') }}</p>

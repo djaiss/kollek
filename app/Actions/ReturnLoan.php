@@ -18,10 +18,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 /**
  * Mark a loan as returned: close it with the date it came back and the condition
  * it came back in, in one step. Only owners and editors of its account may do so.
- *
- * The object is back, so the copy leaves its loaned-out state and, when a
- * condition on return is given, takes it as its current condition. A loan that is
- * part of provenance also generates the matching return event.
  */
 class ReturnLoan
 {
@@ -76,10 +72,6 @@ class ReturnLoan
         $this->loan->save();
     }
 
-    /**
-     * The object is back, so the condition it came back in becomes the copy's
-     * current condition. Without one, the copy is left as it was.
-     */
     private function syncCopyCondition(): void
     {
         if ($this->itemConditionInId === null) {
@@ -91,9 +83,6 @@ class ReturnLoan
         $copy->save();
     }
 
-    /**
-     * A loan that is part of provenance records its return in the story too.
-     */
     private function handleProvenance(): void
     {
         if (! $this->loan->include_in_provenance) {

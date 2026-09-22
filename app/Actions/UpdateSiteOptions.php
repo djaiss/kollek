@@ -13,10 +13,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Update the instance wide site options. Only an instance administrator may do
- * this, and the action checks the flag itself.
- *
- * The banner lives inside the cached marketing pages, so saving it has to purge
- * Cloudflare or the change would not show for a week.
+ * this.
  */
 class UpdateSiteOptions
 {

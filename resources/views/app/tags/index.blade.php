@@ -50,7 +50,6 @@
           </x-button>
         </x-form>
 
-        {{-- Searching only makes sense once there is something to search. --}}
         <div id="tags-search">
           @if ($tags->isNotEmpty())
             <input
@@ -64,9 +63,6 @@
         </div>
       </div>
 
-      {{-- Replace instead of morphing: morph patches each row in place and keeps its Alpine
-           state, so a renamed or newly added row keeps the previous row's compiled x-show
-           expression and ends up filtered wrongly. Replacing rebuilds the list on every response. --}}
       <div id="tags-list" x-merge="replace">
         @if ($tags->isEmpty())
           <div class="mt-8 rounded-lg border border-hairline">
@@ -79,7 +75,6 @@
             </x-empty-state>
           </div>
         @else
-          {{-- Column headers --}}
           <div class="mt-8 flex items-center gap-3 border-b border-hairline px-5 pb-3 text-xs font-medium tracking-wide text-muted-soft uppercase">
             <span class="size-4 shrink-0"></span>
             <span class="min-w-0 flex-1">{{ __('Name') }}</span>

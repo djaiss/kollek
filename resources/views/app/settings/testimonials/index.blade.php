@@ -9,7 +9,6 @@
 
   <div class="px-6 py-8 lg:px-12 lg:py-10">
     <div class="mx-auto w-full max-w-2xl space-y-8">
-      {{-- Intro --}}
       <div class="space-y-3">
         <h1 class="text-[26px] leading-tight font-semibold tracking-tight text-ink">{{ __('Has :name been good to your collection?', ['name' => config('app.name')]) }}</h1>
         <p class="text-[15px] leading-relaxed text-muted">
@@ -25,7 +24,6 @@
       </div>
 
       @if ($isEditable)
-        {{-- STATE: form (no testimonial yet, or a draft/rejected one to revise) --}}
         <x-box :title="__('Say a few words')">
           <x-form method="post" :action="route('settings.testimonials.create')" class="space-y-5">
             <x-input
@@ -65,7 +63,6 @@
               />
             </div>
 
-            {{-- English-only note --}}
             <div class="flex items-start gap-2.5 rounded-md border border-hairline bg-sidebar px-3.5 py-3">
               @svg('lucide-globe', 'mt-0.5 size-4 shrink-0 text-muted')
               <p class="text-[13px] leading-relaxed text-muted">
@@ -79,7 +76,6 @@
           </x-form>
         </x-box>
       @elseif ($testimonial->status === \App\Enums\TestimonialStatus::InReview)
-        {{-- STATE: in review --}}
         <div class="space-y-5">
           <div class="flex items-start gap-3 rounded-lg border border-hairline bg-badge-orange/10 px-4 py-4">
             @svg('lucide-clock', 'mt-0.5 size-5 shrink-0 text-badge-orange')
@@ -97,7 +93,6 @@
           <x-testimonial-withdraw />
         </div>
       @else
-        {{-- STATE: published --}}
         <div class="space-y-5">
           <div class="flex items-start gap-3 rounded-lg border border-hairline bg-success/10 px-4 py-4">
             @svg('lucide-badge-check', 'mt-0.5 size-5 shrink-0 text-success')

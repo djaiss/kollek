@@ -1,16 +1,4 @@
-{{--
-  The "Data ownership" feature page. Like the rest of the marketing site, the copy is hardcoded
-  next to the markup it belongs to, and every user facing string goes through __(). The hosting
-  diagram, the Compose terminal, the encryption comparison, the backup cards and the "you own
-  this" points are drawn as themed markup; the terminal, the state-tier cards, the ciphertext
-  panel and the CTA are intentionally fixed-dark in both themes.
-
-  Everything is grounded in the real Docker setup (services app/queue/scheduler/mysql; volumes
-  db-data → /var/lib/mysql and storage-data → /var/www/html/storage; APP_KEY; local or
-  S3-compatible storage; MIT licensed). Claim boundary: sensitive fields are encrypted at rest,
-  but this is NOT end-to-end encryption (the operator holds the key) and there is NO automated
-  in-app backup button (backups are an operator responsibility). Keep that honest.
---}}
+{{-- The "Data ownership" feature page of the marketing site. --}}
 
 @php
     $appTiers = [
@@ -81,7 +69,6 @@
 @endphp
 
 <x-marketing-layout :title="$feature['title']">
-    {{-- SIBLING FEATURE SELECTOR --}}
     <section class="hidden border-b border-hairline bg-sidebar md:block">
         <div class="mx-auto max-w-[1200px] px-5 py-5 sm:px-8">
             <div class="mb-4 flex items-center justify-between">
@@ -122,7 +109,6 @@
         </div>
     </section>
 
-    {{-- HERO --}}
     <section id="top" class="mx-auto max-w-[1200px] px-5 pt-16 sm:px-8 sm:pt-24">
         <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
             <div>
@@ -138,7 +124,6 @@
                 </div>
             </div>
 
-            {{-- HOSTING DIAGRAM --}}
             <div class="rounded-2xl border border-hairline bg-canvas p-6 shadow-[0_24px_60px_rgba(17,17,17,0.08),0_4px_12px_rgba(17,17,17,0.04)]">
                 <div class="mb-4.5 flex items-center justify-between">
                     <div class="flex items-center gap-x-2">
@@ -179,7 +164,6 @@
         </div>
     </section>
 
-    {{-- YOUR DATA HAS AN ADDRESS / PRACTICAL DOCKER --}}
     <section id="practical" class="mx-auto max-w-[1200px] scroll-mt-24 px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-14">
             <div>
@@ -195,7 +179,6 @@
                 </div>
             </div>
 
-            {{-- docker compose terminal (fixed dark) --}}
             <div class="overflow-hidden rounded-2xl border border-[#20242c] bg-[#101010] shadow-[0_24px_60px_rgba(17,17,17,0.14)]">
                 <div class="flex items-center gap-x-2 border-b border-[#242424] px-4 py-3">
                     <span class="h-2.5 w-2.5 rounded-full bg-[#333]"></span>
@@ -212,7 +195,6 @@
         </div>
     </section>
 
-    {{-- SENSITIVE DETAILS ENCRYPTED --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="mb-11 max-w-[640px]">
             <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('Encryption at rest') }}</p>
@@ -223,7 +205,6 @@
         </div>
 
         <div class="grid grid-cols-1 items-center gap-4 md:grid-cols-[1fr_auto_1fr]">
-            {{-- in the app --}}
             <div class="overflow-hidden rounded-2xl border border-hairline bg-canvas shadow-[0_4px_12px_rgba(17,17,17,0.04)]">
                 <div class="flex items-center justify-between border-b border-hairline-soft px-4.5 py-3.5">
                     <div class="flex items-center gap-x-2">
@@ -243,13 +224,11 @@
                 @endforeach
             </div>
 
-            {{-- arrow --}}
             <div class="flex justify-center">
                 @svg('lucide-arrow-right', 'hidden size-6 text-muted-soft md:block')
                 @svg('lucide-arrow-down', 'size-6 text-muted-soft md:hidden')
             </div>
 
-            {{-- in the database (fixed dark) --}}
             <div class="overflow-hidden rounded-2xl bg-[#101010]">
                 <div class="flex items-center justify-between border-b border-[#242424] px-4.5 py-3.5">
                     <div class="flex items-center gap-x-2">
@@ -268,7 +247,6 @@
         </div>
     </section>
 
-    {{-- BACKUPS ARE REAL --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="mb-11 max-w-[640px]">
             <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('Backups') }}</p>
@@ -297,7 +275,6 @@
         </div>
     </section>
 
-    {{-- YOU ARE IN CHARGE / PRIMARY CTA (fixed dark) --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 items-center gap-10 rounded-3xl bg-[#101010] px-6 py-14 text-white sm:px-12 lg:grid-cols-[1.3fr_1fr] lg:gap-14">
             <div>
@@ -323,7 +300,6 @@
         </div>
     </section>
 
-    {{-- REQUIRED TRANSPARENCY FOOTER --}}
     <section class="mx-auto max-w-[1080px] px-5 pt-24 pb-8 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16">
             <div>

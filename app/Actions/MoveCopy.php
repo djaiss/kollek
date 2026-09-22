@@ -16,10 +16,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Move a copy to a location. Only owners and editors of its account may do so.
- *
- * This is the primary way a copy's location changes: it closes the open location
- * record, opens a new one and updates the copy's current location pointer as one
- * step, so the copy and its history never disagree about where it is.
  */
 class MoveCopy
 {

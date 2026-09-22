@@ -1,11 +1,4 @@
-{{--
-  The dedicated flow for marking a loan as returned, rather than editing the loan
-  by hand. It captures the date the copy came back and the condition it came back
-  in, and nothing else: the action closes the loan, brings the copy back into
-  custody, and takes the condition as the copy's current one.
-
-  Expects: $loan, $catalog, $item, $selectedCopy, $conditions.
---}}
+{{-- The flow for marking a loan as returned, with the date and the condition it came back in. --}}
 
 @php
     $formId = 'return-loan-'.$loan->id;

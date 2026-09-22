@@ -50,8 +50,6 @@
           </x-slot>
 
           <x-form method="put" :action="route('instanceAdmin.siteOptions.update')">
-            {{-- Preview, so the bar can be read the way a visitor will see it
-                 before it goes live. --}}
             <div class="border-b border-hairline-soft p-3">
               <p class="mb-2 text-xs font-medium tracking-wide text-muted-soft uppercase">Preview</p>
               <div class="flex flex-col items-center justify-center gap-2 rounded-md bg-[#101010] px-4 py-2 text-center text-[13px] font-medium sm:h-10 sm:flex-row sm:py-0" x-show="enabled && preview.text" x-cloak>
@@ -66,8 +64,6 @@
 
             <div class="grid gap-4 p-3 sm:grid-cols-3">
               <div>
-                {{-- The value is the string "1" or "0", so the preview reads it
-                     through a comparison rather than binding it as a boolean. --}}
                 <x-select
                   id="banner_enabled"
                   label="Show the banner"
@@ -104,8 +100,6 @@
               </div>
             </div>
 
-            {{-- One tab per language. Every field stays in the form so they all
-                 submit together; the tab only decides which one is on screen. --}}
             <div class="border-t border-hairline-soft p-3">
               <div class="flex flex-wrap items-center gap-1.5">
                 @foreach ($locales as $locale)

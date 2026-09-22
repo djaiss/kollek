@@ -1,5 +1,4 @@
-{{-- Appears only once something is selected, and follows the page rather than scrolling
-     away with it. --}}
+{{-- The floating bar of actions for the photos currently selected. --}}
 <div
   x-cloak
   x-show="selected.length > 0"
@@ -11,9 +10,6 @@
 >
   <span class="mr-2 text-[13px] font-semibold text-canvas" x-text="selectionLabel"></span>
 
-  {{-- Warn with a plain onsubmit rather than an Alpine handler: Alpine compiles an
-       x-on expression into an assignment, so a `return` inside one is a syntax error
-       and the handler never runs, which would delete the selection without asking. --}}
   <form
     method="post"
     action="{{ route('settings.photos.selection.destroy') }}"

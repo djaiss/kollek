@@ -78,7 +78,6 @@
           </x-button>
         </div>
       @else
-        {{-- The headline numbers --}}
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4" data-test="statistics-kpis">
           @foreach ([
               ['label' => __('Total items'), 'value' => number_format($totals['items']), 'note' => __('+:count added this month', ['count' => $totals['itemsAddedThisMonth']]), 'dot' => 'bg-brand'],
@@ -98,7 +97,6 @@
         </div>
 
         <div class="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-[1.7fr_1fr]">
-          {{-- Value acquired over time --}}
           <div class="rounded-xl border border-hairline bg-canvas p-6" data-test="value-over-time">
             <div class="mb-4 flex items-start justify-between gap-4">
               <div>
@@ -139,7 +137,6 @@
             @endif
           </div>
 
-          {{-- Items by category --}}
           <div class="flex flex-col rounded-xl border border-hairline bg-canvas p-6" data-test="items-by-category">
             <div class="text-base font-semibold text-ink">{{ __('Items by category') }}</div>
             <p class="mt-0.5 mb-5 text-[13px] text-muted">
@@ -172,7 +169,6 @@
         </div>
 
         <div class="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-[1.7fr_1fr]">
-          {{-- Acquisitions per month --}}
           <div class="rounded-xl border border-hairline bg-canvas p-6" data-test="acquisitions-per-month">
             <div class="mb-5 flex items-start justify-between gap-4">
               <div>
@@ -199,7 +195,6 @@
             </div>
           </div>
 
-          {{-- Condition of the copies --}}
           <div class="rounded-xl border border-hairline bg-canvas p-6" data-test="copies-by-condition">
             <div class="text-base font-semibold text-ink">{{ __('Condition') }}</div>
             <p class="mt-0.5 mb-5 text-[13px] text-muted">{{ __('The shape the copies are in.') }}</p>
@@ -221,7 +216,6 @@
         </div>
 
         <div class="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
-          {{-- Value by location --}}
           <div class="rounded-xl border border-hairline bg-canvas p-6" data-test="value-by-location">
             <div class="text-base font-semibold text-ink">{{ __('Value by location') }}</div>
             <p class="mt-0.5 mb-5 text-[13px] text-muted">{{ __('Where the value sits.') }}</p>
@@ -243,7 +237,6 @@
             @endif
           </div>
 
-          {{-- Top items by value --}}
           <div class="rounded-xl border border-hairline bg-canvas p-6" data-test="top-items">
             <div class="mb-4 flex items-center justify-between gap-4">
               <div>

@@ -15,7 +15,6 @@
         </div>
 
         <div class="shrink-0">
-          {{-- The primary action posts, so its form lives outside the menu and is reached with form=. --}}
           <x-form method="post" :action="route('settings.types.create')" id="new-type-form" data-turbo="true" class="hidden"></x-form>
 
           <x-button.split type="submit" form="new-type-form" :label="__('New type')" data-test="new-type-button">

@@ -75,10 +75,6 @@ class AddItemPhoto
         }
     }
 
-    /**
-     * The name the user gave the file never reaches the disk: we generate a
-     * random one instead, and keep the original in the database.
-     */
     private function store(): void
     {
         $name = Str::uuid()->toString().'.'.$this->file->extension();
@@ -120,28 +116,16 @@ class AddItemPhoto
         return [(int) $size[0], (int) $size[1]];
     }
 
-    /**
-     * The photo is made searchable straight away rather than on a queue, so it
-     * can be found the moment the upload finishes.
-     */
     private function index(): void
     {
         new IndexItemPhotoSearchTokens(itemPhoto: $this->itemPhoto)->execute();
     }
 
-    /**
-     * An item always has exactly one main visual, so the first photo added to
-     * it takes the role.
-     */
     private function isFirstPhoto(): bool
     {
         return ! $this->item->photos()->exists();
     }
 
-    /**
-     * A position orders the photo within its item, so only the photos of that
-     * item are considered.
-     */
     private function nextPosition(): int
     {
         return (int) $this->item->photos()->max('position') + 1;
@@ -156,9 +140,6 @@ class AddItemPhoto
         $this->itemPhoto->save();
     }
 
-    /**
-     * The disk lives here alone so it can be swapped in one place.
-     */
     private function disk(): Filesystem
     {
         return Storage::disk((string) config('filesystems.default'));

@@ -86,10 +86,6 @@ class UpdateCatalog
         $this->catalog->save();
     }
 
-    /**
-     * Callers that do not manage types, such as the API, pass null and leave
-     * the existing links untouched.
-     */
     private function syncCatalogTypes(): void
     {
         if ($this->catalogTypeIds === null) {

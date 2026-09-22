@@ -1,14 +1,4 @@
-{{--
-  The "Copy history" feature page. Like the rest of the marketing site, the copy is hardcoded
-  next to the markup it belongs to, and every user facing string goes through __(). The
-  timeline captures are drawn as themed markup; the control section is driven by Alpine so the
-  Meaningful/Complete toggle and the record-type filter actually work.
-
-  Every record type maps to a shipped, copy-specific dated model that merges into one
-  chronological timeline: Transaction, Valuation, Provenance, Insurance, Maintenance (Service),
-  Loan, Location (Move), and Document. Sample dates, amounts and record references are kept
-  literal as illustrative data; the action titles, record labels and UI chrome are translated.
---}}
+{{-- The "Copy history" feature page of the marketing site. --}}
 
 @php
     $hexToRgba = function (string $hex, float $alpha): string {
@@ -91,7 +81,6 @@
 @endphp
 
 <x-marketing-layout :title="$feature['title']">
-    {{-- SIBLING FEATURE SELECTOR --}}
     <section class="hidden border-b border-hairline bg-sidebar md:block">
         <div class="mx-auto max-w-[1200px] px-5 py-5 sm:px-8">
             <div class="mb-4 flex items-center justify-between">
@@ -132,7 +121,6 @@
         </div>
     </section>
 
-    {{-- HERO --}}
     <section id="top" class="mx-auto max-w-[1000px] px-5 pt-16 text-center sm:px-8 sm:pt-24">
         <p class="mx-auto mb-5 text-[12px] leading-[1.5] font-semibold tracking-[1px] text-muted-soft uppercase">{{ __('Receipts have a habit of going walkabout') }}</p>
         <h1 class="mx-auto max-w-[840px] text-[32px] leading-[1.08] font-semibold tracking-[-1px] text-balance text-ink sm:text-5xl sm:tracking-[-1.5px] lg:text-[60px] lg:leading-[1.05] lg:tracking-[-2px]">
@@ -150,7 +138,6 @@
         </div>
     </section>
 
-    {{-- HERO CAPTURE: FULL COPY TIMELINE --}}
     <section id="hero-capture" class="mx-auto mt-14 max-w-[1060px] scroll-mt-24 px-5 sm:px-8">
         <div class="overflow-hidden rounded-xl border border-hairline bg-canvas shadow-[0_24px_60px_rgba(17,17,17,0.10),0_4px_12px_rgba(17,17,17,0.05)]">
             <div class="flex h-11 items-center gap-x-2 border-b border-hairline-soft bg-sidebar px-4">
@@ -162,7 +149,6 @@
                 </div>
             </div>
             <div class="p-6 sm:p-7">
-                {{-- item header --}}
                 <div class="mb-5 flex flex-wrap items-center gap-4">
                     <span class="h-[68px] w-[52px] shrink-0 rounded-lg" style="background:repeating-linear-gradient(135deg,#fb923c 0px,#fb923c 8px,#fdba74 8px,#fdba74 16px);"></span>
                     <div class="min-w-0 flex-1">
@@ -182,7 +168,6 @@
                     <span class="rounded-full bg-card px-2.5 py-1 text-[12px] text-muted">{{ __(':count events · :range', ['count' => 9, 'range' => 'Jan 2023 → May 2024']) }}</span>
                 </div>
 
-                {{-- timeline --}}
                 <div class="flex flex-col">
                     @foreach ($heroEvents as $event)
                         @php($rt = $recordTypes[$event['type']])
@@ -220,7 +205,6 @@
         </div>
     </section>
 
-    {{-- EVERY IMPORTANT THING, IN ORDER --}}
     <section class="mx-auto max-w-[760px] px-5 pt-24 text-center sm:px-8 sm:pt-28">
         <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('Every important thing, in order') }}</p>
         <h2 class="text-[28px] leading-[1.14] font-semibold tracking-[-1px] text-ink sm:text-4xl lg:text-[38px]">{{ __('Separate records, one readable story.') }}</h2>
@@ -229,10 +213,8 @@
         </p>
     </section>
 
-    {{-- KEEP THE PROOF CLOSE (EVIDENCE) --}}
     <section id="evidence" class="mx-auto max-w-[1200px] px-5 pt-14 sm:px-8">
         <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-14">
-            {{-- receipt capture --}}
             <div class="overflow-hidden rounded-2xl border border-hairline bg-canvas shadow-[0_4px_14px_rgba(17,17,17,0.05)]">
                 <div class="flex items-center justify-between border-b border-hairline-soft bg-sidebar px-4.5 py-3.5">
                     <div class="flex min-w-0 items-center gap-x-2.5">
@@ -258,7 +240,6 @@
                     </div>
                 </div>
             </div>
-            {{-- copy + matching event --}}
             <div>
                 <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('Keep the proof close') }}</p>
                 <h2 class="text-[28px] leading-[1.14] font-semibold tracking-[-1px] text-ink sm:text-4xl lg:text-[38px]">{{ __('The receipt lives with the record it proves.') }}</h2>
@@ -295,7 +276,6 @@
         </div>
     </section>
 
-    {{-- CONTROL: HEADLINE VS WHOLE SAGA (interactive) --}}
     <section id="control" class="mx-auto max-w-[1200px] scroll-mt-24 px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="mx-auto mb-10 max-w-[680px] text-center">
             <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('Headline version or the whole saga') }}</p>
@@ -320,7 +300,6 @@
                 <span class="h-[11px] w-[11px] rounded-full bg-hairline"></span>
             </div>
 
-            {{-- toolbar --}}
             <div class="flex flex-wrap items-center justify-between gap-4 px-5 pt-4.5 sm:px-6">
                 <div class="flex gap-1 rounded-[9px] bg-card p-[3px]">
                     <button type="button" @click="view = 'meaningful'" :class="view === 'meaningful' ? 'bg-canvas text-ink shadow-[0_1px_3px_rgba(17,17,17,0.12)]' : 'text-muted'" class="rounded-[7px] px-4 py-1.5 text-[13px] font-semibold transition-colors">{{ __('Meaningful') }}</button>
@@ -329,7 +308,6 @@
                 <span class="text-[12px] font-medium text-muted" x-text="countTpl.replace('{s}', shown.length).replace('{t}', events.length)"></span>
             </div>
 
-            {{-- record-type filter --}}
             <div class="flex flex-wrap items-center gap-2 border-b border-hairline-soft px-5 pt-4 pb-1 sm:px-6">
                 <span class="mr-1 text-[11px] font-semibold tracking-[0.4px] text-muted-soft uppercase">{{ __('Records') }}</span>
                 <template x-for="type in types" :key="type.key">
@@ -345,7 +323,6 @@
                 </template>
             </div>
 
-            {{-- filtered timeline --}}
             <div class="min-h-[180px] px-5 py-6 sm:px-6">
                 <div class="flex flex-col" x-show="shown.length > 0">
                     <template x-for="(e, i) in shown" :key="e.type + i">
@@ -378,7 +355,6 @@
         </div>
     </section>
 
-    {{-- STORY: ONE OBJECT, ONE TRUE HISTORY --}}
     <section id="story" class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-14">
             <div>
@@ -397,7 +373,6 @@
                 </div>
             </div>
 
-            {{-- watch story card --}}
             <div class="overflow-hidden rounded-2xl border border-hairline bg-canvas shadow-[0_4px_14px_rgba(17,17,17,0.05)]">
                 <div class="flex items-center gap-3.5 border-b border-hairline-soft bg-sidebar px-5 py-4.5">
                     <span class="h-11 w-11 shrink-0 rounded-[10px]" style="background:repeating-linear-gradient(135deg,#64748b 0px,#64748b 7px,#cbd5e1 7px,#cbd5e1 14px);"></span>
@@ -439,7 +414,6 @@
         </div>
     </section>
 
-    {{-- PRIMARY CTA --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="rounded-3xl bg-[#101010] px-6 py-16 text-center sm:px-12 sm:py-[72px]">
             <h2 class="mx-auto max-w-[640px] text-[26px] leading-[1.12] font-semibold tracking-[-1px] text-balance text-white sm:text-[34px] lg:text-[40px] lg:tracking-[-1.2px]">
@@ -454,7 +428,6 @@
         </div>
     </section>
 
-    {{-- REQUIRED TRANSPARENCY FOOTER --}}
     <section class="mx-auto max-w-[1080px] px-5 pt-24 pb-8 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16">
             <div>

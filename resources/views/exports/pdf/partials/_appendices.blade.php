@@ -1,11 +1,7 @@
+{{-- The appendices, repeating the sheet records collection wide, one table per kind. --}}
 @use('App\Enums\ExportSection')
 @use('App\Helpers\ImpreciseDate')
 
-{{--
-  The appendices repeat what the sheets already showed, gathered collection wide
-  so a reader can scan one kind of record across everything at once. The rows were
-  collected during the single pass over the items, so nothing is read twice.
---}}
 @php
   $currency = $meta['currency'];
 

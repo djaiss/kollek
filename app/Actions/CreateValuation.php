@@ -18,9 +18,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 /**
  * Record a valuation against a copy. Only owners and editors of the copy's
  * account may do so.
- *
- * Valuations are append-only: recording one never overwrites an earlier figure,
- * and the latest by date is what the copy reads its current worth from.
  */
 class CreateValuation
 {

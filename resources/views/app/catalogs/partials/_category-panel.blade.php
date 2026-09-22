@@ -58,8 +58,6 @@
             <p class="text-xs text-muted-soft">{{ __('and :percentage% of its value', ['percentage' => $share($totalValue, $collectionValue)]) }}</p>
         </div>
 
-        {{-- One segment per category, over the whole collection. What is left of the bar
-             is what no category covers. --}}
         <div class="flex h-3 gap-0.5 overflow-hidden rounded-full">
             @foreach ($categoryBreakdown as $row)
                 <a

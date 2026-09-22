@@ -22,7 +22,6 @@
     @endif
   </section>
 
-  {{-- A gentle nudge to add one, for signed-in collectors. --}}
   <section class="mx-auto max-w-[1200px] px-5 pt-16 pb-8 text-center sm:px-8 sm:pt-24">
     <a href="{{ route('dashboard.index') }}" data-turbo="true" class="inline-flex h-12 items-center gap-x-2 rounded-md border border-hairline bg-canvas px-6 text-[15px] font-semibold text-ink transition-colors hover:bg-sidebar">
       {{ __('Share your own') }}

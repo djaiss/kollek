@@ -1,12 +1,4 @@
-{{--
-  The loan detail drawer, opened by its own url (loans.show) and closed by
-  linking back to the list. Custody, not ownership: it lays out who has the copy,
-  the dates, the condition it left and came back in, any deposit, its documents and
-  provenance, and the dedicated return flow. Editing and deleting run through the
-  copy-scoped routes with a `from=loans` hint so they land back here.
-
-  Expects: $loan, $direction, $tab, $conditions.
---}}
+{{-- The drawer showing one loan in full, with its dates, condition, deposit and return flow. --}}
 @use('App\Enums\LoanDirection')
 @use('App\Enums\LoanStatus')
 @use('App\Helpers\Money')
@@ -31,7 +23,6 @@
   <a href="{{ $closeUrl }}" data-turbo="true" class="absolute inset-0 bg-black/30" aria-label="{{ __('Close') }}"></a>
 
   <div class="absolute inset-y-0 right-0 flex w-full max-w-[540px] flex-col overflow-y-auto border-l border-hairline bg-page shadow-xl">
-    {{-- Header --}}
     <div class="flex items-start justify-between gap-3 border-b border-hairline px-5 py-4">
       <div class="flex flex-wrap items-center gap-2">
         <span class="rounded-full px-2.5 py-0.5 text-xs font-medium {{ $isOut ? 'bg-card text-muted' : 'bg-info/15 text-info' }}">{{ $loan->direction->label() }}</span>
@@ -46,7 +37,6 @@
     </div>
 
     <div class="flex flex-col gap-5 px-5 py-5">
-      {{-- Object --}}
       <div class="flex items-center gap-3">
         <div class="flex size-11 shrink-0 items-center justify-center rounded-lg bg-card text-sm font-semibold text-muted">{{ \Illuminate\Support\Str::of($item->name)->substr(0, 1)->upper() }}</div>
         <div class="min-w-0">
@@ -55,7 +45,6 @@
         </div>
       </div>
 
-      {{-- Custody note --}}
       <div class="rounded-lg bg-info/10 px-3.5 py-3 text-[13px] leading-relaxed text-muted-2">
         {{ $isOut
             ? __('This is a loan out: you still own the copy, someone else is just holding it.')
@@ -65,14 +54,12 @@
         @endif
       </div>
 
-      {{-- Overlap warning --}}
       @if ($otherOpen > 0)
         <div class="rounded-lg border border-error/30 bg-error/10 px-3.5 py-3 text-[13px] text-error">
           {{ trans_choice('Overlapping open loan: this copy has :count other open outgoing loan. Only one copy can be out at a time.|Overlapping open loans: this copy has :count other open outgoing loans. Only one copy can be out at a time.', $otherOpen, ['count' => $otherOpen]) }}
         </div>
       @endif
 
-      {{-- Facts --}}
       <div class="grid grid-cols-2 gap-3">
         <div class="rounded-lg border border-hairline px-3 py-2.5">
           <div class="text-[10px] text-muted-soft uppercase">{{ $isOut ? __('Loaned to') : __('Borrowed from') }}</div>
@@ -94,10 +81,8 @@
         @endif
       </div>
 
-      {{-- Condition comparison --}}
       @include('app.loans.partials._conditionComparison', ['loan' => $loan])
 
-      {{-- Deposit --}}
       @if ($loan->deposit_amount !== null)
         <div class="rounded-lg border border-hairline px-3.5 py-3">
           <div class="text-[10px] text-muted-soft uppercase">{{ $isOut ? __('Deposit held') : __('Deposit owed') }}</div>
@@ -110,7 +95,6 @@
         </div>
       @endif
 
-      {{-- Documents --}}
       <div>
         <div class="mb-2 text-[11px] font-semibold tracking-wide text-muted-soft uppercase">{{ __('Documents') }}</div>
         @forelse ($loan->documents as $document)
@@ -123,7 +107,6 @@
         @endforelse
       </div>
 
-      {{-- Provenance events --}}
       @if ($loan->loanProvenanceEvent !== null || $loan->returnProvenanceEvent !== null)
         <div>
           <div class="mb-2 text-[11px] font-semibold tracking-wide text-muted-soft uppercase">{{ __('Provenance') }}</div>
@@ -138,7 +121,6 @@
         </div>
       @endif
 
-      {{-- Return workflow --}}
       @if ($canManage && $loan->status->hasLeftCustody())
         <div class="border-t border-hairline pt-4">
           <x-button type="button" x-on:click="returning = ! returning" class="w-full justify-center" data-test="mark-returned">
@@ -173,7 +155,6 @@
         </div>
       @endif
 
-      {{-- Danger zone --}}
       @if ($canManage)
         <div class="border-t border-hairline pt-4">
           <x-form method="delete" :action="route('loans.destroy', [$catalog, $item, $copy, $loan])" onsubmit="return confirm('{{ __('Delete this loan? This cannot be undone.') }}')" data-test="delete-loan-form">

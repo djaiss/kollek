@@ -1,15 +1,4 @@
-{{--
-  The "Copy tracking" feature page. Like the rest of the marketing site, the copy is
-  hardcoded next to the markup it belongs to rather than read from a database, and every
-  user facing string goes through __() so the page can be translated. The product captures
-  (the item page with its copies, the title-only comparison, the per-copy fact cards, and
-  the interactive copy switcher) are drawn as themed markup rather than screenshots, so they
-  stay crisp and follow the theme.
-
-  Everything here maps to shipped functionality: one item record can own several Copy rows,
-  and each Copy carries its own condition, location, acquisition date, price paid, estimated
-  value and status. Keep it in step with the Copy model if those facts ever move.
---}}
+{{-- The "Copy tracking" feature page of the marketing site. --}}
 
 @php
     // The three copies of one title, reused across the hero capture, the comparison, the
@@ -107,8 +96,6 @@
 @endphp
 
 <x-marketing-layout :title="$feature['title']">
-    {{-- SIBLING FEATURE SELECTOR. Mirrors the mega menu so the feature pages cross link
-         without drifting. Hidden on small screens, where the header nav does the job. --}}
     <section class="hidden border-b border-hairline bg-sidebar md:block">
         <div class="mx-auto max-w-[1200px] px-5 py-5 sm:px-8">
             <div class="mb-4 flex items-center justify-between">
@@ -149,7 +136,6 @@
         </div>
     </section>
 
-    {{-- HERO --}}
     <section id="top" class="mx-auto max-w-[1080px] px-5 pt-16 text-center sm:px-8 sm:pt-24">
         <p class="mx-auto mb-5 max-w-[640px] text-[12.5px] leading-[1.5] font-semibold tracking-[0.8px] text-muted-soft uppercase">
             {{ __('For when “I think I have two” is not a system') }}
@@ -169,7 +155,6 @@
         </div>
     </section>
 
-    {{-- HERO CAPTURE: ITEM PAGE WITH COPIES --}}
     <section id="copies" class="mx-auto mt-14 max-w-[1040px] scroll-mt-24 px-5 sm:px-8">
         <div class="overflow-hidden rounded-xl border border-hairline bg-canvas shadow-[0_24px_60px_rgba(17,17,17,0.10),0_4px_12px_rgba(17,17,17,0.05)]">
             <div class="flex h-11 items-center gap-x-2 border-b border-hairline-soft bg-sidebar px-4">
@@ -220,7 +205,6 @@
         </div>
     </section>
 
-    {{-- THE TITLE IS NOT THE WHOLE STORY (comparison) --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="mb-11 max-w-[660px]">
             <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('The title is not the whole story') }}</p>
@@ -231,7 +215,6 @@
         </div>
 
         <div class="grid grid-cols-1 items-stretch gap-5 md:grid-cols-[0.85fr_1.15fr]">
-            {{-- generic title-only record --}}
             <div class="flex flex-col rounded-2xl border border-dashed border-hairline bg-sidebar p-6">
                 <p class="mb-4 text-[12px] font-semibold tracking-[0.5px] text-muted-soft uppercase">{{ __('A title-only list') }}</p>
                 <div class="flex items-center gap-3 rounded-xl border border-hairline bg-canvas px-4 py-3.5">
@@ -247,7 +230,6 @@
                 </p>
             </div>
 
-            {{-- the copies beneath --}}
             <div class="rounded-2xl border border-hairline bg-canvas p-6 shadow-[0_4px_16px_rgba(17,17,17,0.05)]">
                 <div class="mb-4 flex items-center justify-between">
                     <p class="text-[12px] font-semibold tracking-[0.5px] text-ink uppercase">{{ __(':name · the copies beneath it', ['name' => config('app.name')]) }}</p>
@@ -273,7 +255,6 @@
         </div>
     </section>
 
-    {{-- GIVE EVERY COPY ITS OWN FACTS --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="mb-11 max-w-[660px]">
             <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('Give every copy its own facts') }}</p>
@@ -313,7 +294,6 @@
         </div>
     </section>
 
-    {{-- SWITCH COPIES, KEEP CONTEXT (interactive) --}}
     <section id="switch" class="mx-auto max-w-[1200px] scroll-mt-24 px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="mb-11 max-w-[660px]">
             <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('Switch copies, keep context') }}</p>
@@ -327,7 +307,6 @@
             x-data="{ selected: 0, copies: {{ Js::from($switcher) }} }"
             class="grid grid-cols-1 overflow-hidden rounded-2xl border border-hairline bg-canvas shadow-[0_4px_16px_rgba(17,17,17,0.05)] md:grid-cols-[280px_1fr]"
         >
-            {{-- copy list --}}
             <div class="border-b border-hairline-soft bg-sidebar p-4.5 md:border-r md:border-b-0">
                 <p class="px-1 pb-3 text-[11px] font-semibold tracking-[0.5px] text-muted-soft uppercase">Amazing Spider-Man #300</p>
                 <div class="flex flex-col gap-2">
@@ -351,7 +330,6 @@
                 </div>
             </div>
 
-            {{-- detail panel --}}
             <div class="p-6 sm:p-7">
                 <div class="flex flex-col gap-4 border-b border-hairline-soft pb-5 sm:flex-row sm:items-start sm:justify-between">
                     <div class="flex items-center gap-4">
@@ -396,7 +374,6 @@
         </div>
     </section>
 
-    {{-- BUILT FOR WHAT COLLECTORS ACTUALLY COLLECT + PRIMARY CTA --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="rounded-3xl bg-card px-6 py-14 sm:px-12 sm:py-14">
             <div class="max-w-[640px]">
@@ -417,7 +394,6 @@
         </div>
     </section>
 
-    {{-- REQUIRED TRANSPARENCY FOOTER (two equal columns, strong rules, caveats first) --}}
     <section class="mx-auto max-w-[1080px] px-5 pt-24 pb-8 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-14">
             <div>

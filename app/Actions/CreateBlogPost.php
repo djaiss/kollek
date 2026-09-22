@@ -15,15 +15,8 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Str;
 
 /**
- * Start a blog entry, as a draft, with its English text.
- *
- * English is the source every other language is written from, so an entry is
- * never created without it. The catalogue reference is assigned here and never
- * again: it is one past the highest ever issued, so a deleted entry does not
- * hand its number to the next one.
- *
- * Only an instance administrator may write for the blog. The panel is gated on
- * the instance flag, and the action checks it too so the rule lives in one place.
+ * Start a blog entry, as a draft, with its English text. Only an instance
+ * administrator may do so.
  */
 class CreateBlogPost
 {

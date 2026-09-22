@@ -21,9 +21,6 @@
     $banner = \App\Models\SiteOption::current()->bannerFor(app()->getLocale());
 @endphp
 
-{{-- display:contents so the sticky nav below resolves against the page container,
-     not this short wrapper. Otherwise the nav can only stick within the wrapper's
-     own height (announcement bar + nav) and unsticks as soon as you scroll past it. --}}
 <div
   x-data="{
     mobileMenuOpen: false,
@@ -40,14 +37,8 @@
   }"
   @keydown.escape.window="featuresOpen = false"
   class="contents">
-  {{-- Skip to content. The wrapper is display:contents, so this stays the first
-       thing in the tab order of every page the header sits on, and a keyboard
-       visitor reaches the page without walking the whole navigation first. It is
-       off screen until it takes focus. --}}
   <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-60 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-on-primary">{{ __('Skip to content') }}</a>
 
-  {{-- The announcement bar is written by an instance administrator in the site
-       options, so it is only here when there is something to announce. --}}
   @if ($banner)
     <div class="flex flex-col items-center justify-center gap-2 bg-[#101010] px-4 py-2 text-center text-[13px] font-medium sm:h-10 sm:flex-row sm:py-0">
       <div class="flex items-center gap-2">
@@ -62,7 +53,6 @@
     </div>
   @endif
 
-  {{-- Main nav --}}
   <div class="sticky top-0 z-50 border-b border-hairline bg-page/85 backdrop-blur-md">
     <nav class="mx-auto flex h-16 max-w-[1200px] items-center justify-between px-5 sm:px-8">
       <a href="{{ route('marketing.index') }}" data-turbo="true" class="group flex shrink-0 items-center gap-x-2.5">
@@ -72,16 +62,7 @@
         <x-wordmark height="17" class="text-ink" />
       </a>
 
-      {{-- Desktop navigation. The bar carries its own text-body so the Features
-           link below reads the same as its neighbours before Alpine has run.
-           Its colour comes from a bound class, and a bound class is missing both
-           in the server HTML and in the copy Turbo caches, which left it
-           inheriting text-ink and fading back to grey on every page change. --}}
       <div class="hidden items-center gap-x-1 text-body lg:flex">
-        {{-- Features: hover opens the mega menu, click goes to the hub. The
-             wrapper holds both the trigger and the panel, so mouseleave only
-             fires once the pointer has left both (the panel is a descendant),
-             which is what makes the hover close reliable. --}}
         <div @mouseenter="openFeatures()" @mouseleave="closeFeatures()">
           <a href="{{ route('marketing.features.index') }}" data-turbo="true" @click="featuresOpen = false" aria-haspopup="true" :aria-expanded="featuresOpen" class="flex items-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-sidebar" :class="featuresOpen ? 'bg-sidebar text-ink' : 'text-body'">
             {{ __('Features') }}
@@ -102,11 +83,8 @@
           {{ __('GitHub') }}
         </a>
 
-        {{-- The public site is cached as one page for everybody, so this cannot ask who is
-             reading it: a signed in visitor sees the same call to action as a stranger. --}}
         <a href="{{ route('register') }}" data-turbo="true" class="flex h-10 items-center rounded-md bg-primary px-4.5 text-sm font-semibold text-on-primary transition-colors hover:opacity-90">{{ __('Get started') }}</a>
 
-        {{-- Mobile menu button --}}
         <button type="button" @click="mobileMenuOpen = true" class="-mr-2 inline-flex items-center justify-center rounded-md p-2 text-ink lg:hidden">
           <span class="sr-only">{{ __('Open main menu') }}</span>
           <x-lucide-menu class="h-6 w-6" />
@@ -115,7 +93,6 @@
     </nav>
   </div>
 
-  {{-- Mobile menu (off-canvas) --}}
   <div x-show="mobileMenuOpen" x-cloak class="lg:hidden">
     <div class="fixed inset-0 z-50 bg-ink/20" @click="mobileMenuOpen = false"></div>
     <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-page px-6 py-5 sm:max-w-sm sm:border-l sm:border-hairline">
@@ -128,8 +105,6 @@
       </div>
 
       <div class="flex flex-col">
-        {{-- Features: a collapsible section listing every feature area, with the
-             hub itself one tap away. Replaces the hover mega menu on touch. --}}
         <div class="border-b border-hairline-soft">
           <button type="button" @click="mobileFeaturesOpen = !mobileFeaturesOpen" :aria-expanded="mobileFeaturesOpen" class="flex w-full items-center justify-between py-3.5 text-base font-semibold text-ink">
             {{ __('Features') }}

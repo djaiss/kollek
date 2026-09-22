@@ -13,9 +13,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Delete a series. Only owners and editors of its account may do so.
- *
- * The items keep their data: the foreign key unlinks them rather than taking
- * them down with the series.
  */
 class DestroySeries
 {
@@ -32,12 +29,6 @@ class DestroySeries
         $this->series->delete();
     }
 
-    /**
-     * The foreign key would do this, but only where the driver enforces it, and the sqlite
-     * connection the suite runs on does not. Unlinking here makes the behaviour the same
-     * everywhere. Trashed items are included so restoring one does not bring back a dangling
-     * series id.
-     */
     private function unlinkItems(): void
     {
         Item::withTrashed()

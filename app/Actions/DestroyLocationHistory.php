@@ -12,9 +12,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 /**
  * Delete a past location record. Only owners and editors of its account may do
  * so.
- *
- * Deleting the open record leaves the copy with none, so its current location
- * pointer is recomputed from what remains rather than left dangling.
  */
 class DestroyLocationHistory
 {

@@ -14,10 +14,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Reject a testimonial so it does not appear on the marketing site. Only an
- * instance administrator may do this, and the action checks the flag itself.
- *
- * This also serves as the "unpublish" path: taking a published testimonial back
- * down moves it to rejected and clears its publication.
+ * instance administrator may do this.
  */
 class RejectTestimonial
 {
@@ -51,10 +48,6 @@ class RejectTestimonial
         ]);
     }
 
-    /**
-     * Unpublishing must also drop the testimonial from the cached marketing
-     * pages, so purge Cloudflare the same way publishing does.
-     */
     private function flushMarketingCache(): void
     {
         CloudflareCache::purgeEverything();

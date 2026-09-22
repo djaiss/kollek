@@ -18,7 +18,6 @@
       </div>
 
       <div id="members" x-merge="replace" class="space-y-8">
-      {{-- Members list --}}
       <x-box padding="p-0">
         @foreach ($members as $member)
           <div class="flex flex-col gap-3 border-b border-hairline-soft px-4 py-4 last:border-b-0 sm:flex-row sm:items-center sm:justify-between">
@@ -42,7 +41,6 @@
         @endforeach
       </x-box>
 
-      {{-- Invite --}}
       <x-box :title="__('Invite a member')" helpId="settings.invite_member">
         <x-form method="post" :action="route('settings.members.create')" x-target="members" class="space-y-4">
           <x-input id="email" name="email" :label="__('Email')" :value="$previewEmail ?? ''" :error="$errors->get('email')" required placeholder="ross@friends.com" />
@@ -85,7 +83,6 @@
         </x-form>
       </x-box>
 
-      {{-- Pending invitations --}}
       @if ($invitations->isNotEmpty())
         <x-box :title="__('Pending invitations')" padding="p-0">
           @foreach ($invitations as $invitation)

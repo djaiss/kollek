@@ -1,5 +1,4 @@
-{{-- Makes it unmistakable that the member stays in control: a testimonial is
-     theirs to take back at any time, whether it is in review or already live. --}}
+{{-- The panel letting a member take their testimonial back at any time. --}}
 <div class="flex flex-col gap-3 rounded-lg border border-hairline bg-sidebar px-4 py-4 sm:flex-row sm:items-center sm:justify-between">
   <div class="flex items-start gap-2.5">
     @svg('lucide-shield-check', 'mt-0.5 size-4 shrink-0 text-muted')

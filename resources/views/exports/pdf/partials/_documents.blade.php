@@ -1,8 +1,4 @@
-{{--
-  The register of what is on file. The files themselves stay in Kollek: this
-  lists what exists and where it is attached, which is what an insurer or an
-  executor needs to ask for the right one.
---}}
+{{-- The register of the documents on file and what each one is attached to. --}}
 <h2>{{ __('Document register') }}</h2>
 
 @if($documents['rows'] === [])

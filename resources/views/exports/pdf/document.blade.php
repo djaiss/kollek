@@ -1,13 +1,4 @@
-{{--
-  The exported document.
-
-  dompdf renders this, not a browser, so the layout is tables and inline styles
-  throughout: there is no flexbox, no grid and no modern colour function. Sizes
-  are in points because that is what a page is measured in.
-
-  Nothing here decides what to show. Every block was already narrowed by the
-  selection before it arrived, so an empty block means the user left it out.
---}}
+{{-- The exported document, laid out for dompdf rather than for a browser. --}}
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
   <head>

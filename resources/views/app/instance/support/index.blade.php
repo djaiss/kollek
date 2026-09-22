@@ -11,10 +11,6 @@
           <p class="mt-1 text-sm text-muted">Messages sent to support from every account on this instance.</p>
         </div>
 
-        {{-- A search box is a genuinely free-form input, so it stays in the query
-             string while the tab lives in the path. Submitting lands back on the
-             same tab with the term applied and the selection reset to the first
-             match. --}}
         <form method="get" action="{{ route('instanceAdmin.support.index', ['status' => $status]) }}" class="w-full sm:max-w-xs">
           <div class="flex items-center gap-2 rounded-lg border border-hairline bg-input px-3 py-2 shadow-xs dark:shadow-none">
             @svg('lucide-search', 'size-4 shrink-0 text-muted-soft')
@@ -29,8 +25,6 @@
         </form>
       </div>
 
-      {{-- Tabs. Each bucket is a dedicated URL, so switching one is a normal
-           navigation and can be linked to or bookmarked. --}}
       @php
         $tabs = [
           ['key' => 'open', 'label' => 'Open', 'count' => $openCount],
@@ -63,7 +57,6 @@
       </div>
 
       @if ($tickets->isEmpty())
-        {{-- A blank state phrased for the bucket the admin is looking at. --}}
         <x-box padding="p-0">
           <x-empty-state>
             <x-slot:icon>
@@ -87,7 +80,6 @@
         </x-box>
       @else
         <div class="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
-          {{-- Ticket list --}}
           <div class="flex flex-col gap-2.5">
             @foreach ($tickets as $ticket)
               @php($isSelected = $selected?->id === $ticket->id)
@@ -113,9 +105,6 @@
                   <span class="shrink-0 text-xs text-muted-soft">{{ $ticket->created_at->diffForHumans() }}</span>
                 </div>
 
-                {{-- The account the requester belongs to. Spanning every account is
-                     what sets the panel apart from a single tenant's own inbox, so
-                     each ticket names its account. --}}
                 <div class="mt-3 flex items-center gap-1.5 border-t border-dashed border-hairline pt-3">
                   @svg('lucide-folder', 'size-3 shrink-0 text-badge-orange')
                   <span class="min-w-0 truncate font-mono text-[11px] font-medium text-muted">{{ $ticket->user->account->name }}</span>
@@ -124,7 +113,6 @@
             @endforeach
           </div>
 
-          {{-- Conversation detail --}}
           <div class="flex min-h-0 flex-col rounded-xl border border-hairline bg-canvas">
             @if ($selected)
               <div class="border-b border-hairline p-5">
@@ -149,9 +137,6 @@
                     <p class="truncate text-xs text-muted-soft">{{ $selected->user->email }}</p>
                   </div>
 
-                  {{-- Jump straight to the requester's account. Being able to step
-                       into the account behind a ticket is the whole point of reading
-                       it from the instance panel. --}}
                   <a
                     href="{{ route('instanceAdmin.accounts.show', $selected->user->account) }}"
                     data-turbo="true"
@@ -165,8 +150,6 @@
 
               <div class="flex flex-col gap-5 p-5">
                 @foreach ($selected->messages->sortBy('created_at') as $message)
-                  {{-- Team replies sit on the right with an accent bubble, the way an
-                       outgoing message reads; the user's messages stay on the left. --}}
                   <div @class(['flex gap-3', 'flex-row-reverse' => $message->is_from_team])>
                     <x-avatar :user="$message->user" :size="32" class="size-7 shrink-0 text-[10px]" />
                     <div class="min-w-0 flex-1">
@@ -187,13 +170,7 @@
                 @endforeach
               </div>
 
-              {{-- Reply as the team. Sending marks the conversation answered and
-                   emails the person who opened it. --}}
               <div class="mt-auto space-y-3 border-t border-hairline p-5">
-                {{-- The composer holds only the textarea. Its submit lives in the
-                     shared action bar below and is wired back to it with the form
-                     attribute, so the send and status buttons can group on one row
-                     even though a status change is a separate form. --}}
                 <x-form id="team-reply-form" method="post" :action="route('instanceAdmin.support.messages.create', $selected->id)" class="space-y-2">
                   <textarea
                     name="body"
@@ -211,9 +188,6 @@
                   <input type="hidden" name="status" value="{{ $isClosed ? 'open' : 'closed' }}" />
                 </x-form>
 
-                {{-- One action bar: the reply and the status change sit together on
-                     the left, and the closed-at note trails on the right rather than
-                     leaving the two buttons stranded at opposite edges. --}}
                 <div class="flex flex-wrap items-center gap-2">
                   <x-button type="submit" form="team-reply-form" data-test="team-reply-button">
                     <x-slot:icon>
@@ -234,8 +208,6 @@
                 </div>
               </div>
 
-              {{-- A one-line reminder of what replying does from here, phrased for
-                   the bucket the conversation is in. --}}
               <div class="flex items-center gap-2 border-t border-hairline bg-card/40 px-5 py-3">
                 @svg('lucide-clock', 'size-3.5 shrink-0 text-muted-soft')
                 <span class="text-xs text-muted">

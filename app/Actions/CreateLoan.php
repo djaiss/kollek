@@ -21,11 +21,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 /**
  * Record a loan against a copy: a piece lent out, or a piece borrowed in. Only
  * owners and editors of the copy's account may do so.
- *
- * An outgoing loan that is out takes the copy out of the account's physical
- * custody, so it reads as loaned. A loan marked for provenance also generates a
- * matching provenance event so an exhibition or an institutional loan joins the
- * object's documented story.
  */
 class CreateLoan
 {
@@ -108,10 +103,6 @@ class CreateLoan
         $this->loan->save();
     }
 
-    /**
-     * A loan marked for provenance generates a matching event, and its return
-     * generates another when the loan is created already back.
-     */
     private function handleProvenance(): void
     {
         if (! $this->includeInProvenance) {

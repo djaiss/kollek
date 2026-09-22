@@ -18,10 +18,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 /**
  * Record a piece of insurance coverage against a copy. Only owners and editors
  * of the copy's account may do so.
- *
- * Coverage is historical: changing the insured value records a new record rather
- * than overwriting an old one. Only one record may be active for the same copy
- * and policy at a time, which is what stops two live records drifting apart.
  */
 class CreateInsuranceRecord
 {

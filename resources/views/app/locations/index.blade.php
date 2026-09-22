@@ -22,7 +22,6 @@
         </x-button>
       </div>
 
-      {{-- Add location panel --}}
       <div id="add-location-panel" x-show="showAddForm" x-cloak class="mt-6 rounded-xl border border-hairline bg-canvas p-6">
         <div class="text-base font-semibold text-ink">{{ __('New location') }}</div>
         <p class="mt-0.5 mb-4 text-[13px] text-muted">
@@ -74,7 +73,6 @@
         </x-form>
       </div>
 
-      {{-- Tree --}}
       <div id="locations-tree" class="mt-7 overflow-hidden rounded-xl border border-hairline bg-canvas">
         @forelse ($tree as $node)
           @include('app.locations._row', ['node' => $node, 'depth' => 0, 'parentOptions' => $parentOptions, 'emojiOptions' => $emojiOptions])

@@ -63,10 +63,6 @@ class UpdateTransaction
         }
     }
 
-    /**
-     * Read what is about to move, while the transaction still holds its old
-     * values.
-     */
     private function captureChanges(): void
     {
         $currency = $this->transaction->currency_code;

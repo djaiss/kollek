@@ -20,14 +20,8 @@ use Intervention\Image\ImageManager;
 use InvalidArgumentException;
 
 /**
- * Set the social card one language of a blog entry shares as.
- *
- * The card is written at exactly 1200x630, the size every social platform reads,
- * by covering the box rather than fitting inside it: a letterboxed card with
- * bars down the side looks broken in a timeline.
- *
- * The earlier card is only removed once the new one is saved, so a failure
- * halfway through leaves the entry with a working card rather than none.
+ * Set the social card one language of a blog entry shares as. The card is
+ * written at exactly 1200x630, the size every social platform reads.
  */
 class UpdateBlogPostOgImage
 {
@@ -90,10 +84,6 @@ class UpdateBlogPostOgImage
         }
     }
 
-    /**
-     * The name the uploader gave the file never reaches the disk: we generate a
-     * random one instead.
-     */
     private function store(): void
     {
         $this->previousPath = $this->translation->og_image_path;
@@ -138,9 +128,6 @@ class UpdateBlogPostOgImage
         CloudflareCache::purgeEverything();
     }
 
-    /**
-     * The disk lives here alone so it can be swapped in one place.
-     */
     private function disk(): Filesystem
     {
         return Storage::disk((string) config('filesystems.default'));

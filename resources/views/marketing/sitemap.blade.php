@@ -1,8 +1,4 @@
-{{--
-  The XML sitemap, built by App\Services\Sitemap. The xhtml namespace is what
-  carries the hreflang alternates: every language of a page names every other,
-  including itself, which is what the sitemaps protocol asks for.
---}}
+{{-- The XML sitemap, with the hreflang alternates for every language of a page. --}}
 <?php echo '<?xml version="1.0" encoding="UTF-8"?>'."\n"; ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 @foreach ($entries as $entry)

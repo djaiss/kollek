@@ -5,7 +5,6 @@
     {{ $type->name !== '' ? $type->name : __('Untitled type') }}
   </x-slot>
 
-  {{-- Turbo morphs the page in place after each save, so edits feel instant and scroll is kept. --}}
   <x-slot:head>
     <meta name="turbo-refresh-method" content="morph" />
     <meta name="turbo-refresh-scroll" content="preserve" />
@@ -13,7 +12,6 @@
 
   <div class="px-6 py-8 lg:px-12 lg:py-10">
     <div class="mx-auto w-full max-w-3xl">
-      {{-- Breadcrumb --}}
       <div class="mb-6 flex items-center gap-2 text-xs text-muted-soft">
         @if (auth()->user()->isOwner())
           <a href="{{ route('settings.index') }}" data-turbo="true" class="font-medium transition-colors hover:text-ink">{{ __('Account settings') }}</a>
@@ -26,7 +24,6 @@
         <span class="font-medium text-ink">{{ $type->name !== '' ? $type->name : __('Untitled type') }}</span>
       </div>
 
-      {{-- Header: color, name, delete --}}
       <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-5">
         <div class="flex shrink-0 flex-col items-start gap-2.5 sm:items-center">
           <span class="size-14 rounded-full" style="background-color: {{ $type->color }}"></span>
@@ -64,7 +61,6 @@
         </div>
 
         <div id="type-actions" class="flex shrink-0 items-center gap-3">
-          {{-- The delete button sits inside the menu, so its form lives outside and is reached with form=. --}}
           <x-form method="delete" :action="route('settings.types.destroy', $type->id)" id="delete-type-form" data-turbo="true" class="hidden" onsubmit="return confirm('{{ __('Delete this type? This cannot be undone.') }}')"></x-form>
 
           <x-button.split
@@ -91,17 +87,14 @@
         </div>
       </div>
 
-      {{-- Everything below the header auto-saves; make that explicit. --}}
       <div class="mb-9 flex items-center gap-2.5 rounded-lg border border-hairline bg-card px-4 py-3 text-sm text-muted">
         @svg('lucide-info', 'size-4 shrink-0 text-muted-soft')
         <span>{{ __('Changes below are saved automatically in real time as you make them. No need to hit save.') }}</span>
       </div>
 
-      {{-- Custom fields --}}
       <h2 class="text-lg font-semibold text-ink">{{ __('Custom fields') }}</h2>
       <p class="mt-0.5 mb-6 max-w-xl text-xs text-muted-soft">{{ __('Organize related fields into groups (e.g. "Grading", "Purchase info"), or add a field directly to the type if it does not belong to a group.') }}</p>
 
-      {{-- Field groups --}}
       <div class="mb-3.5 flex items-center justify-between">
         <h3 class="text-xs font-semibold tracking-wide text-muted-soft uppercase">{{ __('Field groups') }}</h3>
 
@@ -113,9 +106,7 @@
       <div class="mb-8 flex flex-col gap-4">
         @forelse ($type->customFieldGroups as $group)
           <div class="overflow-hidden rounded-2xl border border-hairline bg-canvas" data-test="group-{{ $group->id }}">
-            {{-- Group header: reorder, name, field count, add field, remove. --}}
             <div class="flex items-center gap-2.5 border-b border-hairline bg-card px-4 py-3">
-              {{-- Reorder and delete post on their own; their buttons reach them via the form= attribute. --}}
               <x-form method="put" :action="route('settings.types.groups.order.update', [$type->id, $group->id])" id="group-up-{{ $group->id }}" data-turbo="true" class="hidden">
                 <input type="hidden" name="direction" value="up" />
               </x-form>
@@ -155,7 +146,6 @@
         @endforelse
       </div>
 
-      {{-- Standalone fields --}}
       <div class="mb-1 flex items-center justify-between">
         <h3 class="text-xs font-semibold tracking-wide text-muted-soft uppercase">{{ __('Standalone fields') }}</h3>
 
@@ -173,7 +163,6 @@
         @endforelse
       </div>
 
-      {{-- Collections using this type --}}
       <h2 class="text-lg font-semibold text-ink">{{ __('Collections using this type') }}</h2>
       <p class="mt-0.5 mb-3.5 text-xs text-muted-soft">{{ __('A collection can use many types; an item picks exactly one.') }}</p>
 

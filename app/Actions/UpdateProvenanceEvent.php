@@ -83,9 +83,6 @@ class UpdateProvenanceEvent
         }
     }
 
-    /**
-     * Read what is about to move, while the event still holds its old values.
-     */
     private function captureChanges(): void
     {
         $this->changes = array_values(array_filter([
@@ -101,10 +98,6 @@ class UpdateProvenanceEvent
         ]));
     }
 
-    /**
-     * The date as it will read once written, so the log compares like with like
-     * rather than a rendered date against a raw one.
-     */
     private function formattedNewDate(): string
     {
         return ImpreciseDate::format(

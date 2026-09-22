@@ -37,9 +37,6 @@
           <p class="mt-1 text-sm text-muted">Created {{ $account->created_at->isoFormat('ll') }}</p>
         </div>
 
-        {{-- Deleting an account takes every collection, item and photo in it, and
-             the page navigates away afterwards, so this asks natively rather than
-             through alpine-ajax the way the in place forms elsewhere do. --}}
         <x-form
           method="delete"
           :action="route('instanceAdmin.accounts.destroy', $account->id)"
@@ -58,14 +55,10 @@
         @endforeach
       </div>
 
-      {{-- Members --}}
       <x-box title="Users in this account" padding="p-0">
         @foreach ($members as $member)
           <div class="flex flex-col gap-3 border-b border-hairline-soft px-4 py-4 last:border-b-0 sm:flex-row sm:items-center sm:justify-between">
             <div class="flex min-w-0 items-center gap-3">
-              {{-- Initials only: the avatar files are streamed through a route that
-                   refuses users outside the caller's own account, and an instance
-                   administrator is by design not a member here. --}}
               <x-avatar :name="$member->getFullName()" :size="32" class="size-9 text-xs" />
               <div class="min-w-0">
                 <p class="truncate text-sm font-semibold text-ink">
@@ -78,8 +71,6 @@
               </div>
             </div>
 
-            {{-- You cannot act on yourself here: revoking your own flag or deleting
-                 your own user would lock you out of this panel. --}}
             @if ($member->id !== $currentUser->id)
               <div class="flex items-center gap-2">
                 <x-form method="put" :action="route('instanceAdmin.users.administrator.update', $member->id)">
@@ -102,7 +93,6 @@
         @endforeach
       </x-box>
 
-      {{-- Activity --}}
       <x-box title="Latest activity" padding="p-0">
         @forelse ($activity as $log)
           <div class="flex items-center justify-between gap-3 border-b border-hairline-soft px-4 py-3 last:border-b-0">
@@ -122,7 +112,6 @@
         @endforelse
       </x-box>
 
-      {{-- Plan --}}
       <x-box title="Plan">
         <dl class="space-y-3 text-sm">
           <div class="flex items-baseline justify-between gap-3">
@@ -151,7 +140,6 @@
         </dl>
       </x-box>
 
-      {{-- What was agreed to before a payment was attempted --}}
       <x-box title="Purchase confirmations" padding="p-0">
         @forelse ($consents as $consent)
           <div class="flex flex-col gap-1 border-b border-hairline-soft px-4 py-3 last:border-b-0 sm:flex-row sm:items-baseline sm:justify-between sm:gap-3">

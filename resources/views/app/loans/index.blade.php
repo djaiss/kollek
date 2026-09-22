@@ -45,7 +45,6 @@
 
   <div class="px-6 py-8 lg:px-10 lg:py-10">
     <div class="mx-auto w-full max-w-6xl">
-      {{-- Header --}}
       <div class="mb-6 flex flex-wrap items-start justify-between gap-4">
         <div>
           <p class="text-[11px] font-semibold tracking-wide text-muted-soft uppercase">{{ __('Custody workflows') }}</p>
@@ -73,7 +72,6 @@
         </div>
       </div>
 
-      {{-- Direction toggle --}}
       <div class="mb-6 inline-flex rounded-lg border border-hairline bg-canvas p-1">
         @foreach (LoanDirection::cases() as $case)
           <a
@@ -88,7 +86,6 @@
         @endforeach
       </div>
 
-      {{-- Stat tiles --}}
       <div class="mb-6 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
         @foreach ($tiles as $tile)
           <a href="{{ $tile['url'] }}" data-turbo="true" class="rounded-xl border border-hairline bg-canvas p-4 transition-colors hover:border-muted-soft">
@@ -102,7 +99,6 @@
         @endforeach
       </div>
 
-      {{-- Tabs --}}
       <div class="mb-5 flex flex-wrap gap-1 border-b border-hairline">
         @foreach ($tabs as $key => $label)
           <a
@@ -114,14 +110,12 @@
         @endforeach
       </div>
 
-      {{-- Active tab body --}}
       <div>
         @include('app.loans.partials._tab'.\Illuminate\Support\Str::studly($tab === 'by-party' ? 'party' : $tab))
       </div>
     </div>
   </div>
 
-  {{-- Drawers, opened by their own url --}}
   @if ($selectedLoan !== null)
     @include('app.loans.partials._detailDrawer', ['loan' => $selectedLoan])
   @endif

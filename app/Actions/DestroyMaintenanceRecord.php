@@ -15,9 +15,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 /**
  * Delete a piece of work performed on a copy. Only owners and editors of its
  * account may do so.
- *
- * The provenance event the record generated was only there because of it, so it
- * goes with the record rather than being left orphaned in the object's story.
  */
 class DestroyMaintenanceRecord
 {
@@ -43,9 +40,6 @@ class DestroyMaintenanceRecord
         }
     }
 
-    /**
-     * Log before the row goes, so the entry can still describe what was deleted.
-     */
     private function log(): void
     {
         $item = $this->record->copy->item;

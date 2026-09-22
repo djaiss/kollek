@@ -18,14 +18,8 @@ use Intervention\Image\ImageManager;
 use InvalidArgumentException;
 
 /**
- * Put a picture on the disk for a blog entry to show inside its text. It
- * arrives base64 encoded because this is written for the MCP server, where a
- * tool argument can only be a JSON scalar.
- *
- * The picture belongs to the entry and not to one language of it, so the path
- * holds no locale and every translation can show the same one. Nothing is
- * written to the database: the path is derived from the entry id and the name,
- * so the route serving it needs no lookup.
+ * Put a picture on the disk for a blog entry to show inside its text. The image
+ * arrives base64 encoded.
  */
 class AddBlogPostImage
 {

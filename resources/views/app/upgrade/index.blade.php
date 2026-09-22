@@ -50,7 +50,6 @@
 
   <div class="px-6 py-8 lg:px-12 lg:py-10">
     <div class="mx-auto flex w-full max-w-4xl flex-col gap-7">
-      {{-- Header --}}
       <div class="flex flex-col gap-3.5">
         <span class="inline-flex w-fit items-center gap-2 rounded-full bg-warning/10 px-3 py-1.5 text-xs font-semibold text-warning">
           @svg('lucide-lock', 'size-3.5')
@@ -70,7 +69,6 @@
         </p>
       </div>
 
-      {{-- Usage --}}
       <div class="flex flex-col gap-4 rounded-lg border border-hairline bg-canvas p-6">
         <div class="flex flex-wrap items-end justify-between gap-5">
           <div>
@@ -122,7 +120,6 @@
         </div>
       </div>
 
-      {{-- The two ways out --}}
       <div class="grid gap-4 lg:grid-cols-2">
         <div class="relative flex flex-col gap-5 rounded-lg border-2 border-ink bg-canvas p-6">
           <span class="absolute -top-2.5 left-6 rounded bg-ink px-2.5 py-0.5 text-[11px] font-bold tracking-wide text-page uppercase">{{ __('Most people pick this') }}</span>
@@ -156,8 +153,6 @@
               </x-slot>
             </x-button>
           @else
-            {{-- Only an owner can commit the account to a payment, so everyone else
-                 is told who to ask rather than shown a button that 404s. --}}
             <p class="rounded-md border border-hairline bg-card p-3 text-[13px] leading-relaxed text-muted">
               {{ __('Only an owner of this account can unlock it. Ask one of them to take a look at this page.') }}
             </p>
@@ -194,7 +189,6 @@
         </div>
       </div>
 
-      {{-- What the payment unlocks --}}
       <x-box :title="__('What the :price unlocks', ['price' => $price])" padding="p-0">
         <x-slot:description>
           {{ __('The same features either way. The fee only covers our hosting.') }}
@@ -210,8 +204,6 @@
         </div>
       </x-box>
 
-      {{-- Questions. Plain disclosure elements: they open and close with no
-           JavaScript at all, which is what a page about money should do. --}}
       <x-box :title="__('Questions people ask at this exact moment')" padding="p-0">
         @foreach ($faqs as [$question, $answer])
           <details class="border-b border-hairline-soft last:border-b-0">
@@ -223,7 +215,6 @@
         @endforeach
       </x-box>
 
-      {{-- Closing --}}
       <div class="flex flex-wrap items-center gap-5 rounded-lg border border-hairline bg-card p-6">
         <div class="min-w-0 flex-1">
           <p class="text-[17px] font-semibold tracking-tight text-ink">{{ __('Not ready to decide today?') }}</p>

@@ -1,8 +1,4 @@
-{{--
-    The avatar of a user: their uploaded image when they have one, and the
-    generated initials otherwise. Sizes must be one of User::AVATAR_SIZES, as
-    those are the ones written to disk on upload.
---}}
+{{-- The avatar of a user: their uploaded image, or their initials. --}}
 @props([
     'user' => null,
     'name' => null,

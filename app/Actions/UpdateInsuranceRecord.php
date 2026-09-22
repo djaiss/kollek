@@ -73,9 +73,6 @@ class UpdateInsuranceRecord
         $this->guardAgainstSecondActiveRecord($this->record->copy, $this->status, $this->policyNumber, $this->record->id);
     }
 
-    /**
-     * Read what is about to move, while the record still holds its old values.
-     */
     private function captureChanges(): void
     {
         $currency = $this->record->currency_code;

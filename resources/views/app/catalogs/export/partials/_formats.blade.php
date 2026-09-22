@@ -1,7 +1,4 @@
-{{--
-  The format cards. Radios rather than buttons, so the choice posts with the form
-  and a keyboard reaches it; the card is the label around the input.
---}}
+{{-- The format cards, one radio per export format. --}}
 <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
   @foreach($export->formats() as $option)
     <label

@@ -23,7 +23,6 @@
 
 <div class="mb-5 break-inside-avoid">
   <div class="relative rounded border p-6 shadow-[0_10px_24px_rgba(17,17,17,0.09),0_2px_6px_rgba(17,17,17,0.05)] transition-transform duration-200 hover:rotate-0 {{ $tilt }}" style="background:{{ $note['paper'] }}; border-color:var(--tape-edge);">
-    {{-- A strip of tape holding the note to the wall. --}}
     <div class="absolute -top-[9px] left-1/2 -ml-[30px] h-[18px] w-[60px] rounded-[2px] border backdrop-blur-[1px]" style="background:var(--tape); border-color:var(--tape-edge); transform:rotate({{ $note['tape'] }}deg);" aria-hidden="true"></div>
 
     <div class="font-serif text-4xl leading-none text-hairline">&ldquo;</div>

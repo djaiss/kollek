@@ -10,12 +10,7 @@ use Illuminate\Validation\ValidationException;
 
 /**
  * Remember which blocks of the dashboard a user has hidden. The preference
- * belongs to the user rather than to the account, so two members of the same
- * account can land on the screen laid out differently.
- *
- * What is stored is what the user turned off, so a section added later shows up
- * for everyone rather than staying hidden from whoever customised the screen
- * before it existed.
+ * belongs to the user rather than to the account.
  */
 class UpdateUserDashboardSections
 {

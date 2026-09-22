@@ -1,15 +1,4 @@
-{{--
-  The form behind both adding and editing a provenance event.
-
-  No amount is collected here. What a moment cost belongs to a transaction, so
-  the form links to one of the copy's own transactions rather than restating what
-  was paid. The ids are prefixed per form because the history tab renders one add
-  form and one edit form per event, and duplicate ids would point every label at
-  the first form.
-
-  Expects: $formId, $action, $method, $openVar, $submitLabel, $dataTest, $copy,
-  $event (null when adding). When editing, also $deleteAction.
---}}
+{{-- The form behind adding and editing a provenance event on a copy. --}}
 
 @use('App\Enums\DatePrecision')
 @use('App\Enums\ProvenanceEventType')

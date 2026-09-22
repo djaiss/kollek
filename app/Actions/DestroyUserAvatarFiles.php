@@ -27,9 +27,6 @@ class DestroyUserAvatarFiles
         }
     }
 
-    /**
-     * The disk lives here alone so it can be swapped in one place.
-     */
     private function disk(): Filesystem
     {
         return Storage::disk((string) config('filesystems.default'));

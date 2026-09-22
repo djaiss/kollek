@@ -1,11 +1,4 @@
-{{--
-  Light/dark switch, shared by the logged in sidebar and the marketing footer.
-
-  Which icon shows is driven by the `dark` class that the inline script in partials/meta puts
-  on <html> before paint, rather than by Alpine, so the right one is painted straight away.
-  That script falls back to the operating system preference when the visitor has never chosen
-  a theme, which is what makes this button start on whatever the OS already asked for.
---}}
+{{-- The light and dark switch shared by the sidebar and the marketing footer. --}}
 <button
     type="button"
     x-data

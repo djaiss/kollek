@@ -25,13 +25,6 @@ use InvalidArgumentException;
  * Attach a document to a copy or one of the records hanging off it, either by
  * storing an uploaded file or by pointing at an external URL. Only owners and
  * editors of the copy's account may do so.
- *
- * A document needs a file or a URL, never neither and never both: an uploaded
- * file wins, and its mime type and size are recorded from the file itself rather
- * than trusted from the request. The copy gives the account the document is
- * scoped to and the item the upload is logged against; the documentable is the
- * record it actually hangs from, which the caller has already resolved within
- * that copy.
  */
 class UploadDocument
 {
@@ -86,10 +79,6 @@ class UploadDocument
         }
     }
 
-    /**
-     * The name the user gave the file never reaches the disk: we generate a
-     * random one instead, and keep the original as the document name.
-     */
     private function store(): void
     {
         if ($this->file === null) {
@@ -134,9 +123,6 @@ class UploadDocument
         return $this->copy->item->catalog->account;
     }
 
-    /**
-     * The disk lives here alone so it can be swapped in one place.
-     */
     private function disk(): Filesystem
     {
         return Storage::disk((string) config('filesystems.default'));

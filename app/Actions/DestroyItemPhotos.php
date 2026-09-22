@@ -12,9 +12,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 /**
  * Delete several photos of an account at once, as the photos screen lets a user
  * do with a selection. Only owners and editors of the account may do so.
- *
- * Each photo is deleted on its own terms, so an item that loses its cover still
- * promotes the next photo it has left.
  */
 class DestroyItemPhotos
 {
@@ -44,10 +41,6 @@ class DestroyItemPhotos
         }
     }
 
-    /**
-     * A photo of another account is not found rather than refused, so the
-     * screen cannot be used to learn that it exists.
-     */
     private function destroy(): int
     {
         $photos = ItemPhoto::query()

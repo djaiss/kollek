@@ -42,10 +42,6 @@ class DestroyItemPhoto
         }
     }
 
-    /**
-     * The file is removed only once the row is gone, since deleting a file
-     * cannot be rolled back with the transaction.
-     */
     private function destroy(): void
     {
         $path = $this->itemPhoto->path;
@@ -71,10 +67,6 @@ class DestroyItemPhoto
         $this->disk()->delete($path);
     }
 
-    /**
-     * Promote the remaining photo with the lowest position. An item left
-     * without any photo simply has no main visual.
-     */
     private function promoteNextPhoto(): void
     {
         $next = $this->itemPhoto->item->photos()->first();
@@ -87,9 +79,6 @@ class DestroyItemPhoto
         $next->save();
     }
 
-    /**
-     * The disk lives here alone so it can be swapped in one place.
-     */
     private function disk(): Filesystem
     {
         return Storage::disk((string) config('filesystems.default'));

@@ -1,13 +1,6 @@
+{{-- The summary card: what the selection comes to, and the button that builds the file. --}}
 @use('App\Enums\ExportFormat')
 
-{{--
-  The summary card: what the current selection comes to, the switches that change
-  how the file is built, and the button that makes it.
-
-  The page estimate is only meaningful for the document, so the workbook shows its
-  sheet count instead. Everything here is read from the Alpine state, so it moves
-  as boxes are ticked.
---}}
 <div class="flex flex-col gap-4 lg:sticky lg:top-6">
   <div class="rounded-xl border border-hairline p-5">
     <p class="text-[11px] font-semibold tracking-wide text-muted-soft uppercase">{{ __('Summary') }}</p>
@@ -56,8 +49,6 @@
             <label class="flex cursor-pointer items-center justify-between gap-3">
               <span class="text-[13px] text-body">{{ $option['label'] }}</span>
 
-              {{-- A checkbox drawn as a switch: the input carries the value so it
-                   posts with the form, and the track is painted off its state. --}}
               <span class="relative shrink-0">
                 <input
                   type="checkbox"

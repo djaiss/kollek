@@ -35,10 +35,6 @@ use Illuminate\Support\Facades\DB;
 /**
  * Update an item, together with its tags, custom field values and copies. Only
  * owners and editors of its account may do so.
- *
- * A model that is not given is cleared, but an array that is not given is left
- * alone. The difference matters because the API only ever edits the catalog
- * fields, and renaming an item there must not wipe its tags or its copies.
  */
 class UpdateItem
 {
@@ -178,9 +174,6 @@ class UpdateItem
         $this->description = TextSanitizer::nullablePlainText($this->description);
     }
 
-    /**
-     * Read what is about to move, while the item still holds its old values.
-     */
     private function captureChanges(): void
     {
         $this->changes = array_values(array_filter([
@@ -260,11 +253,6 @@ class UpdateItem
         $this->item->tags()->sync($tagIds);
     }
 
-    /**
-     * Values are written for the fields of the type the item now carries, and
-     * anything left over from a previous type is dropped: the item screen has
-     * no way to show a value whose field no longer applies.
-     */
     private function syncCustomFieldValues(): void
     {
         if ($this->customFieldValues === null) {
@@ -313,10 +301,6 @@ class UpdateItem
         return TextSanitizer::plainText((string) $value);
     }
 
-    /**
-     * A rating is a whole number of stars, so anything outside the scale is dropped
-     * rather than stored as junk.
-     */
     private function rating(string|int $value): ?string
     {
         $stars = filter_var($value, FILTER_VALIDATE_INT);
@@ -328,10 +312,6 @@ class UpdateItem
         return (string) $stars;
     }
 
-    /**
-     * A row carrying an id updates the copy it names, a row without one adds a
-     * copy, and a copy the form no longer lists is deleted.
-     */
     private function syncCopies(): void
     {
         if ($this->copies === null) {
@@ -387,13 +367,6 @@ class UpdateItem
         $this->deleteMissingCopies($keptIds);
     }
 
-    /**
-     * Record what a copy is reckoned to be worth, if it moved.
-     *
-     * Valuations are append-only, so a copy worth more than it was keeps the old
-     * figure and gains a new one. A value that has not changed writes nothing,
-     * which keeps the timeline free of rows that say nothing happened.
-     */
     private function valueCopy(Copy $copy, ?int $estimatedValue): void
     {
         if ($estimatedValue === null || $estimatedValue === $copy->estimatedValue()) {
@@ -430,24 +403,11 @@ class UpdateItem
         });
     }
 
-    /**
-     * Photos are removed first, so the cover can be handed to a photo that
-     * survives, and so an item emptied of its photos lets the first new one
-     * take the role on its own.
-     */
-    /**
-     * A photo is searchable by the name of its item, so a rename leaves every
-     * photo of the item indexed under the name it no longer has.
-     */
     private function reindexPhotos(): void
     {
         ReindexItemPhotos::dispatch($this->item)->onQueue('low');
     }
 
-    /**
-     * Tags and custom field values are written after the item row itself, so the
-     * search index built when it saved does not have them yet.
-     */
     private function reindexSearch(): void
     {
         $this->item->load(['catalog', 'category', 'set', 'series', 'catalogType', 'tags', 'customFieldValues']);
@@ -493,11 +453,6 @@ class UpdateItem
         }
     }
 
-    /**
-     * A photo that was removed in the same request, or that belongs to another
-     * item, cannot become the cover. Deleting the current cover already
-     * promotes another one, so leaving the choice out is not an error.
-     */
     private function setMainPhoto(): void
     {
         if ($this->mainPhotoId === null) {

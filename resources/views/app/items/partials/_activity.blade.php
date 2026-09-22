@@ -2,8 +2,6 @@
 <div class="max-w-2xl">
   @forelse ($activity as $entry)
     <div class="flex gap-3.5">
-      {{-- The avatar is the node on the line, and the connector below it joins
-           the next entry. The last entry has nothing to join to. --}}
       <div class="flex shrink-0 flex-col items-center">
         <x-avatar :user="$entry->user" :name="$entry->getUserName()" :size="32" class="z-10 size-[30px] text-[11px]" />
 

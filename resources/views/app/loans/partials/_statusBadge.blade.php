@@ -1,7 +1,4 @@
-{{--
-  A loan's status as a coloured pill. Active reads positive, planned as a heads-up,
-  overdue and lost as errors, and a closed loan stays neutral.
---}}
+{{-- A loan's status as a coloured pill. --}}
 @props(['status'])
 
 @php

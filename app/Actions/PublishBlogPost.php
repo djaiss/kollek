@@ -13,12 +13,8 @@ use App\Services\CloudflareCache;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
- * Put a blog entry in the public catalogue.
- *
- * Also serves the "publish a previously archived one" path: the state simply
- * moves to published from wherever it was. The publication date is set once, on
- * the first publication, so bringing an archived entry back does not rewrite the
- * day it was written.
+ * Put a blog entry in the public catalogue. Only an instance administrator may
+ * do this.
  */
 class PublishBlogPost
 {
@@ -37,10 +33,6 @@ class PublishBlogPost
         return $this->blogPost;
     }
 
-    /**
-     * An entry with nothing written in English has nothing to show a reader,
-     * since English is what every locale falls back to.
-     */
     private function validate(): void
     {
         if (! $this->user->isInstanceAdministrator()) {

@@ -46,7 +46,6 @@
         @endforeach
       </div>
 
-      {{-- Filter tabs. The bucket lives in the path, so each is its own URL. --}}
       <div class="flex flex-wrap items-center gap-1.5">
         @foreach ($tabs as $key => $label)
           <a href="{{ route('instanceAdmin.marketing.blogPosts.index', ['status' => $key]) }}" data-turbo="true" class="inline-flex items-center gap-2 rounded-full border border-hairline px-3 py-1 text-xs font-medium {{ $status === $key ? 'bg-card text-ink' : 'text-muted hover:text-ink' }}">
@@ -76,9 +75,6 @@
               </div>
             </div>
 
-            {{-- Which languages a reader can actually read this in. A filled chip
-                 is live; a hollow one is written but not yet public; a dashed one
-                 has not been written at all. --}}
             <div class="mt-3 flex flex-wrap items-center gap-1.5">
               @foreach ($row['languages'] as $language)
                 @php

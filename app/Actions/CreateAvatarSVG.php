@@ -50,7 +50,6 @@ class CreateAvatarSVG
 
     private function deriveBackground(string $initials): string
     {
-        // Spread hue across 360° using crc32, lock S/L for legibility
         $hue = abs(crc32($initials)) % 360;
 
         return $this->hslToHex($hue, 55, 48);
@@ -58,7 +57,6 @@ class CreateAvatarSVG
 
     private function deriveForeground(string $background): string
     {
-        // Pick white or black based on perceived luminance of background
         [$r, $g, $b] = sscanf($background, '#%02x%02x%02x');
 
         // sRGB luminance coefficients (WCAG formula)

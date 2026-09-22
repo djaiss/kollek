@@ -156,14 +156,11 @@
     data-test="{{ $item ? 'edit-item-form' : 'add-item-form' }}"
     class="space-y-6"
   >
-    {{-- Photos --}}
     <div>
       <x-label>{{ __('Photos') }}</x-label>
       <p class="mt-1 text-[13px] text-muted-soft">{{ __('The cover is the one shown wherever the item is listed.') }}</p>
 
       <div class="mt-2 flex flex-wrap items-start gap-3" data-test="item-photos">
-        {{-- The photos the item already has. Removing one only marks it, so
-             nothing is lost until the form is sent. --}}
         <template x-for="photo in existingPhotos" :key="photo.id">
           <div class="relative size-24 shrink-0" :class="isDeleted(photo.id) && 'opacity-40'">
             <img :src="photo.url" alt="" class="size-full rounded-xl border border-hairline object-cover" />
@@ -204,7 +201,6 @@
           </div>
         </template>
 
-        {{-- The files picked in this form, not uploaded yet. --}}
         <template x-for="(file, index) in newPhotos" :key="file.key">
           <div class="relative size-24 shrink-0">
             <img :src="file.preview" alt="" class="size-full rounded-xl border border-hairline object-cover" />
@@ -232,8 +228,6 @@
         </label>
       </div>
 
-      {{-- What the browser will not carry on its own: which photos to drop, and
-           which one to promote. --}}
       <template x-for="id in deletedPhotoIds" :key="id">
         <input type="hidden" name="deleted_photos[]" :value="id" />
       </template>
@@ -244,13 +238,10 @@
       <x-error :messages="$errors->get('photos.*')" class="mt-2" />
     </div>
 
-    {{-- Name --}}
     <x-input id="name" :label="__('Name')" :placeholder="__('e.g. Amazing Spider-Man #1')" x-model="name" :error="$errors->get('name')" required autofocus data-test="item-name-input" />
 
-    {{-- Description --}}
     <x-textarea id="description" :label="__('Description')" :placeholder="__('Notes about this item…')" rows="3" :value="old('description', $item?->description)" :error="$errors->get('description')" />
 
-    {{-- Type --}}
     <div>
       <div class="flex items-center gap-2">
         <x-label>{{ __('Type') }} <span class="font-normal text-muted-soft">({{ __('Optional') }})</span></x-label>
@@ -272,7 +263,6 @@
       </div>
     </div>
 
-    {{-- Custom fields --}}
     <div x-show="customFields.length > 0" x-cloak class="rounded-xl border border-hairline bg-canvas p-5">
       <p class="mb-4 text-[13px] font-semibold tracking-wide text-muted-soft uppercase">{{ __('Type fields') }}</p>
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -280,10 +270,8 @@
           <div>
             <label class="mb-2 block text-[13px] font-semibold text-ink" x-text="field.name"></label>
 
-            {{-- Boolean --}}
             <template x-if="field.type === 'boolean'">
               <label class="flex h-11 cursor-pointer items-center gap-2.5">
-                {{-- An unchecked box submits nothing, so this carries the empty value that clears a stored yes. --}}
                 <input type="hidden" :name="`custom_fields[${field.id}]`" value="" />
                 <input type="checkbox" value="1" class="sr-only" :name="`custom_fields[${field.id}]`" x-model="customValues[field.id]" />
                 <span class="relative h-6 w-10 shrink-0 rounded-full transition-colors" :class="customValues[field.id] ? 'bg-ink' : 'bg-hairline'">
@@ -293,7 +281,6 @@
               </label>
             </template>
 
-            {{-- Select --}}
             <template x-if="field.type === 'select'">
               <select :name="`custom_fields[${field.id}]`" x-model="customValues[field.id]" class="h-11 w-full appearance-none rounded-md border border-hairline bg-input pl-3 pr-9 text-sm text-ink">
                 <option value="">{{ __('Select…') }}</option>
@@ -303,7 +290,6 @@
               </select>
             </template>
 
-            {{-- Rating --}}
             <template x-if="field.type === 'rating'">
               <div class="flex h-11 items-center gap-1">
                 <input type="hidden" :name="`custom_fields[${field.id}]`" x-model="customValues[field.id]" />
@@ -332,7 +318,6 @@
               </div>
             </template>
 
-            {{-- Text / number / date --}}
             <template x-if="field.type !== 'boolean' && field.type !== 'select' && field.type !== 'rating'">
               <input
                 :type="field.type === 'number' ? 'number' : field.type === 'date' ? 'date' : 'text'"
@@ -346,7 +331,6 @@
       </div>
     </div>
 
-    {{-- Category, set & series --}}
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
       <div>
         <div class="flex items-center gap-1.5">
@@ -355,9 +339,7 @@
         </div>
         <select id="category_id" name="category_id" class="mt-2 h-11 w-full appearance-none rounded-md border border-hairline bg-input pl-3 pr-9 text-sm text-ink">
           <option value="">{{ __('No category') }}</option>
-          {{-- Nested categories are indented so the structure survives the flattening a select forces. --}}
           @foreach ($categories as $category)
-            {{-- Non-breaking spaces, because a browser collapses ordinary leading ones in an option. --}}
             <option value="{{ $category['id'] }}" @selected($selectedCategoryId == $category['id'])>{{ str_repeat("\u{00A0}\u{00A0}\u{00A0}", $category['depth']) . $category['name'] }}</option>
           @endforeach
         </select>
@@ -388,8 +370,6 @@
       </div>
     </div>
 
-    {{-- Series. Account-wide, so unlike the set above this lists every series of the account,
-         not just the ones already used in this collection. --}}
     <div>
       <div class="flex items-center gap-1.5">
         <x-label for="series_id">{{ __('Series') }} <span class="font-normal text-muted-soft">({{ __('Optional') }})</span></x-label>
@@ -409,7 +389,6 @@
       @endif
     </div>
 
-    {{-- Tags --}}
     <div>
       <div class="flex items-center gap-1.5">
         <x-label>{{ __('Tags') }} <span class="font-normal text-muted-soft">({{ __('Optional') }})</span></x-label>
@@ -449,7 +428,6 @@
 
     <div class="h-px bg-hairline-soft"></div>
 
-    {{-- Copies --}}
     <div>
       <div class="flex items-center gap-2">
         <h2 class="text-lg font-semibold text-ink">{{ __('Copies') }}</h2>
@@ -488,9 +466,6 @@
             </div>
             <div>
               <label class="mb-1.5 block text-xs font-semibold text-muted-soft">{{ __('Location') }}</label>
-              {{-- A new copy sets its starting location here, which opens its first
-                   location record. An existing copy is moved from its history tab
-                   instead, so its location reads here rather than being edited. --}}
               <template x-if="!copy.id">
                 <select :name="`copies[${index}][current_location_id]`" x-model="copy.current_location_id" class="h-10 w-full appearance-none rounded-md border border-hairline bg-input pl-3 pr-9 text-sm text-ink">
                   <option value="">{{ __('Not set') }}</option>

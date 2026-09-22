@@ -1,19 +1,12 @@
 <div class="grid grid-cols-1 items-start gap-8 lg:grid-cols-[1.6fr_1fr]">
-  {{-- Left column --}}
   <div class="flex min-w-0 flex-col gap-8">
-    {{-- Photos --}}
     <div>
       @if ($item->photos->isEmpty())
         <div class="flex aspect-4/3 w-full items-center justify-center rounded-xl border border-dashed border-hairline bg-card text-5xl">
           {{ $catalog->emoji ?? '📦' }}
         </div>
       @else
-        {{-- The outer element is the flat hit area the pointer is measured
-             against: it never transforms, so the card tilting underneath cannot
-             feed its own movement back into the reading. --}}
         <div x-data="tiltCard" class="t-tilt">
-          {{-- The frame carries the shape, so the photo on screen and the counter
-               over it always share the same box, whichever photo is showing. --}}
           <div class="t-tilt-card relative aspect-4/3 w-full overflow-hidden rounded-xl border border-hairline">
             @foreach ($item->photos as $photo)
               <img
@@ -25,7 +18,6 @@
               />
             @endforeach
 
-            {{-- Which of the photos is on screen. A single photo needs no counting. --}}
             @if ($item->photos->count() > 1)
               <span
                 class="absolute right-3.5 bottom-3.5 rounded-md bg-black/40 px-2.5 py-1 font-mono text-[11px] text-white"
@@ -59,7 +51,6 @@
       @endif
     </div>
 
-    {{-- Description --}}
     <div>
       <p class="mb-3 text-[13px] font-semibold tracking-wide text-muted-soft uppercase">{{ __('Description') }}</p>
 
@@ -70,7 +61,6 @@
       @endif
     </div>
 
-    {{-- Custom fields --}}
     <div>
       <p class="mb-3.5 text-[13px] font-semibold tracking-wide text-muted-soft uppercase">{{ __('Details') }}</p>
 
@@ -108,9 +98,7 @@
     </div>
   </div>
 
-  {{-- Right rail --}}
   <div class="flex flex-col gap-5">
-    {{-- At a glance --}}
     <div class="rounded-xl border border-hairline px-4.5">
       @php
         $glance = [
@@ -135,7 +123,6 @@
       @endforeach
     </div>
 
-    {{-- Series. Sits above the set card: a series is the wider grouping, a set the narrower one. --}}
     @if ($item->series)
       <div class="rounded-xl border border-hairline p-4.5">
         <div class="mb-2 flex items-center justify-between gap-3">
@@ -163,7 +150,6 @@
       </div>
     @endif
 
-    {{-- Set completion --}}
     @if ($item->set)
       @php
         // A set without a target has nothing to be complete against, so it shows a count only.
@@ -196,7 +182,6 @@
       </div>
     @endif
 
-    {{-- Metadata --}}
     <div class="flex flex-col gap-2 rounded-xl border border-hairline p-4.5 text-xs text-muted-soft">
       <p>{!! __('Added by :name', ['name' => '<span class="font-semibold text-ink">'.e($item->created_by_name ?? __('someone')).'</span>']) !!} · {{ $item->created_at->isoFormat('MMM D, YYYY') }}</p>
       <p>{!! __('Last edited by :name', ['name' => '<span class="font-semibold text-ink">'.e($item->updated_by_name ?? __('someone')).'</span>']) !!} · {{ $item->updated_at?->diffForHumans() }}</p>

@@ -85,13 +85,6 @@ class CreateCopy
         ]);
     }
 
-    /**
-     * Open the copy's first location record, if it was created somewhere.
-     *
-     * The location is no longer written straight onto the copy: it goes through
-     * the move path, which sets current_location_id and opens the history in one
-     * step so the two agree from the start.
-     */
     private function move(): void
     {
         $this->recordCopyMove($this->copy, $this->location?->id, $this->user);
@@ -106,13 +99,6 @@ class CreateCopy
         $this->copy->save();
     }
 
-    /**
-     * Record what the copy is reckoned to be worth.
-     *
-     * The estimated value is no longer a column on the copy, so a figure given
-     * when the copy is created opens its valuation history rather than being
-     * written to the row itself.
-     */
     private function value(): void
     {
         if ($this->estimatedValue === null) {

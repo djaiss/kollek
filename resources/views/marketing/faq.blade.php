@@ -1,16 +1,7 @@
-{{--
-  The public FAQ. The questions and answers come from App\ViewModels\MarketingFaq, because
-  there are a hundred of them and the page has to count them before it renders any.
-
-  Everything is rendered server side, so the whole page is readable (and indexable) with
-  JavaScript off. Alpine only filters what is already there: the search reads the text off
-  the DOM rather than carrying a second copy of it, which is why each question carries a
-  data-faq-question marker and each section a data-faq-section one.
---}}
+{{-- The public FAQ, rendered server side and filtered in the browser by Alpine. --}}
 
 <x-marketing-layout :title="__('Frequently asked questions')">
   <div x-data="faq()">
-    {{-- HERO --}}
     <section id="top" class="mx-auto max-w-[1200px] scroll-mt-24 px-5 pt-16 sm:px-8 sm:pt-24">
       <div class="max-w-[720px]">
         <p class="mb-6 font-mono text-xs font-medium tracking-[1.4px] text-muted-soft uppercase">{{ __('Frequently asked questions') }}</p>
@@ -24,7 +15,6 @@
         </p>
       </div>
 
-      {{-- Search and expand all --}}
       <div class="mt-11 flex max-w-[760px] flex-col gap-3 sm:flex-row sm:items-center">
         <div class="flex h-14 flex-1 items-center gap-x-3 rounded-xl border border-hairline bg-page px-4.5">
           <x-lucide-search class="h-[17px] w-[17px] shrink-0 text-muted-soft" />
@@ -58,7 +48,6 @@
       ></p>
     </section>
 
-    {{-- THE TEN-SECOND VERSION --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-16 sm:px-8 sm:pt-24">
       <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-b border-hairline pb-6">
         <h2 class="text-[26px] font-semibold tracking-[-0.8px] text-ink sm:text-3xl">{{ __('The ten-second version') }}</h2>
@@ -76,10 +65,8 @@
       </div>
     </section>
 
-    {{-- THE FULL LIST --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-16 sm:px-8 sm:pt-24">
       <div class="grid grid-cols-1 gap-x-24 lg:grid-cols-[212px_1fr]">
-        {{-- Table of contents --}}
         <div class="hidden lg:block">
           <div class="sticky top-24">
             <p class="mb-4 font-mono text-[11px] tracking-[1.2px] text-muted-soft uppercase">{{ __('Contents') }}</p>
@@ -99,9 +86,7 @@
           </div>
         </div>
 
-        {{-- Sections --}}
         <div class="min-w-0">
-          {{-- Shown only when a search matches nothing at all. --}}
           <div x-show="! hasResults" x-cloak class="border-t border-hairline py-16">
             <p class="text-[22px] font-semibold tracking-[-0.5px] text-ink">{{ __('Nothing matches that search.') }}</p>
             <p class="mt-3 mb-6 max-w-[440px] text-[15px] leading-relaxed text-muted">
@@ -120,8 +105,6 @@
                     <span class="font-mono text-lg font-normal text-hairline" aria-hidden="true">#</span>
                   </a>
                 </h2>
-                {{-- The count is the section's own size, so it only tells the truth
-                     while nothing is filtering the questions out. --}}
                 <span x-show="! isSearching" class="font-mono text-xs text-muted-soft">{{ __(':count questions', ['count' => count($section['items'])]) }}</span>
               </div>
 
@@ -156,7 +139,6 @@
       </div>
     </section>
 
-    {{-- CTA --}}
     <section class="mx-auto max-w-[1200px] px-5 sm:px-8">
       <div class="rounded-xl bg-card px-6 py-14 text-center sm:px-12 sm:py-20">
         <h2 class="mx-auto max-w-[560px] text-[28px] leading-[1.12] font-semibold tracking-[-1px] text-balance text-ink sm:text-[40px] sm:tracking-[-1.4px]">

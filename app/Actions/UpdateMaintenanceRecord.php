@@ -20,10 +20,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 /**
  * Update a piece of work performed on a copy. Only owners and editors of its
  * account may do so.
- *
- * Turning the provenance flag on generates the matching event, and turning it
- * off removes it, so the object's story stays in step with what the record now
- * claims to be.
  */
 class UpdateMaintenanceRecord
 {
@@ -76,9 +72,6 @@ class UpdateMaintenanceRecord
         $this->guardConditionsBelongToAccount($account, $this->itemConditionBeforeId, $this->itemConditionAfterId);
     }
 
-    /**
-     * Read what is about to move, while the record still holds its old values.
-     */
     private function captureChanges(): void
     {
         $currency = $this->record->cost_currency_code;
@@ -130,10 +123,6 @@ class UpdateMaintenanceRecord
         $this->record->save();
     }
 
-    /**
-     * Work changes the object, so its condition afterwards becomes the copy's
-     * current condition.
-     */
     private function syncCopyCondition(): void
     {
         if ($this->itemConditionAfterId === null) {
@@ -145,10 +134,6 @@ class UpdateMaintenanceRecord
         $copy->save();
     }
 
-    /**
-     * Keep the linked provenance event in step with the flag: create it when the
-     * record is newly marked for provenance, remove it when the mark is taken off.
-     */
     private function reconcileProvenance(): void
     {
         if ($this->includeInProvenance && $this->record->provenance_event_id === null) {

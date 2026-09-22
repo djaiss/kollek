@@ -11,11 +11,8 @@ use Illuminate\Support\Facades\DB;
 
 /**
  * Rebuild the search hashes of a photo from its file name and the name of the
- * item it belongs to.
- *
- * This is bookkeeping the application does for itself rather than something a
- * user asks for, so it takes no user and checks no role. Whoever is allowed to
- * change the photo or the item is the one who decides it runs.
+ * item it belongs to. This is bookkeeping the application does for itself, so it
+ * takes no user and checks no role.
  */
 class IndexItemPhotoSearchTokens
 {

@@ -8,7 +8,6 @@
       class="mx-auto w-full max-w-2xl"
       x-data="{ category: @js(old('category', '')), subject: @js(old('subject', '')), message: @js(old('message', '')) }"
     >
-      {{-- Intro --}}
       <h1 class="text-3xl font-bold tracking-tight text-ink">{{ __('Hi!') }} 👋</h1>
       <div class="mt-5 space-y-3 text-[15px] leading-relaxed text-body">
         <p>{{ __('Whether you\'ve found a bug, have an idea, or simply need a hand, you\'ve come to the right place.') }}</p>
@@ -16,7 +15,6 @@
         <p class="font-semibold text-ink">{{ __('Actually, by me.') }}</p>
       </div>
 
-      {{-- A note from Regis, the same face as the getting started screen. --}}
       <div class="mt-6 flex items-center gap-3.5 rounded-xl border border-hairline bg-card p-4">
         <x-image src="{{ asset('images/regis.png') }}" srcset="{{ asset('images/regis.png') }}, {{ asset('images/regis@2x.png') }} 2x" height="44" width="44" alt="Regis Freyd" class="size-11 shrink-0 rounded-full" />
 
@@ -26,7 +24,6 @@
         </div>
       </div>
 
-      {{-- Category picker --}}
       <div class="mt-10 border-t border-hairline pt-8">
         <h2 class="text-lg font-semibold text-ink">{{ __('What do you need help with?') }}</h2>
         <p class="mt-1 text-sm text-muted">{{ __('This helps us understand what you\'re looking for.') }}</p>
@@ -50,7 +47,6 @@
         </div>
       </div>
 
-      {{-- Category content + form --}}
       <div x-show="category !== ''" x-cloak class="mt-10 border-t border-hairline pt-8">
         @foreach ($categories as $category)
           <div x-show="category === '{{ $category->value }}'" x-cloak class="mb-8">

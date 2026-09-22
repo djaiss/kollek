@@ -48,7 +48,6 @@
         @endif
       </div>
 
-      {{-- Add set panel --}}
       <div id="add-set-panel" x-show="showAddForm" x-cloak class="mt-6 rounded-xl border border-hairline bg-canvas p-6">
         <div class="text-base font-semibold text-ink">{{ __('New set') }}</div>
         <p class="mt-0.5 mb-4 text-[13px] text-muted">{{ __('Give it a target so KolleK can show how complete it is. Leave the target empty to just group items.') }}</p>
@@ -86,7 +85,6 @@
 
       <div id="sets-panel">
         @if ($sets->isEmpty())
-          {{-- Empty state, with a worked example so the concept lands before anyone commits to it. --}}
           <div class="mt-7 flex flex-col items-center rounded-xl border border-hairline px-6 py-14 text-center" data-test="no-sets">
             <div class="mb-5 flex size-16 items-center justify-center rounded-xl bg-card">
               <x-lucide-list-checks class="size-7 text-ink" />

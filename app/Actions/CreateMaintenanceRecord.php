@@ -20,11 +20,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 /**
  * Log a piece of work performed on a copy. Only owners and editors of the copy's
  * account may do so.
- *
- * The work changes the object, so recording a condition after it updates the
- * copy's current condition. A record marked for provenance also generates a
- * matching provenance event, so a significant restoration joins the object's
- * documented story rather than staying a maintenance note.
  */
 class CreateMaintenanceRecord
 {
@@ -102,10 +97,6 @@ class CreateMaintenanceRecord
         $this->record->save();
     }
 
-    /**
-     * Work changes the object, so its condition afterwards becomes the copy's
-     * current condition. Without a condition after, the copy is left as it was.
-     */
     private function syncCopyCondition(): void
     {
         if ($this->itemConditionAfterId === null) {
@@ -116,10 +107,6 @@ class CreateMaintenanceRecord
         $this->copy->save();
     }
 
-    /**
-     * A record marked for provenance generates a matching event, so the work
-     * reads in the object's story as a significant restoration.
-     */
     private function handleProvenance(): void
     {
         if (! $this->includeInProvenance) {

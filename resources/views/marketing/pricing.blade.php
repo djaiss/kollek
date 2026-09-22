@@ -1,21 +1,6 @@
-{{--
-  The marketing pricing page. Like the homepage, all copy is hardcoded here on purpose so it
-  lives next to the markup it belongs to.
-
-  Every user facing string goes through __(), and those keys are in every file in lang/, so a
-  string you add here has to be added to all of them (in the same order, which
-  scripts/check-translations.sh enforces) before the suite is green. Prices, the docker command
-  and the ≈ multipliers on the comparison grid are not sentences and stay as plain text.
-
-  The centrepiece is the Suspiciously Accurate Pricing Calculator: a fully interactive set of sliders,
-  toggles and options whose itemized estimate always, deliberately, resolves to $49. The logic
-  lives in resources/js/components/pricing-calculator.js, and every string it renders is handed
-  to it from here so it goes through __() too.
---}}
+{{-- The marketing pricing page, with its interactive pricing calculator. --}}
 
 <x-marketing-layout>
-  {{-- Scoped styling for the calculator: the range sliders and the little pop on the total.
-       The var(--*) values are the theme tokens, so both respond to light and dark mode. --}}
   <style>
     input[type="range"].price-slider {
         -webkit-appearance: none;
@@ -53,7 +38,6 @@
     .price-pop { animation: price-pop 0.3s ease; }
   </style>
 
-  {{-- HERO --}}
   <section id="top" class="mx-auto max-w-[1200px] scroll-mt-24 px-5 pt-16 text-center sm:px-8 sm:pt-24">
     <div class="mb-7 inline-flex items-center gap-x-2 rounded-full bg-card py-1.5 pr-3.5 pl-1.5 text-[13px] font-semibold text-ink">
       <span class="rounded-full bg-primary px-2 py-[3px] text-[11px] text-on-primary">{{ __('NO SUBSCRIPTION') }}</span>
@@ -69,7 +53,6 @@
     </p>
   </section>
 
-  {{-- SELF-HOST FIRST. The honest recommendation, put ahead of the paid plan on purpose. --}}
   <section class="mx-auto mt-14 max-w-[1200px] px-5 sm:px-8">
     <div class="rounded-xl bg-[#101010] p-6 text-white sm:p-12">
       <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-12">
@@ -125,7 +108,6 @@
     </div>
   </section>
 
-  {{-- TWO PLANS --}}
   <section id="buy" class="mx-auto max-w-[1200px] scroll-mt-24 px-5 pt-16 sm:px-8 sm:pt-24">
     <div class="mb-12 text-center">
       <h2 class="text-[28px] leading-[1.1] font-semibold tracking-[-1px] text-ink sm:text-4xl lg:text-5xl lg:tracking-[-1.5px]">{{ __('Two ways in. Both fair.') }}</h2>
@@ -195,7 +177,6 @@
     <p class="mt-6 text-center text-[13px] text-muted-soft">{{ __('No hidden fees. No auto-renewals. No surprise charges on your credit card.') }}</p>
   </section>
 
-  {{-- PRICING CALCULATOR. Every input is real; the total is engineered to stay $49. --}}
   @php
     $sliders = [
         ['key' => 'items', 'label' => __('Items in your collection'), 'hint' => __('The serious one. Really weigh this.'), 'min' => 0, 'max' => 100000, 'step' => 100, 'display' => 'itemsDisplay'],
@@ -271,7 +252,6 @@
     </div>
 
     <div class="grid grid-cols-1 items-start gap-6 lg:grid-cols-[1.35fr_1fr]">
-      {{-- Inputs --}}
       <div class="flex flex-col gap-y-6 rounded-xl bg-card p-6 sm:p-8">
         @foreach ($sliders as $slider)
           <div>
@@ -320,7 +300,6 @@
         </div>
       </div>
 
-      {{-- Quote panel --}}
       <div class="sticky top-24 overflow-hidden rounded-xl border border-hairline bg-canvas shadow-[0_12px_40px_rgba(17,17,17,0.08)]">
         <div class="border-b border-hairline-soft px-7 py-5">
           <p class="text-xs font-semibold tracking-[0.5px] text-muted-soft uppercase">{{ __('Your itemized estimate') }}</p>
@@ -362,7 +341,6 @@
     </p>
   </section>
 
-  {{-- REASSURANCE --}}
   <section class="mx-auto max-w-[1200px] px-5 pt-16 sm:px-8 sm:pt-24">
     <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
       @foreach ([
@@ -393,8 +371,6 @@
     </div>
   </section>
 
-  {{-- $49 IN PERSPECTIVE. The pun-filled comparison grid: what else forty-nine dollars buys,
-       each card badged with an emoji. Every equivalence is deliberately, cheerfully approximate. --}}
   <section class="mx-auto max-w-[1200px] px-5 pt-16 sm:px-8 sm:pt-24">
     @php
         $comparisons = [
@@ -432,7 +408,6 @@
     <p class="mt-6 text-center text-[13px] text-muted-soft">{{ __('Prices approximate, sourced from vibes and one very expensive coffee habit. KolleK, however, is exactly $49.') }}</p>
   </section>
 
-  {{-- FAQ --}}
   <section id="faq" class="mx-auto max-w-[760px] scroll-mt-24 px-5 pt-16 sm:px-8 sm:pt-24">
     <h2 class="text-center text-[28px] leading-[1.15] font-semibold tracking-[-1px] text-ink sm:text-4xl">{{ __('Frequently Asked Quest-ions.') }}</h2>
     <p class="mt-3 mb-10 text-center text-base text-muted">{{ __("Everything you're wondering about, answered.") }}</p>
@@ -495,7 +470,6 @@
     </div>
   </section>
 
-  {{-- FINAL CTA --}}
   <section class="mx-auto max-w-[1200px] px-5 pt-16 sm:px-8 sm:pt-24">
     <div class="rounded-xl bg-card px-6 py-14 text-center sm:px-12 sm:py-18">
       <h2 class="mx-auto max-w-[620px] text-[28px] leading-[1.15] font-semibold tracking-[-1px] text-balance text-ink sm:text-[40px]">

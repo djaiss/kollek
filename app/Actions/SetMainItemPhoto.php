@@ -41,10 +41,6 @@ class SetMainItemPhoto
         }
     }
 
-    /**
-     * Unsetting the previous main and setting the new one happen together, so
-     * the item is never left with two main visuals, or none.
-     */
     private function setAsMain(): void
     {
         DB::transaction(function (): void {

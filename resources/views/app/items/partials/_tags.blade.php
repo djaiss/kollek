@@ -4,9 +4,6 @@
     $suggestions = $tags->reject(fn ($tag) => in_array($tag->id, $usedTagIds, true));
 @endphp
 
-{{-- Replace instead of morphing: morph patches each chip in place and keeps its
-     compiled Alpine state, so a chip that swapped position keeps the previous
-     chip's expressions. Replacing rebuilds the row on every response. --}}
 <div id="item-tags" x-merge="replace" class="mb-6 flex flex-wrap items-center gap-2">
   @foreach ($item->tags as $tag)
     @if ($canManage)
@@ -43,8 +40,6 @@
       data-test="add-tag-form"
       class="flex"
     >
-      {{-- Typing a name the account already knows reuses that tag, so the list is
-           a suggestion rather than a closed set of choices. --}}
       <input
         name="name"
         x-ref="tagInput"

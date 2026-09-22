@@ -17,10 +17,6 @@ use Illuminate\Support\Facades\Storage;
 /**
  * Delete a blog entry outright, with every language of it and every old slug
  * that pointed at it.
- *
- * This is the destructive option, and rarely the right one: archiving keeps the
- * URL answering for the links already out in the world. Deleting is for an
- * entry that should never have existed. Its reference is not reissued.
  */
 class DestroyBlogPost
 {
@@ -50,9 +46,6 @@ class DestroyBlogPost
         $this->reference = $this->blogPost->reference();
     }
 
-    /**
-     * The rows cascade, but the files behind them do not, so they go first.
-     */
     private function deleteSocialCards(): void
     {
         $this->blogPost->translations
@@ -60,10 +53,6 @@ class DestroyBlogPost
             ->each(fn (BlogPostTranslation $translation) => $this->disk()->delete((string) $translation->og_image_path));
     }
 
-    /**
-     * The pictures shown inside the text. They are not recorded anywhere, so
-     * the folder is what has to go, rather than a list of paths.
-     */
     private function deleteImages(): void
     {
         $this->disk()->deleteDirectory('blog/'.$this->blogPost->id.'/body');

@@ -1,13 +1,4 @@
-{{--
-  The create-loan drawer, opened by its own url (loans.new) and closed by linking
-  back to the list. It inverts the old flow: pick the collection, then the item,
-  then the copy, then the loan details. A copy that already has an open outgoing
-  loan is flagged and blocks a lend-out, enforcing one open outgoing loan per copy
-  before the form is even submitted. It posts to the copy-scoped create route with
-  a `from=loans` hint so it lands back here.
-
-  Expects: $direction, $tab, $conditions, $currencies, $createCatalog.
---}}
+{{-- The drawer for creating a loan, picking the collection, item, copy, then the loan details. --}}
 @use('App\Enums\LoanDirection')
 
 @php
@@ -38,7 +29,6 @@
       <input type="hidden" name="direction" x-model="direction" />
       <input type="hidden" name="status" value="active" />
 
-      {{-- Direction --}}
       <div>
         <span class="{{ $labelClasses }}">{{ __('Direction') }}</span>
         <div class="mt-1.5 inline-flex rounded-lg border border-hairline p-1">
@@ -47,7 +37,6 @@
         </div>
       </div>
 
-      {{-- Cascade --}}
       <div>
         <label class="{{ $labelClasses }}">{{ __('Collection') }}</label>
         <select x-model="collectionId" class="{{ $inputClasses }}" data-test="create-collection">
@@ -78,12 +67,10 @@
         </select>
       </div>
 
-      {{-- Overlap block --}}
       <div x-show="overlap" x-cloak class="rounded-lg border border-error/30 bg-error/10 px-3.5 py-3 text-[13px] text-error">
         {{ __('This copy already has an open outgoing loan. :name blocks a second one, so return the current loan first.', ['name' => config('app.name')]) }}
       </div>
 
-      {{-- Party --}}
       <div>
         <label class="{{ $labelClasses }}" x-text="direction === 'outgoing' ? '{{ __('Lend to') }}' : '{{ __('Borrow from') }}'"></label>
         <input name="party" required maxlength="255" placeholder="{{ __('Person, gallery, museum…') }}" class="{{ $inputClasses }}" data-test="create-party" />
@@ -91,7 +78,6 @@
         <x-error :messages="$errors->get('copy')" class="mt-2" />
       </div>
 
-      {{-- Dates --}}
       <div class="grid grid-cols-2 gap-3">
         <div>
           <label class="{{ $labelClasses }}">{{ __('Loaned on') }}</label>
@@ -107,7 +93,6 @@
         {{ __('Open-ended loan (no due date)') }}
       </label>
 
-      {{-- Condition out --}}
       <div>
         <label class="{{ $labelClasses }}">{{ __('Condition out') }}</label>
         <select name="item_condition_out_id" class="{{ $inputClasses }}">
@@ -118,7 +103,6 @@
         </select>
       </div>
 
-      {{-- Deposit --}}
       <div>
         <label class="{{ $labelClasses }}">{{ __('Deposit') }}</label>
         <div class="mt-1.5 flex gap-2">

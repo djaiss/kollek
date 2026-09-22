@@ -16,7 +16,6 @@
   @endphp
 
   <div class="relative flex flex-col items-center overflow-hidden px-6 py-14 lg:px-10">
-    {{-- Soft accent wash behind the greeting, purely decorative. --}}
     <div aria-hidden="true" class="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[640px] -translate-x-1/2 rounded-full bg-brand opacity-[0.09] blur-[120px] dark:opacity-[0.16]"></div>
 
     <div class="relative flex w-full max-w-[620px] flex-col items-center text-center">
@@ -28,7 +27,6 @@
         {{ __('Your shelf is empty for now, which means everything is still ahead of you. Let us give the things you care about a proper home.') }}
       </p>
 
-      {{-- A note from the founder --}}
       <div class="relative w-full rounded-[18px] border border-hairline bg-canvas px-10 pt-9.5 pb-8 text-left shadow-[0_18px_50px_rgba(17,17,17,0.07)] dark:shadow-[0_18px_50px_rgba(0,0,0,0.5)]">
 
         <div class="flex flex-col gap-4 text-[16px] leading-[1.72] text-body">
@@ -53,8 +51,6 @@
         </div>
       </div>
 
-      {{-- Checklist. Every row reads its state from the account, so it is a report, not a to-do
-           list you tick yourself. --}}
       <div class="mt-8.5 w-full text-left">
         <div class="mx-1 mb-3 flex items-baseline justify-between gap-3">
           <p class="text-[13px] font-semibold tracking-wide text-muted-soft uppercase">{{ __('Getting started') }}</p>
