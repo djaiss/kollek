@@ -10,7 +10,6 @@
         <p class="mt-1 text-sm text-muted">{{ __('Manage :account and who can access it.', ['account' => $account->name]) }}</p>
       </div>
 
-      {{-- General --}}
       <x-box :title="__('General')">
         <div class="grid grid-cols-1 gap-8 sm:grid-cols-2">
           <div class="space-y-2">
@@ -28,7 +27,6 @@
         </div>
       </x-box>
 
-      {{-- Getting started --}}
       <x-box :title="__('Getting started screen')" helpId="settings.getting_started">
         <div class="grid grid-cols-1 gap-8 sm:grid-cols-2">
           <div class="space-y-2">
@@ -48,7 +46,6 @@
         </div>
       </x-box>
 
-      {{-- Danger zone --}}
       <x-box :title="__('Delete account')" helpId="settings.delete_account">
         <p class="mb-4 text-sm text-muted">{{ __('Permanently delete this account, all of its members, and everything it contains. This cannot be undone.') }}</p>
         <x-form method="delete" :action="route('settings.destroy')" onsubmit="return confirm('{{ __('Are you absolutely sure? This action cannot be undone.') }}')">

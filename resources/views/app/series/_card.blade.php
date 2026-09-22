@@ -66,7 +66,6 @@
     </div>
   </div>
 
-  {{-- Inline edit form --}}
   <div x-show="editing" x-cloak class="mt-4 border-t border-hairline-soft pt-4">
     <x-form method="put" :action="route('series.update', $series->id)" data-test="edit-series-form-{{ $series->id }}" x-target="series-panel notifications" x-on:ajax:after="editing = document.querySelector('[data-test=&quot;edit-series-form-{{ $series->id }}&quot;] .text-error') !== null">
       <div class="mb-3.5">

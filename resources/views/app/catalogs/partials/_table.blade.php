@@ -10,7 +10,6 @@
 
 <div class="flex min-h-0 flex-1 overflow-hidden">
 
-    {{-- LEFT: location filters --}}
     <div class="w-[15%] min-w-[150px] shrink-0 overflow-y-auto border-r border-hairline bg-sidebar">
         <p class="border-b border-hairline-soft px-4 py-3.5 text-xs font-semibold tracking-wide text-muted-soft uppercase">{{ __('Filter by location') }}</p>
         <button
@@ -35,7 +34,6 @@
         @endforeach
     </div>
 
-    {{-- MIDDLE: table --}}
     <div class="flex w-[42.5%] min-w-0 flex-col">
         <div class="relative flex shrink-0 justify-end border-b border-hairline-soft p-2">
             <button
@@ -108,7 +106,6 @@
         @endif
     </div>
 
-    {{-- RIGHT: selected item details --}}
     <div class="w-[42.5%] min-w-0 shrink-0 overflow-y-auto border-l border-hairline">
         <template x-if="selected">
             <div class="flex items-start gap-6 p-7">

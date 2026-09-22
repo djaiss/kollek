@@ -54,7 +54,6 @@
         },
       }"
     >
-      {{-- The endpoint that remembers the layout, read by switchPhotoView in app.js. --}}
       <input type="hidden" id="photos-view-endpoint" value="{{ route('settings.photos.view.update') }}" />
 
       <div>
@@ -99,7 +98,6 @@
           </x-empty-state>
         </div>
       @else
-        {{-- Flat grid --}}
         <div
           x-show="view === @js(PhotoViewEnum::Grid->value)"
           @style(['display: none' => $view !== PhotoViewEnum::Grid])
@@ -111,7 +109,6 @@
           @endforeach
         </div>
 
-        {{-- Grouped by the item each photo belongs to --}}
         <div
           x-show="view === @js(PhotoViewEnum::ByItem->value)"
           @style(['display: none' => $view !== PhotoViewEnum::ByItem])

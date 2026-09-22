@@ -1,6 +1,4 @@
-{{-- One photo in the library. The card is rendered twice on the page, once in the flat
-     grid and once grouped under its item, so nothing here may carry a DOM id. Both copies
-     read the same Alpine state, which keeps a selection made in one view true in the other. --}}
+{{-- One photo of the library, as a card in the grid. --}}
 <div
   x-on:click="open(@js($row['id']))"
   :class="isSelected(@js($row['id'])) ? 'border-ink' : 'border-hairline'"

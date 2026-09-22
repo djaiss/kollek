@@ -1,14 +1,4 @@
-{{--
-  A public email address that a scraper cannot read. The address never reaches the html:
-  every character is exclusive ored with a key drawn per render and written as hexadecimal
-  inside the script below, which fills the empty link in while the parser is still on the
-  page, so a reader never sees anything else.
-
-  The address only exists once javascript has run: with it switched off the link stays
-  empty. That is the price of not publishing the address, and it is paid on one link.
-
-  The scheme is ported from mokhosh/muddle (MIT), which has no Laravel 13 release.
---}}
+{{-- A public email address written so that a scraper cannot read it. --}}
 
 @props (['address'])
 

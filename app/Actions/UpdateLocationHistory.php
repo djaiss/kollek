@@ -13,10 +13,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 /**
  * Correct a past location record. Only owners and editors of its account may do
  * so.
- *
- * A correction can change which record is open, so the copy's current location
- * pointer is recomputed from the history afterwards rather than trusted to still
- * match.
  */
 class UpdateLocationHistory
 {

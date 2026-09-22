@@ -1,10 +1,4 @@
-{{--
-  The loans of the copy: the pieces lent out and the pieces borrowed in. Loans
-  read newest first, each showing the direction, the party, the dates and a
-  status badge. An outstanding one is what takes the copy out of custody, so it
-  reads as active; an overdue one reads as an error. Closing a loan is its own
-  flow rather than an edit, so open loans carry a "mark as returned" action.
---}}
+{{-- The loans of the copy: the pieces lent out and the pieces borrowed in. --}}
 
 @use('App\Enums\LoanDirection')
 @use('App\Helpers\Money')

@@ -77,7 +77,6 @@
     </div>
   </div>
 
-  {{-- Inline edit form --}}
   <div x-show="editing" x-cloak class="border-t border-hairline-soft bg-card/40 p-4" style="padding-left: calc({{ 12 + $depth * 28 }}px + 30px)">
     <x-form method="put" :action="route('categories.update', [$catalog->id, $category->id])" data-test="edit-category-form-{{ $category->id }}" x-target="categories-panel notifications" x-on:ajax:after="editing = document.querySelector('[data-test=&quot;edit-category-form-{{ $category->id }}&quot;] .text-error') !== null">
       <div class="mb-3.5 flex flex-wrap gap-3.5">

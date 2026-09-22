@@ -3,8 +3,6 @@
     {{ __('Search') }}
   </x-slot>
 
-  {{-- The field stays in view while the results scroll, so refining a query never
-       means scrolling back up to find the box. --}}
   <div class="sticky top-0 z-20 border-b border-hairline bg-page px-6 py-4 lg:px-12">
     <div class="mx-auto w-full max-w-5xl">
       <form method="get" action="{{ route('search.index') }}" class="flex items-center gap-3">

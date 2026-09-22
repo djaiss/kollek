@@ -10,8 +10,6 @@
 @endphp
 
 <x-marketing-layout :title="$translation->metaTitle()" :description="$translation->metaDescription()" :image="$card" :structured-data="$graph">
-  {{-- How far down the entry the reader is. Decorative, so it is hidden from
-       assistive technology rather than announced on every scroll. --}}
   <div
     x-data="{ progress: 0 }"
     x-init="
@@ -55,7 +53,6 @@
     </div>
 
     <div class="mt-5 grid gap-14 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-16">
-      {{-- The entry itself --}}
       <div class="prose prose-gray dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight prose-a:font-normal prose-a:text-ink hover:prose-a:underline prose-code:rounded prose-code:bg-hairline-soft prose-code:px-1.5 prose-code:py-0.5 prose-code:font-normal prose-code:before:content-none prose-code:after:content-none prose-pre:rounded-xl prose-pre:border prose-pre:border-hairline prose-pre:bg-sidebar prose-pre:text-body prose-img:rounded-xl prose-img:border prose-img:border-hairline min-w-0 max-w-none">
         {!! $body !!}
 
@@ -86,7 +83,6 @@
         </nav>
       </div>
 
-      {{-- The record. Sticky on a wide screen, in the flow on a narrow one. --}}
       <aside aria-label="{{ __('Entry record') }}" class="flex flex-col gap-8 lg:sticky lg:top-24 lg:self-start">
         @if (count($toc) > 0)
           <nav aria-label="{{ __('Contents') }}">

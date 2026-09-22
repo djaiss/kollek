@@ -16,17 +16,8 @@ use App\ValueObjects\ExportSelection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
- * Produce the export file for one whole collection.
- *
- * Four lines of actual work: check the caller may read the collection, build the
- * payload, hand it to the writer for the chosen format, and return where the file
- * landed. Everything that decides what goes in the file lives in the payload, and
- * everything that decides how it looks lives in the writer, which is what will
- * let the single item export be this same shape with a different payload.
- *
- * Reading is open to any member of the account, the same as the statistics screen
- * and the collection itself: an export shows nothing a member cannot already
- * browse.
+ * Produce the export file for one whole collection. Any member of the account
+ * may do so.
  */
 class ExportCatalog
 {

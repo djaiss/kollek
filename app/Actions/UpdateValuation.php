@@ -17,10 +17,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Update a valuation. Only owners and editors of its account may do so.
- *
- * Valuations are historical records, so the normal way to change what a copy is
- * worth is to record a new one. Editing is kept for correcting a figure that was
- * entered wrong rather than for revaluing, and it replaces every field.
  */
 class UpdateValuation
 {
@@ -66,9 +62,6 @@ class UpdateValuation
         }
     }
 
-    /**
-     * Read what is about to move, while the valuation still holds its old values.
-     */
     private function captureChanges(): void
     {
         $currency = $this->valuation->currency_code;

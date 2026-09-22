@@ -1,9 +1,4 @@
-{{--
-  A two part button: a primary action on the left, and a chevron on the right
-  that opens a menu of secondary actions. Attributes land on the primary
-  action, so it takes an href, an onclick or a form= like any other button.
-  The default slot holds the menu, usually made of x-menu-item.
---}}
+{{-- A button with a primary action and a chevron opening a menu of secondary ones. --}}
 @props([
   'label',
   'href' => null,
@@ -39,7 +34,6 @@
       </button>
     @endisset
 
-    {{-- A drawn divider rather than a border: the accent visual drops borders in dark mode. --}}
     <span aria-hidden="true" class="w-px self-stretch bg-black/20 dark:bg-white/25"></span>
 
     <button
@@ -54,8 +48,6 @@
     </button>
   </div>
 
-  {{-- A morph refresh diffs against the server HTML, which would revert the
-       display Alpine sets here and leave the menu hanging open. --}}
   <div
     x-cloak
     data-morph-skip

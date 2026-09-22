@@ -1,6 +1,6 @@
+{{-- Compact collection header for the table view: identity, stats, view switcher, search and add. --}}
 @use('App\Enums\ItemViewEnum')
 
-{{-- Compact collection header for the table view: identity, stats, view switcher, search and add. --}}
 <div class="flex h-13 shrink-0 items-center gap-5 border-b border-hairline bg-page px-6">
     <div class="flex size-[30px] shrink-0 items-center justify-center rounded-lg bg-card text-base">{{ $catalog->emoji ?? '📦' }}</div>
 
@@ -23,7 +23,6 @@
 
     <div class="flex-1"></div>
 
-    {{-- View switcher: list / grid / table. Each button persists the choice for this user. --}}
     <div class="flex shrink-0 items-center gap-0.5 rounded-md border border-hairline p-0.5">
         @php
             $views = [
@@ -58,8 +57,6 @@
     </div>
 
     @if ($canManage)
-        {{-- Disabled rather than linked once the account is full: an anchor cannot
-             be disabled, so it becomes a real button that goes nowhere. --}}
         <x-button
             :href="$hasReachedItemLimit ? null : route('items.new', $catalog)"
             :type="$hasReachedItemLimit ? 'button' : 'submit'"

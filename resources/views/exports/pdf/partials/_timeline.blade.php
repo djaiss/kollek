@@ -1,10 +1,6 @@
+{{-- The merged history of a copy, each entry read at the precision it was recorded with. --}}
 @use('App\Helpers\ImpreciseDate')
 
-{{--
-  The merged history of a copy. An entry carries its own precision, so a date
-  known only to the year reads as the year rather than as an invented day, and an
-  amount carries the currency it was recorded in rather than the collection's.
---}}
 <table style="font-size: 7.5pt; margin-bottom: 8pt;">
   <thead>
     <tr>

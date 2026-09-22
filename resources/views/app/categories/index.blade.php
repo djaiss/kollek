@@ -56,7 +56,6 @@
         @endif
       </div>
 
-      {{-- Add category panel --}}
       <div id="add-category-panel" x-show="showAddForm" x-cloak class="mt-6 rounded-xl border border-hairline bg-canvas p-6">
         <div class="text-base font-semibold text-ink">{{ __('New category') }}</div>
         <p class="mt-0.5 mb-4 text-[13px] text-muted">
@@ -105,7 +104,6 @@
 
       <div id="categories-panel">
         @if ($tree === [])
-          {{-- Empty state, with a worked example so the concept lands before anyone commits to it. --}}
           <div class="mt-7 flex flex-col items-center rounded-xl border border-hairline px-6 py-14 text-center" data-test="no-categories">
             <div class="mb-5 flex size-16 items-center justify-center rounded-xl bg-card">
               <x-lucide-folder-tree class="size-7 text-ink" />
@@ -158,7 +156,6 @@
             />
           </div>
 
-          {{-- Column header, mirroring the row layout below. --}}
           <div class="mt-4 flex items-center gap-4 border-b border-hairline px-3 pb-2.5 text-xs font-semibold tracking-wide text-muted-soft uppercase">
             <div class="flex-1">{{ __('Category') }}</div>
             <div class="hidden w-20 text-right sm:block">{{ __('Items') }}</div>

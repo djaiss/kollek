@@ -67,10 +67,6 @@ class UpdateUserAvatar
         }
     }
 
-    /**
-     * The name the user gave the file never reaches the disk: we generate a
-     * random one instead.
-     */
     private function store(): void
     {
         $this->previousPath = $this->user->avatar_path;
@@ -80,10 +76,6 @@ class UpdateUserAvatar
         $this->path = (string) $this->disk()->putFileAs('avatars/'.$this->user->id, $this->file, $name);
     }
 
-    /**
-     * An avatar is shown in a circle, so each version is cropped to a square
-     * rather than fitted inside one, which would leave it off centre.
-     */
     private function resize(): void
     {
         $original = $this->disk()->get($this->path);
@@ -106,11 +98,6 @@ class UpdateUserAvatar
         $this->user->save();
     }
 
-    /**
-     * The files of the earlier avatar are only removed once the new one is
-     * saved, so a failure halfway through leaves the user with a working
-     * avatar rather than none.
-     */
     private function removePrevious(): void
     {
         if ($this->previousPath === null) {
@@ -120,9 +107,6 @@ class UpdateUserAvatar
         new DestroyUserAvatarFiles(path: $this->previousPath)->execute();
     }
 
-    /**
-     * The disk lives here alone so it can be swapped in one place.
-     */
     private function disk(): Filesystem
     {
         return Storage::disk((string) config('filesystems.default'));

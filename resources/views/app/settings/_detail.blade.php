@@ -8,7 +8,6 @@
       <p class="text-sm text-muted">{{ __('If you change your email address, you will need to verify it again. In this case, you will receive a new verification link.') }}</p>
     </div>
 
-    {{-- A locale change must re-render the whole page, not just this fragment. --}}
     <x-form id="profile-details-form" x-target="profile-details-form" x-on:ajax:success="if ($el.querySelector('#locale').value.replace('_', '-') !== document.documentElement.lang) window.location.reload()" method="put" :action="route('profile.update')" class="space-y-4">
       <!-- First name -->
       <x-input id="first_name" :value="old('first_name', $user->first_name)" :label="__('First name')" required placeholder="John" :error="$errors->get('first_name')" autofocus />

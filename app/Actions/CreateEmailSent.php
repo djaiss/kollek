@@ -38,10 +38,6 @@ class CreateEmailSent
         return $this->emailSent;
     }
 
-    /**
-     * This will remove any links from the body of the email, since they
-     * could contain links that are not valid anymore.
-     */
     private function sanitize(): void
     {
         $config = ['HTML.ForbiddenElements' => 'a'];

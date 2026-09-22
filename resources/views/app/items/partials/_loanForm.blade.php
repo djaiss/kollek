@@ -1,18 +1,4 @@
-{{--
-  The form behind both adding and editing a loan.
-
-  The deposit is typed in currency units here and stored in cents. The ids are
-  prefixed per form because the panel renders one of these per copy and one per
-  loan being edited, and duplicate ids would point every label at the first form.
-
-  Closing a loan is its own flow, so the return date and the condition on return
-  are not edited here: an edit carries the existing ones through untouched rather
-  than clearing them.
-
-  Expects: $formId, $action, $method, $openVar, $submitLabel, $dataTest,
-  $loan (null when adding), $currencies, $conditions, $catalog, $item,
-  $selectedCopy. When editing, also $deleteAction.
---}}
+{{-- The form behind adding and editing a loan on a copy. --}}
 
 @use('App\Enums\LoanDirection')
 @use('App\Enums\LoanStatus')
@@ -43,8 +29,6 @@
   <div x-data="{ provenance: {{ $loan?->include_in_provenance ? 'true' : 'false' }} }">
     <input type="hidden" name="include_in_provenance" x-bind:value="provenance ? '1' : '0'" />
 
-    {{-- The return is captured through the dedicated flow, so carry the existing
-         return through an edit rather than dropping it. --}}
     @if ($isEdit)
       <input type="hidden" name="returned_at" value="{{ $loan->returned_at?->toDateString() }}" />
       <input type="hidden" name="item_condition_in_id" value="{{ $loan->item_condition_in_id }}" />

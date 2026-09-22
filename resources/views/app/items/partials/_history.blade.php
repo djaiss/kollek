@@ -1,16 +1,4 @@
-{{--
-  The history of one copy, chosen first and read a section at a time.
-
-  A copy is picked with the pills at the top, and the choice lives in the url so
-  each copy has its own. The sections down the left are what the history will be
-  assembled from. Almost none of them exist yet, so they are listed with what
-  they are for rather than hidden: the shape of the screen is the point. The
-  timeline, the valuations, the transactions and the provenance are the ones
-  that are built, so they are the only ones filled in.
-
-  The dot colours and shapes match the Kollek design: a round dot for the events
-  that belong to the object's story, a square for the operational records.
---}}
+{{-- The history of one copy, chosen with the pills and read one section at a time. --}}
 
 @use('App\Helpers\Money')
 
@@ -85,7 +73,6 @@
   @endphp
 
   <div id="history-panel" class="flex flex-col gap-6" data-test="history-copy-{{ $selectedCopy->id }}">
-    {{-- Copy selector. Each copy is its own url, so these are links. --}}
     <div class="flex flex-wrap items-center gap-2.5">
       <span class="text-[11px] font-semibold tracking-wide text-muted-soft uppercase">{{ __('Physical copy') }}</span>
 
@@ -110,8 +97,6 @@
       @endforeach
     </div>
 
-    {{-- While the copy is out on loan, say so plainly: where it is and when it
-         is due back. An overdue loan reads as an error rather than a note. --}}
     @if ($activeLoan)
       @php
         $loanOverdue = $activeLoan->isOverdue();
@@ -161,7 +146,6 @@
       </a>
     @endif
 
-    {{-- Summary strip: the current state of the chosen copy at a glance. --}}
     <div class="grid grid-cols-2 overflow-hidden rounded-xl border border-hairline lg:grid-cols-4" data-test="history-summary">
       @php
         $summary = [
@@ -205,7 +189,6 @@
       @endforeach
     </div>
 
-    {{-- The sub-nav and the section it selects. --}}
     <div class="grid grid-cols-1 gap-6 lg:grid-cols-[200px_1fr] lg:items-start">
       <nav class="flex flex-col gap-0.5 lg:sticky lg:top-6" data-test="history-sections">
         @foreach ($sectionsMeta as $meta)
@@ -255,8 +238,6 @@
         @elseif ($section === 'documents')
           @include('app.items.partials._historyDocuments')
         @else
-          {{-- A section that has no screen yet. The nav still lists it, so the
-               content says what it will hold rather than showing nothing. --}}
           <div class="mb-4">
             <p class="text-lg font-semibold text-ink">{{ $active['label'] }}</p>
           </div>

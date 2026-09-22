@@ -20,9 +20,6 @@
   ];
 @endphp
 
-{{-- Searching, filtering and sorting all run in the database, since a page only ever holds
-     a slice of the library. That makes each of them a link or a form submit rather than
-     something Alpine hides and shows. --}}
 <div class="mt-7 mb-6 flex flex-wrap items-center gap-2.5">
   <div class="flex flex-wrap gap-1.5 rounded-full bg-card p-1.5">
     @foreach ($filters as $option)
@@ -74,13 +71,9 @@
       @endforeach
     </select>
 
-    {{-- The submit button is there for keyboards and for browsers without JS; the select
-         above submits the same form on change. --}}
     <button type="submit" class="sr-only">{{ __('Apply') }}</button>
   </form>
 
-  {{-- Both layouts are already on the page, so switching is instant and only the
-       preference travels to the server. --}}
   <div class="flex items-center gap-0.5 rounded-md border border-hairline p-0.5">
     @foreach ($views as $button)
       <button

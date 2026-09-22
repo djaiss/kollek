@@ -79,10 +79,6 @@ class CreateCustomField
         ]);
     }
 
-    /**
-     * A position orders the field within its group, or within the type when the
-     * field is ungrouped, so only the fields sharing its group are considered.
-     */
     private function nextPosition(): int
     {
         return (int) $this->catalogType->customFields()

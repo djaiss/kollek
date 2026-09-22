@@ -15,15 +15,8 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Record what somebody confirmed before being sent to a payment processor.
- *
- * Each point is its own row, because each one is a separate thing to have
- * agreed to and the instance operator has to be able to point at any one of
- * them on its own. They are written together, so they share a timestamp: that
- * is what a single submission honestly means.
- *
- * Only an owner can commit the account to a payment, so the action checks that
- * itself rather than trusting the route.
+ * Record what somebody confirmed before being sent to a payment processor. Only
+ * an owner of the account may do so.
  */
 class RecordPurchaseConsent
 {

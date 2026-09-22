@@ -1,15 +1,4 @@
-{{--
-  The "Collection insights" feature page. Like the rest of the marketing site, the copy is
-  hardcoded next to the markup it belongs to rather than read from a database, and every
-  user facing string goes through __() so the page can be translated. The product captures
-  (the statistics overview, the cost-vs-value ledgers, the dashboard, and the gaps panel) are
-  drawn as themed markup and inline SVG rather than screenshots, so they stay crisp and follow
-  the theme.
-
-  Claim boundary: every figure is derived from records the user entered. Current value comes
-  from the latest valuation; acquisition dates from the earliest acquiring transaction. Nothing
-  is a live market feed, and the page says so. Keep it honest if that ever changes.
---}}
+{{-- The "Collection insights" feature page of the marketing site. --}}
 
 @php
     // The 12-month value series drives both the hero sparkline (H=150) and the dashboard chart
@@ -138,8 +127,6 @@
 @endphp
 
 <x-marketing-layout :title="$feature['title']">
-    {{-- SIBLING FEATURE SELECTOR. Mirrors the mega menu so the feature pages cross link
-         without drifting. Hidden on small screens, where the header nav does the job. --}}
     <section class="hidden border-b border-hairline bg-sidebar md:block">
         <div class="mx-auto max-w-[1200px] px-5 py-5 sm:px-8">
             <div class="mb-4 flex items-center justify-between">
@@ -180,7 +167,6 @@
         </div>
     </section>
 
-    {{-- HERO --}}
     <section id="top" class="mx-auto max-w-[1080px] px-5 pt-16 text-center sm:px-8 sm:pt-24">
         <p class="mx-auto mb-5 text-[12.5px] leading-[1.5] font-semibold tracking-[1px] text-muted-soft uppercase">
             {{ __('Spreadsheets have had a good run') }}
@@ -200,7 +186,6 @@
         </div>
     </section>
 
-    {{-- HERO CAPTURE: STATISTICS OVERVIEW --}}
     <section id="overview" class="mx-auto mt-14 max-w-[1040px] scroll-mt-24 px-5 sm:px-8">
         <div class="overflow-hidden rounded-xl border border-hairline bg-canvas shadow-[0_24px_60px_rgba(17,17,17,0.10),0_4px_12px_rgba(17,17,17,0.05)]">
             <div class="flex h-11 items-center gap-x-2 border-b border-hairline-soft bg-sidebar px-4">
@@ -251,7 +236,6 @@
         </div>
     </section>
 
-    {{-- WHAT YOU PAID vs WHAT IT IS WORTH --}}
     <section id="worth" class="mx-auto max-w-[1200px] scroll-mt-24 px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="mb-11 max-w-[680px]">
             <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('What you paid, kept separate') }}</p>
@@ -262,7 +246,6 @@
         </div>
 
         <div class="overflow-hidden rounded-2xl border border-hairline bg-canvas shadow-[0_4px_16px_rgba(17,17,17,0.05)]">
-            {{-- object header --}}
             <div class="flex flex-col gap-4 border-b border-hairline-soft p-6 sm:flex-row sm:items-start sm:justify-between sm:px-7">
                 <div class="flex items-center gap-4">
                     <span class="h-[68px] w-[52px] shrink-0 rounded-lg" style="background:repeating-linear-gradient(135deg,#fb923c 0px,#fb923c 8px,#fdba74 8px,#fdba74 16px);"></span>
@@ -283,7 +266,6 @@
                     </div>
                 </div>
             </div>
-            {{-- two ledgers --}}
             <div class="grid grid-cols-1 sm:grid-cols-2">
                 <div class="border-b border-hairline-soft p-6 sm:border-r sm:border-b-0 sm:px-7">
                     <div class="mb-4 flex items-center gap-x-2.5">
@@ -323,7 +305,6 @@
             </div>
         </div>
 
-        {{-- unvalued callout --}}
         <div class="mt-5 flex items-start gap-4 rounded-2xl border border-hairline bg-sidebar px-6 py-5">
             <span class="flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-[10px] bg-card">
                 <span class="h-3.5 w-3.5 rounded-[4px] bg-warning"></span>
@@ -334,7 +315,6 @@
         </div>
     </section>
 
-    {{-- SEE THE COLLECTION GROW (dashboard capture) --}}
     <section id="grow" class="mx-auto max-w-[1200px] scroll-mt-24 px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="mb-11 max-w-[680px]">
             <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('See the collection grow') }}</p>
@@ -352,7 +332,6 @@
                 <span class="ml-3 text-[12px] font-semibold text-body">{{ __('Statistics') }}</span>
             </div>
             <div class="p-4 sm:p-5.5">
-                {{-- row 1: value over time + donut --}}
                 <div class="mb-4 grid grid-cols-1 gap-4 lg:grid-cols-[1.7fr_1fr]">
                     <div class="rounded-xl border border-hairline bg-canvas p-5">
                         <div class="mb-1.5 flex items-start justify-between">
@@ -409,7 +388,6 @@
                     </div>
                 </div>
 
-                {{-- row 2: acquisitions + condition --}}
                 <div class="mb-4 grid grid-cols-1 gap-4 lg:grid-cols-[1.7fr_1fr]">
                     <div class="rounded-xl border border-hairline bg-canvas p-5">
                         <div class="mb-4.5 flex items-start justify-between">
@@ -451,7 +429,6 @@
                     </div>
                 </div>
 
-                {{-- row 3: value by location + top items --}}
                 <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
                     <div class="rounded-xl border border-hairline bg-canvas p-5">
                         <p class="text-[15px] font-semibold text-ink">{{ __('Value by location') }}</p>
@@ -491,7 +468,6 @@
             </div>
         </div>
 
-        {{-- derivation callouts --}}
         <div class="mt-5 grid grid-cols-1 gap-3.5 sm:grid-cols-3">
             @foreach ($derivations as $derivation)
                 <div class="rounded-xl border border-hairline bg-canvas p-4.5">
@@ -502,7 +478,6 @@
         </div>
     </section>
 
-    {{-- FIND THE GAPS THAT MATTER --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14">
             <div>
@@ -541,7 +516,6 @@
         </div>
     </section>
 
-    {{-- PRIMARY CTA --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="rounded-3xl bg-card px-6 py-16 text-center sm:px-12 sm:py-[72px]">
             <h2 class="mx-auto max-w-[640px] text-[26px] leading-[1.14] font-semibold tracking-[-1px] text-balance text-ink sm:text-[34px] lg:text-[38px] lg:tracking-[-1.2px]">
@@ -556,7 +530,6 @@
         </div>
     </section>
 
-    {{-- REQUIRED TRANSPARENCY FOOTER (two equal columns, strong rules, caveats first) --}}
     <section class="mx-auto max-w-[1080px] px-5 pt-24 pb-8 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-14">
             <div>

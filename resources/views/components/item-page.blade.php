@@ -22,7 +22,6 @@
 
   <div class="px-6 py-8 lg:px-10">
     <div class="mx-auto w-full max-w-5xl">
-      {{-- Breadcrumb --}}
       <div class="mb-5 flex flex-wrap items-center gap-1.5 text-[13px]">
         <a href="{{ route('collections.index') }}" data-turbo="true" class="font-medium text-muted-soft transition-colors hover:text-ink">{{ __('Collections') }}</a>
         <span class="text-muted-soft">/</span>
@@ -35,7 +34,6 @@
         <span class="truncate font-medium text-ink">{{ $item->name }}</span>
       </div>
 
-      {{-- Header --}}
       <div class="mb-3.5 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div class="min-w-0">
           <div class="mb-2 flex flex-wrap items-center gap-2.5">
@@ -54,10 +52,8 @@
           <h1 class="text-[28px] leading-tight font-semibold tracking-tight text-ink" data-test="item-name">{{ $item->name }}</h1>
         </div>
 
-        {{-- Adding a copy on its own has no screen on the web yet. --}}
         <div class="flex shrink-0 flex-wrap items-center gap-2">
           @if ($canManage)
-            {{-- The delete button sits inside the menu, so its form lives outside and is reached with form=. --}}
             <x-form method="delete" :action="route('items.destroy', [$catalog, $item])" id="delete-item-form" data-turbo="true" class="hidden" onsubmit="return confirm('{{ __('Delete :name? The item and all of its copies will no longer be accessible.', ['name' => $item->name]) }}')"></x-form>
 
             <x-button.split :href="route('items.edit', [$catalog, $item])" :label="__('Edit')" turbo data-test="edit-item-button">
@@ -72,13 +68,8 @@
         </div>
       </div>
 
-      {{-- Tags --}}
       @include('app.items.partials._tags')
 
-      {{-- Tabs --}}
-      {{-- The tabs scroll sideways on a narrow screen. Pinning overflow-y stops the
-           browser turning that into a vertical scrollbar, which it otherwise does to
-           reach the 1px the active tab's underline hangs over the border by. --}}
       <div class="mb-7 flex items-center gap-1 overflow-x-auto overflow-y-hidden border-b border-hairline">
         @foreach ($navigation as [$key, $label, $count, $url])
           <a

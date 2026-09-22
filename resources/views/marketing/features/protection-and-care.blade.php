@@ -1,15 +1,4 @@
-{{--
-  The "Protection & care" feature page. Like the rest of the marketing site, the copy is
-  hardcoded next to the markup it belongs to, and every user facing string goes through __().
-  The captures (an item record with its record-type tabs and an insurance panel wired to the
-  latest valuation, a valuation history, a before/after service record, a loan/return log, and
-  a provenance + documents trail) are drawn as themed markup.
-
-  Every record type maps to a shipped, copy-specific model: InsuranceRecord, Valuation,
-  Maintenance, Loan (with returns), Location moves, Provenance events, and attached Documents /
-  external links. Sample counterparties, amounts, dates and file names stay literal; the record
-  labels and UI go through __().
---}}
+{{-- The "Protection & care" feature page of the marketing site. --}}
 
 @php
     // Record-type tabs across the top of the item record. Insurance is the open tab.
@@ -87,7 +76,6 @@
 @endphp
 
 <x-marketing-layout :title="$feature['title']">
-    {{-- SIBLING FEATURE SELECTOR --}}
     <section class="hidden border-b border-hairline bg-sidebar md:block">
         <div class="mx-auto max-w-[1200px] px-5 py-5 sm:px-8">
             <div class="mb-4 flex items-center justify-between">
@@ -128,7 +116,6 @@
         </div>
     </section>
 
-    {{-- HERO --}}
     <section id="top" class="mx-auto max-w-[1200px] px-5 pt-16 sm:px-8 sm:pt-24">
         <div class="max-w-[820px]">
             <p class="text-[12px] leading-[1.5] font-semibold tracking-[1px] text-muted-soft uppercase">{{ __('For the objects that would make a bad day worse') }}</p>
@@ -143,7 +130,6 @@
             </div>
         </div>
 
-        {{-- HERO: ITEM RECORD CAPTURE --}}
         <div class="mt-13 overflow-hidden rounded-2xl border border-hairline bg-canvas shadow-[0_24px_60px_rgba(17,17,17,0.08),0_4px_12px_rgba(17,17,17,0.04)]">
             <div class="flex h-11 items-center gap-x-2 border-b border-hairline-soft px-4.5">
                 <span class="h-[11px] w-[11px] rounded-full bg-hairline"></span>
@@ -154,7 +140,6 @@
                 </div>
             </div>
 
-            {{-- item header --}}
             <div class="flex flex-wrap items-center gap-4 border-b border-hairline-soft px-5 py-4 sm:px-6">
                 <span class="h-[60px] w-11 shrink-0 rounded-md border border-hairline" style="background:repeating-linear-gradient(135deg,#eceef1,#eceef1 6px,#f4f6f8 6px,#f4f6f8 12px);"></span>
                 <div class="min-w-0">
@@ -170,7 +155,6 @@
                 </div>
             </div>
 
-            {{-- record tab bar --}}
             <div class="flex items-center gap-0.5 overflow-x-auto border-b border-hairline-soft px-5 sm:px-6" style="scrollbar-width:none;">
                 @foreach ($recordTabs as $tab)
                     <div @class([
@@ -187,7 +171,6 @@
                 @endforeach
             </div>
 
-            {{-- Insurance panel connected to latest valuation --}}
             <div class="grid grid-cols-1 items-stretch gap-5 p-5 sm:p-6 lg:grid-cols-[1.1fr_1fr]">
                 <div class="overflow-hidden rounded-xl border border-hairline">
                     <div class="flex items-center gap-x-2.5 border-b border-hairline-soft bg-sidebar px-4 py-3">
@@ -233,7 +216,6 @@
         </div>
     </section>
 
-    {{-- SECTION 1: INSURANCE + VALUATION --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-14">
             <div>
@@ -249,7 +231,6 @@
                 </div>
             </div>
 
-            {{-- valuation history capture --}}
             <div class="overflow-hidden rounded-2xl border border-hairline bg-canvas shadow-[0_24px_60px_rgba(17,17,17,0.08),0_4px_12px_rgba(17,17,17,0.04)]">
                 <div class="flex items-center gap-x-2.5 border-b border-hairline-soft px-5 py-4">
                     <span class="h-2 w-2 rounded-full bg-brand"></span>
@@ -281,7 +262,6 @@
         </div>
     </section>
 
-    {{-- SECTION 2: CARE / MAINTENANCE (BEFORE + AFTER) --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="mb-10 max-w-[660px]">
             <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('Care log') }}</p>
@@ -320,7 +300,6 @@
         </div>
     </section>
 
-    {{-- SECTION 3: CUSTODY / LOANS --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="mb-10 max-w-[660px]">
             <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('Custody') }}</p>
@@ -361,7 +340,6 @@
         </div>
     </section>
 
-    {{-- SECTION 4: CREDIBLE RECORD OVER TIME --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="mb-10 max-w-[660px]">
             <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('The paper trail') }}</p>
@@ -372,7 +350,6 @@
         </div>
 
         <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
-            {{-- timeline --}}
             <div class="overflow-hidden rounded-2xl border border-hairline bg-canvas shadow-[0_4px_12px_rgba(17,17,17,0.04)]">
                 <div class="border-b border-hairline-soft px-5 py-4">
                     <span class="text-[15px] font-semibold text-ink">{{ __('Provenance & locations') }}</span>
@@ -393,7 +370,6 @@
                 </div>
             </div>
 
-            {{-- documents + links --}}
             <div class="overflow-hidden rounded-2xl border border-hairline bg-canvas shadow-[0_4px_12px_rgba(17,17,17,0.04)]">
                 <div class="flex items-center gap-x-2.5 border-b border-hairline-soft px-5 py-4">
                     <span class="text-[15px] font-semibold text-ink">{{ __('Documents & links') }}</span>
@@ -418,13 +394,11 @@
             </div>
         </div>
 
-        {{-- SECONDARY CTA --}}
         <div class="mt-9 flex justify-center">
             <a href="{{ route('register') }}" class="inline-flex h-12 items-center justify-center gap-x-2.5 rounded-md border border-hairline bg-canvas px-6 text-[15px] font-semibold text-ink transition-colors hover:bg-sidebar">{{ __('Track a valuable object') }} @svg('lucide-arrow-right', 'size-4')</a>
         </div>
     </section>
 
-    {{-- PRIMARY CTA (fixed dark) --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="flex flex-col items-start justify-between gap-8 rounded-3xl bg-[#101010] px-6 py-14 text-white sm:px-12 lg:flex-row lg:items-center">
             <div class="max-w-[580px]">
@@ -437,7 +411,6 @@
         </div>
     </section>
 
-    {{-- REQUIRED TRANSPARENCY FOOTER --}}
     <section class="mx-auto max-w-[1080px] px-5 pt-24 pb-8 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16">
             <div>

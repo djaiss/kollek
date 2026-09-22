@@ -14,11 +14,8 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Start a language off from the English text, so a translator has the structure
- * in front of them rather than an empty page.
- *
- * The copy lands in review rather than live: it is English sitting in a French
- * row, and nobody should be reading it until it has actually been translated.
- * It refuses to overwrite a language somebody has already written.
+ * in front of them rather than an empty page. The copy lands in review, and a
+ * language somebody has already written is never overwritten.
  */
 class CopyBlogPostSourceTranslation
 {
@@ -58,10 +55,6 @@ class CopyBlogPostSourceTranslation
         }
     }
 
-    /**
-     * The slug carries the locale as a suffix, because slugs are unique per
-     * locale but the English one may already be taken there by another entry.
-     */
     private function copy(): void
     {
         $source = $this->blogPost->source();

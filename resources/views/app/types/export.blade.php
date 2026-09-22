@@ -3,10 +3,8 @@
     {{ __('Export :name', ['name' => $type->name !== '' ? $type->name : __('Untitled type')]) }}
   </x-slot>
 
-  {{-- The sidebar stays, but the export itself uses every pixel it has left. --}}
   <div class="px-6 py-8 lg:px-12 lg:py-10">
     <div class="w-full">
-      {{-- Breadcrumb --}}
       <div class="mb-6 flex items-center gap-2 text-xs text-muted-soft">
         @if (auth()->user()->isOwner())
           <a href="{{ route('settings.index') }}" data-turbo="true" class="font-medium transition-colors hover:text-ink">{{ __('Account settings') }}</a>
@@ -21,7 +19,6 @@
         <span class="font-medium text-ink">{{ __('Export') }}</span>
       </div>
 
-      {{-- Header --}}
       <div class="mb-8 flex items-center gap-3.5">
         <span class="size-11 shrink-0 rounded-full" style="background-color: {{ $type->color }}"></span>
 
@@ -32,7 +29,6 @@
       </div>
 
       <div class="grid grid-cols-1 items-start gap-7 lg:grid-cols-[minmax(0,380px)_minmax(0,1fr)]">
-        {{-- Left: what this is, and why you would want it --}}
         <div class="flex flex-col gap-6">
           <div>
             <h2 class="mb-2 text-xs font-semibold tracking-wide text-muted-soft uppercase">{{ __('What is this?') }}</h2>
@@ -68,7 +64,6 @@
           </div>
         </div>
 
-        {{-- Right: the JSON itself --}}
         <div
           x-data="{
             copied: false,

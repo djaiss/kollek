@@ -1,14 +1,4 @@
-{{--
-  The "Security" feature page. Like the rest of the marketing site, the copy is hardcoded next
-  to the markup it belongs to, and every user facing string goes through __(). The captures (a
-  2FA setup with QR + recovery codes, a magic-link email and signed-in state, a security
-  notifications list, and a security settings overview) are drawn as themed markup.
-
-  Everything maps to shipped functionality: two-factor authentication, recovery codes,
-  passwordless magic links, breached-password checking, API-key alerts, and new-login /
-  IP-change notifications. Claim boundary: encryption at rest is the data-ownership page's
-  story, and this page does NOT imply end-to-end encryption. Keep those claims exact.
---}}
+{{-- The "Security" feature page of the marketing site. --}}
 
 @php
     $recoveryCodes = ['4f2a-9c1e', 'b83d-77kk', 'p0m2-x4rt', '9zq1-6h5v', 'tt4c-1b8n', 'e7w3-2ky9'];
@@ -49,7 +39,6 @@
 @endphp
 
 <x-marketing-layout :title="$feature['title']">
-    {{-- SIBLING FEATURE SELECTOR --}}
     <section class="hidden border-b border-hairline bg-sidebar md:block">
         <div class="mx-auto max-w-[1200px] px-5 py-5 sm:px-8">
             <div class="mb-4 flex items-center justify-between">
@@ -90,7 +79,6 @@
         </div>
     </section>
 
-    {{-- HERO --}}
     <section id="top" class="mx-auto max-w-[1200px] px-5 pt-16 sm:px-8 sm:pt-24">
         <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-14">
             <div>
@@ -106,7 +94,6 @@
                 </div>
             </div>
 
-            {{-- HERO: 2FA SETUP CAPTURE --}}
             <div class="overflow-hidden rounded-2xl border border-hairline bg-canvas shadow-[0_24px_60px_rgba(17,17,17,0.08),0_4px_12px_rgba(17,17,17,0.04)]">
                 <div class="flex items-center gap-x-2.5 border-b border-hairline-soft px-5 py-4">
                     <span class="h-2 w-2 rounded-full bg-success"></span>
@@ -139,7 +126,6 @@
         </div>
     </section>
 
-    {{-- SECTION 1: SECOND FACTOR --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="mb-10 max-w-[660px]">
             <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('Add a second factor') }}</p>
@@ -161,7 +147,6 @@
         </div>
     </section>
 
-    {{-- SECTION 2: MAGIC LINK --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-14">
             <div>
@@ -177,7 +162,6 @@
                 </div>
             </div>
 
-            {{-- magic link email + signed-in state --}}
             <div class="flex flex-col gap-4">
                 <div class="overflow-hidden rounded-2xl border border-hairline bg-canvas shadow-[0_24px_60px_rgba(17,17,17,0.08),0_4px_12px_rgba(17,17,17,0.04)]">
                     <div class="flex items-center gap-x-2.5 border-b border-hairline-soft px-4.5 py-3.5">
@@ -206,7 +190,6 @@
         </div>
     </section>
 
-    {{-- SECTION 3: ALERTS --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="mb-10 max-w-[660px]">
             <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('Know when something looks off') }}</p>
@@ -245,7 +228,6 @@
         </div>
     </section>
 
-    {{-- SECTION 4: SETTINGS --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="mb-10 max-w-[660px]">
             <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('Make good choices easy') }}</p>
@@ -277,7 +259,6 @@
         </div>
     </section>
 
-    {{-- PRIMARY CTA (fixed dark) --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="flex flex-col items-start justify-between gap-8 rounded-3xl bg-[#101010] px-6 py-14 text-white sm:px-12 lg:flex-row lg:items-center">
             <div class="max-w-[580px]">
@@ -290,7 +271,6 @@
         </div>
     </section>
 
-    {{-- REQUIRED TRANSPARENCY FOOTER --}}
     <section class="mx-auto max-w-[1080px] px-5 pt-24 pb-8 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16">
             <div>

@@ -47,10 +47,6 @@ class UpdateSupportTicketAsInstanceAdmin
         $this->ticket->save();
     }
 
-    /**
-     * Closing from the panel is a team closure, and reopening wipes the closure
-     * so a reopened conversation carries nothing stale.
-     */
     private function recordClosure(): void
     {
         if ($this->status === SupportTicketStatus::Closed) {

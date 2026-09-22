@@ -57,10 +57,6 @@ class UpdateSupportTicket
         $this->ticket->save();
     }
 
-    /**
-     * Closing remembers who closed it and when, so the notice can name them.
-     * Reopening wipes both, so a reopened conversation carries no stale closure.
-     */
     private function recordClosure(): void
     {
         if ($this->status === SupportTicketStatus::Closed) {

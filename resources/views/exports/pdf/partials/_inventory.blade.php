@@ -1,10 +1,4 @@
-{{--
-  One row per copy.
-
-  Twenty three columns do not fit an A4 page, so the table is drawn in slices:
-  each pass repeats the item name and the copy identifier as the anchor and
-  carries the next columns along. Every ticked column appears in one of them.
---}}
+{{-- The inventory, one row per copy, drawn in column slices so it fits the page. --}}
 <h2>{{ __('Inventory') }}</h2>
 
 @if($inventory['rows'] === [])

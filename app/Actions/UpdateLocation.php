@@ -61,10 +61,6 @@ class UpdateLocation
         }
     }
 
-    /**
-     * Whether $candidate is the location being updated, or a descendant of
-     * it — either would create a cycle if used as the new parent.
-     */
     private function isDescendantOf(Location $candidate): bool
     {
         $current = $candidate;

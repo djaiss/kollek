@@ -41,7 +41,6 @@ class WithdrawTestimonial
 
     private function validate(): void
     {
-        // A member may only withdraw their own testimonial.
         if ($this->testimonial->user_id !== $this->user->id) {
             throw new ModelNotFoundException('Testimonial not found');
         }

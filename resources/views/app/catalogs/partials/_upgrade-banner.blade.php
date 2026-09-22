@@ -1,8 +1,4 @@
-{{--
-  Shown on a collection once the account has outgrown the free plan. It says the
-  same thing in two registers: a warning while the grace still lets items in, and
-  a plainer statement once nothing more will be accepted.
---}}
+{{-- The banner shown on a collection once the account has outgrown the free plan. --}}
 
 <div class="mb-6 flex flex-wrap items-center gap-4 rounded-lg border border-warning/30 bg-warning/10 px-5 py-4">
     <div class="min-w-0 flex-1">

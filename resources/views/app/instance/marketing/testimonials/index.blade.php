@@ -26,7 +26,6 @@
         <p class="mt-1 text-sm text-muted">Review member submissions before they appear on the marketing homepage. Approving one publishes it and emails the author.</p>
       </div>
 
-      {{-- Filter tabs. The bucket lives in the path, so each is its own URL. --}}
       <div class="flex flex-wrap items-center gap-1.5">
         @foreach ($tabs as $key => $label)
           <a
@@ -47,7 +46,6 @@
             $safeLink = $testimonial->safeLink();
           @endphp
           <x-box>
-            {{-- Header: author, account, submitted date, status --}}
             <div class="mb-3 flex items-start justify-between gap-3">
               <div class="flex min-w-0 items-center gap-3">
                 <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-badge-violet text-sm font-semibold text-white">{{ $testimonial->initial() }}</span>
@@ -72,7 +70,6 @@
               <x-badge :color="$testimonial->status->color()">{{ $statusLabels[$st] }}</x-badge>
             </div>
 
-            {{-- Link, shown in full so it can be checked before publishing --}}
             <div class="mb-3">
               <p class="mb-1 text-[11px] font-semibold tracking-wide text-muted-soft uppercase">Link</p>
               @if ($safeLink)
@@ -88,11 +85,8 @@
               @endif
             </div>
 
-            {{-- Body --}}
             <p class="mb-4 text-[14px] leading-relaxed text-ink">{{ $testimonial->body }}</p>
 
-            {{-- Actions depend on where the testimonial sits. Both post to the one
-                 update route, told apart by the intent field. --}}
             <div class="flex flex-wrap items-center gap-2">
               @if (in_array($st, ['in_review', 'rejected'], true))
                 <x-form method="put" :action="route('instanceAdmin.marketing.testimonials.update', $testimonial->id)" onsubmit="return confirm('Publish this testimonial? It will go live on the marketing site and the author will be emailed.')">

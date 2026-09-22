@@ -38,9 +38,6 @@ class DestroyProvenanceEvent
         }
     }
 
-    /**
-     * Log before the row goes, so the entry can still describe what was deleted.
-     */
     private function log(): void
     {
         $item = $this->event->copy->item;

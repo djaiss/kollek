@@ -53,10 +53,6 @@ class DetachTagFromItem
         $this->item->tags()->detach($this->tag->id);
     }
 
-    /**
-     * Untagging touches the pivot rather than the item, so nothing has told the
-     * search index that the item is no longer findable under the tag.
-     */
     private function reindexSearch(): void
     {
         $this->item->load(['catalog', 'category', 'set', 'series', 'catalogType', 'tags', 'customFieldValues']);

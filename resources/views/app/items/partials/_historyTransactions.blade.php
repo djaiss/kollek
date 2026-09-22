@@ -1,8 +1,4 @@
-{{--
-  The transactions of the copy, newest first. Transactions are the single source
-  of truth for the commercial data: the price paid, the tax, the fees and the
-  shipping, and the total that actually changed hands.
---}}
+{{-- The transactions of the copy, the source of truth for its commercial data. --}}
 
 @use('App\Helpers\Money')
 
@@ -57,10 +53,6 @@
         ];
       @endphp
 
-      {{-- No overflow-hidden: a help popover opened from the edit form below needs
-           to escape this card instead of being clipped at its edge. Nothing here
-           carries a background flush to the bottom edge, so the rounded corners
-           still read fine without it. --}}
       <div class="rounded-xl border border-hairline" x-data="{ editing: false }" data-test="transaction-{{ $transaction->id }}">
         <div class="flex flex-wrap items-start justify-between gap-3 px-4 py-3.5">
           <div class="min-w-0">

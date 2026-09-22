@@ -77,9 +77,6 @@ class UpdateCopy
         }
     }
 
-    /**
-     * Read what is about to move, while the copy still holds its old values.
-     */
     private function captureChanges(): void
     {
         $currency = $this->copy->item->catalog->currency;
@@ -128,23 +125,11 @@ class UpdateCopy
         $this->copy->save();
     }
 
-    /**
-     * Route a location change through the move path, so it closes the open record
-     * and opens a new one rather than being written straight onto the copy.
-     */
     private function move(): void
     {
         $this->recordCopyMove($this->copy, $this->location?->id, $this->user);
     }
 
-    /**
-     * Record a new estimated value, if it moved.
-     *
-     * Valuations are append-only: a copy that is worth more than it was keeps
-     * the old figure and gains a new one, so the history of what it has been
-     * worth survives the edit. A value that has not changed writes nothing,
-     * which keeps the timeline free of rows that say nothing happened.
-     */
     private function value(): void
     {
         if ($this->estimatedValue === null || $this->estimatedValue === $this->copy->estimatedValue()) {

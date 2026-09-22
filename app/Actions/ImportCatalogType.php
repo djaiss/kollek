@@ -16,11 +16,6 @@ use JsonException;
 /**
  * Create a collection type from a JSON document produced by ExportCatalogType.
  * Only owners and editors of the account may do so.
- *
- * The document comes from outside the application, so nothing in it is trusted:
- * every key is read explicitly, every value is checked against an expected type
- * and bound, and anything else in the document is ignored. Importing always
- * creates a brand new type, and never touches an existing one.
  */
 class ImportCatalogType
 {
@@ -82,11 +77,6 @@ class ImportCatalogType
         }
     }
 
-    /**
-     * Read the document into the plain values we are going to persist. Every
-     * problem is collected rather than thrown on the spot, so the importer can
-     * show the whole list at once instead of one problem per attempt.
-     */
     private function parse(): void
     {
         $document = $this->decode();
@@ -266,10 +256,6 @@ class ImportCatalogType
         return $name;
     }
 
-    /**
-     * The color is cosmetic, so an absent one falls back to the default rather
-     * than failing the import. A present but malformed one is still an error.
-     */
     private function readColor(mixed $color): string
     {
         if ($color === null) {
@@ -337,10 +323,6 @@ class ImportCatalogType
         return $parsed;
     }
 
-    /**
-     * A half imported type would be worse than no type at all, so the whole
-     * document lands or none of it does.
-     */
     private function create(): void
     {
         DB::transaction(function (): void {

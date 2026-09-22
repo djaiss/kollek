@@ -15,10 +15,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 /**
  * Change what a blog entry is: which shelf it sits on, whether it is featured,
  * what it tells crawlers, and what it is filed under.
- *
- * Not what it says, which belongs to a translation, and not whether it is
- * public, which is PublishBlogPost and ArchiveBlogPost. The reference is absent
- * on purpose: it is the one thing about an entry that never changes.
  */
 class UpdateBlogPost
 {
@@ -59,10 +55,6 @@ class UpdateBlogPost
         ]);
     }
 
-    /**
-     * Tags are replaced wholesale rather than diffed: the panel edits them as
-     * one list, and the table holds nothing worth preserving beyond the name.
-     */
     private function syncTags(): void
     {
         $names = collect($this->tags)
@@ -78,10 +70,6 @@ class UpdateBlogPost
         }
     }
 
-    /**
-     * A published entry is held by the CDN for a week, so an edit that is not
-     * purged would not be read until then. A draft has nothing cached to purge.
-     */
     private function flushMarketingCache(): void
     {
         if (! $this->blogPost->status->isReadable()) {

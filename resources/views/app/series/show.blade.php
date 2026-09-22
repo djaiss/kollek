@@ -32,7 +32,6 @@
         </div>
       </div>
 
-      {{-- Stats --}}
       <div class="mt-5 flex flex-wrap items-end justify-between gap-6 border-b border-hairline pb-6">
         <div class="flex gap-7">
           <div>
@@ -52,7 +51,6 @@
         </div>
       </div>
 
-      {{-- Items, bucketed by the collection they live in --}}
       @if ($groups->isEmpty())
         <div class="mt-7 rounded-xl border border-hairline">
           <x-empty-state data-test="no-series-items">

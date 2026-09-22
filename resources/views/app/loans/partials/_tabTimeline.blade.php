@@ -1,6 +1,5 @@
 {{-- The Timeline tab: upcoming due dates on the left, recent activity on the right. --}}
 <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
-  {{-- Upcoming due dates --}}
   <div class="rounded-xl border border-hairline bg-canvas p-4">
     <h3 class="mb-4 text-sm font-semibold text-ink">{{ __('Upcoming due dates') }}</h3>
 
@@ -21,7 +20,6 @@
     @endforelse
   </div>
 
-  {{-- Recent activity --}}
   <div class="flex flex-col gap-5">
     <div class="rounded-xl border border-hairline bg-canvas p-4">
       <h3 class="mb-3 text-sm font-semibold text-ink">{{ __('Recently returned') }}</h3>

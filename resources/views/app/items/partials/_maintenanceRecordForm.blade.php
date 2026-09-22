@@ -1,15 +1,4 @@
-{{--
-  The form behind both adding and editing a maintenance record.
-
-  The cost is typed in currency units here and stored in cents. The ids are
-  prefixed per form because the panel renders one of these per copy and one per
-  record being edited, and duplicate ids would point every label at the first
-  form.
-
-  Expects: $formId, $action, $method, $openVar, $submitLabel, $dataTest,
-  $record (null when adding), $currencies, $conditions, $catalog, $item,
-  $selectedCopy. When editing, also $deleteAction.
---}}
+{{-- The form behind adding and editing a maintenance record on a copy. --}}
 
 @use('App\Enums\MaintenanceType')
 

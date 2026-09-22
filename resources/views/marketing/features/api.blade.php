@@ -1,15 +1,4 @@
-{{--
-  The "API" feature page. Like the rest of the marketing site, the copy is hardcoded next to
-  the markup it belongs to, and every user facing string goes through __(). Code, endpoint
-  paths, tokens and resource identifiers are code, so they stay literal.
-
-  Everything is grounded in the real JSON API: Bearer-token auth, endpoints under /api that
-  mirror the app, generated docs (the ApiDocumentation service builds /docs/api from the
-  endpoint definition files), page-based pagination (per_page + page, with links + meta), and
-  60 requests / minute per user. Claim boundary: webhook endpoint registration and signing
-  exist, but no product event triggers a delivery yet, and the page says exactly that. Keep it
-  honest with routes/api.php, the docs files and the WebhookEndpoint model.
---}}
+{{-- The "API" feature page of the marketing site. --}}
 
 @php
     $docsUrl = route('marketing.docs.api.index');
@@ -90,7 +79,6 @@
 @endphp
 
 <x-marketing-layout :title="$feature['title']">
-    {{-- SIBLING FEATURE SELECTOR --}}
     <section class="hidden border-b border-hairline bg-sidebar md:block">
         <div class="mx-auto max-w-[1200px] px-5 py-5 sm:px-8">
             <div class="mb-4 flex items-center justify-between">
@@ -131,7 +119,6 @@
         </div>
     </section>
 
-    {{-- HERO --}}
     <section id="top" class="mx-auto max-w-[1200px] px-5 pt-16 sm:px-8 sm:pt-24">
         <div class="max-w-[780px]">
             <p class="text-[12px] leading-[1.5] font-semibold tracking-[1px] text-muted-soft uppercase">{{ __('For people who look at a catalogue and think “API”') }}</p>
@@ -146,7 +133,6 @@
             </div>
         </div>
 
-        {{-- HERO: GENERATED API DOCS CAPTURE --}}
         <div class="mt-13 overflow-hidden rounded-2xl border border-hairline bg-canvas shadow-[0_24px_60px_rgba(17,17,17,0.08),0_4px_12px_rgba(17,17,17,0.04)]">
             <div class="flex h-11 items-center gap-x-2 border-b border-hairline-soft px-4.5">
                 <span class="h-[11px] w-[11px] rounded-full bg-hairline"></span>
@@ -157,7 +143,6 @@
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-[230px_1fr]">
-                {{-- endpoint nav --}}
                 <div class="border-b border-hairline-soft bg-sidebar p-4 md:border-r md:border-b-0">
                     <p class="mb-2 ml-1 text-[10px] font-semibold tracking-[0.06em] text-muted-soft uppercase">{{ __('Getting started') }}</p>
                     @foreach ($docNavGuide as $guide)
@@ -171,7 +156,6 @@
                         </div>
                     @endforeach
                 </div>
-                {{-- endpoint detail --}}
                 <div class="p-6 sm:p-7">
                     <div class="mb-4 flex flex-wrap items-center gap-2.5">
                         <span class="rounded-md px-2 py-1 font-mono text-[11px] font-bold" style="color:#2563eb;background:rgba(59,130,246,0.12);">GET</span>
@@ -193,7 +177,6 @@
         </div>
     </section>
 
-    {{-- SECTION 1: SAME CATALOGUE + API KEY --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-14">
             <div>
@@ -209,7 +192,6 @@
                 </div>
             </div>
 
-            {{-- API key one-time reveal capture --}}
             <div class="overflow-hidden rounded-2xl border border-hairline bg-canvas shadow-[0_24px_60px_rgba(17,17,17,0.08),0_4px_12px_rgba(17,17,17,0.04)]">
                 <div class="flex items-center gap-x-2.5 border-b border-hairline-soft px-5 py-4">
                     <span class="flex h-7 w-7 items-center justify-center rounded-lg bg-card">@svg('lucide-key-round', 'size-4 text-success')</span>
@@ -236,7 +218,6 @@
         </div>
     </section>
 
-    {{-- SECTION 2: DOCUMENTATION FROM THE PRODUCT (CODE BLOCK) --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="mb-10 max-w-[660px]">
             <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('Reference') }}</p>
@@ -247,7 +228,6 @@
         </div>
 
         <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
-            {{-- request --}}
             <div class="overflow-hidden rounded-2xl bg-[#0f1115] shadow-[0_24px_60px_rgba(17,17,17,0.10)]">
                 <div class="flex items-center gap-x-1.5 border-b border-[#1e222b] px-4 py-3">
                     @foreach ($codeTabs as $tab)
@@ -261,7 +241,6 @@
                     @endforeach
                 </div>
             </div>
-            {{-- response --}}
             <div class="overflow-hidden rounded-2xl bg-[#0f1115] shadow-[0_24px_60px_rgba(17,17,17,0.10)]">
                 <div class="flex items-center gap-x-2 border-b border-[#1e222b] px-4 py-3">
                     <span class="rounded-md px-2 py-1 font-mono text-[11px] font-bold text-[#7dd3a8]" style="background:rgba(125,211,168,0.14);">200 OK</span>
@@ -281,7 +260,6 @@
         </div>
     </section>
 
-    {{-- SECTION 3: ESCAPE HATCH (WORKFLOW) --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="mb-10 max-w-[660px]">
             <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('Interoperability') }}</p>
@@ -293,7 +271,6 @@
 
         <div class="rounded-2xl border border-hairline bg-canvas p-6 shadow-[0_4px_12px_rgba(17,17,17,0.04)] sm:p-10">
             <div class="grid grid-cols-1 items-center gap-8 lg:grid-cols-[auto_1fr] lg:gap-12">
-                {{-- source node --}}
                 <div class="flex flex-col items-center gap-3">
                     <div class="w-[160px] rounded-2xl bg-[#101010] p-5 text-center text-white">
                         <x-logo size="24" class="mx-auto mb-2.5" aria-hidden="true" />
@@ -303,7 +280,6 @@
                     <span class="text-[11px] font-semibold tracking-[0.5px] text-muted-soft uppercase">{{ __('Your catalogue') }}</span>
                 </div>
 
-                {{-- targets --}}
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
                     @foreach ($workflowTargets as $target)
                         <div class="rounded-xl border border-hairline bg-sidebar p-4.5">
@@ -319,7 +295,6 @@
         </div>
     </section>
 
-    {{-- SECTION 4: WEBHOOKS HONEST STATUS --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-14">
             <div>
@@ -330,7 +305,6 @@
                 </p>
             </div>
 
-            {{-- webhook status capture --}}
             <div class="overflow-hidden rounded-2xl border border-hairline bg-canvas shadow-[0_24px_60px_rgba(17,17,17,0.08),0_4px_12px_rgba(17,17,17,0.04)]">
                 <div class="flex items-center gap-x-2.5 border-b border-hairline-soft px-5 py-4">
                     <span class="text-[15px] font-semibold text-ink">{{ __('Webhook endpoints') }}</span>
@@ -358,7 +332,6 @@
         </div>
     </section>
 
-    {{-- PRIMARY CTA (fixed dark) --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="flex flex-col items-start justify-between gap-8 rounded-3xl bg-[#101010] px-6 py-14 text-white sm:px-12 lg:flex-row lg:items-center">
             <div class="max-w-[560px]">
@@ -371,7 +344,6 @@
         </div>
     </section>
 
-    {{-- REQUIRED TRANSPARENCY FOOTER --}}
     <section class="mx-auto max-w-[1080px] px-5 pt-24 pb-8 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16">
             <div>

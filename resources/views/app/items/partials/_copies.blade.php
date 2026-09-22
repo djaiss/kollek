@@ -14,8 +14,6 @@
       @endif
     </p>
 
-    {{-- Copies are added on the item form, which carries a row per copy, so this
-         hands the reader over to it rather than being a screen of its own. --}}
     @if ($canManage)
       <x-button.secondary :href="route('items.edit', [$catalog, $item])" turbo class="shrink-0 !h-9 !px-4 text-[13px]" data-test="add-copy-button">
         <x-slot:icon>
@@ -42,7 +40,6 @@
 
           <x-badge :color="$copy->status->color()" data-test="copy-status">{{ $copy->status->label() }}</x-badge>
 
-          {{-- One instance is the ordinary case, so saying so would only be noise. --}}
           @if ($copy->quantity > 1)
             <span class="text-[13px] text-muted" data-test="copy-quantity">{{ __('× :count', ['count' => number_format($copy->quantity)]) }}</span>
           @endif

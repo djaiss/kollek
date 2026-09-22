@@ -39,9 +39,6 @@ class DestroyInsuranceRecord
         }
     }
 
-    /**
-     * Log before the row goes, so the entry can still describe what was deleted.
-     */
     private function log(): void
     {
         $item = $this->record->copy->item;

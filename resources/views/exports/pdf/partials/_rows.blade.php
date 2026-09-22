@@ -1,10 +1,4 @@
-{{--
-  A table of records, drawn from the columns the selection kept.
-
-  Sliced the same way the inventory is: insurance alone carries fourteen columns,
-  which an A4 page cannot hold, and dompdf runs the overflow off the edge rather
-  than shrinking it.
---}}
+{{-- A table of records, drawn from the columns the selection kept. --}}
 @foreach($writer->columnSlices($columns) as $slice)
   <table style="font-size: 7.5pt; margin-bottom: {{ $loop->last ? '8pt' : '3pt' }};">
     <thead>

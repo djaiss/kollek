@@ -1,10 +1,4 @@
-{{--
-  The filter bar for the list-style tabs. Filters refine a list, like search and
-  pagination, so they ride in the query string while the tab and direction stay in
-  the path. Submitting is a plain GET back to the same tab url.
-
-  Expects: $direction, $tab, $filters, $filterCatalogs. Optional: $withStatusSort.
---}}
+{{-- The filter bar for the loan list tabs, submitting as a plain GET back to the same tab. --}}
 @php($withStatusSort = $withStatusSort ?? false)
 
 <form method="get" action="{{ route('loans.show', ['direction' => $direction->slug(), 'tab' => $tab]) }}" class="mb-4 flex flex-wrap items-center gap-2.5" data-test="loans-filter-bar">

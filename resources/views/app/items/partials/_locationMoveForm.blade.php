@@ -1,15 +1,4 @@
-{{--
-  The form behind moving a copy and correcting a past move.
-
-  Adding is a move: it opens a new record and closes the last, so it only asks
-  where and when. Editing corrects a logged record, so it also exposes when the
-  copy left. The ids are prefixed per form because the panel renders one of these
-  per copy and one per record being corrected.
-
-  Expects: $formId, $action, $method, $openVar, $submitLabel, $dataTest,
-  $record (null when moving), $locations, $catalog, $item, $selectedCopy.
-  When editing, also $deleteAction.
---}}
+{{-- The form behind moving a copy to a new location and correcting a past move. --}}
 
 @php
     $isEdit = $record !== null;

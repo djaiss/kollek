@@ -17,12 +17,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Publish a testimonial so it appears on the marketing site, and email the
- * author to thank them. Only an instance administrator may do this: the panel is
- * gated on the instance flag rather than on any role within an account, and the
- * action checks the flag itself so the rule lives in one place.
- *
- * Also serves the "publish a previously rejected one" path: the state simply
- * moves to published from wherever it was.
+ * author to thank them. Only an instance administrator may do this.
  */
 class PublishTestimonial
 {
@@ -66,11 +61,6 @@ class PublishTestimonial
         )->onQueue('low');
     }
 
-    /**
-     * The public marketing pages are held by Cloudflare for a week, so a freshly
-     * published testimonial would not show until then. Purging makes the
-     * homepage and the testimonials page reflect the change at once.
-     */
     private function flushMarketingCache(): void
     {
         CloudflareCache::purgeEverything();

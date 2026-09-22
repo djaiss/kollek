@@ -21,10 +21,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 /**
  * Update a loan recorded against a copy. Only owners and editors of its account
  * may do so.
- *
- * The copy's status is kept in step with the change, so a loan edited back to
- * returned puts the copy back in hand. Turning the provenance flag on generates
- * the matching events, and turning it off removes them.
  */
 class UpdateLoan
 {
@@ -81,9 +77,6 @@ class UpdateLoan
         $this->guardAgainstOverlappingLoan($this->loan->copy, $this->direction, $this->status, $this->loan->id);
     }
 
-    /**
-     * Read what is about to move, while the loan still holds its old values.
-     */
     private function captureChanges(): void
     {
         $currency = $this->loan->deposit_currency_code;
@@ -138,11 +131,6 @@ class UpdateLoan
         $this->loan->save();
     }
 
-    /**
-     * Keep the linked events in step with the flag: create the loan event, and
-     * the return event once there is a return, when the loan is marked for
-     * provenance; remove both when the mark is taken off.
-     */
     private function reconcileProvenance(): void
     {
         if (! $this->includeInProvenance) {

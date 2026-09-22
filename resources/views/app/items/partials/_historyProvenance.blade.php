@@ -1,11 +1,4 @@
-{{--
-  The provenance of the copy: the meaningful moments in its ownership, custody,
-  origin and authenticity. No financial data lives here. What a moment cost is
-  read from the transaction an event links to, never restated.
-
-  A vertical timeline rather than a feed: provenance reads as a narrative, so it
-  runs forwards and the entries hang off one line.
---}}
+{{-- The provenance of the copy: its ownership, custody, origin and authenticity. --}}
 
 @php
   $user = auth()->user();

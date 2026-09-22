@@ -14,9 +14,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Delete a valuation. Only owners and editors of its account may do so.
- *
- * Deleting the latest valuation hands the current worth back to the one before
- * it, since the copy always reads its value from whichever valuation is newest.
  */
 class DestroyValuation
 {
@@ -41,9 +38,6 @@ class DestroyValuation
         }
     }
 
-    /**
-     * Log before the row goes, so the entry can still describe what was deleted.
-     */
     private function log(): void
     {
         $item = $this->valuation->copy->item;

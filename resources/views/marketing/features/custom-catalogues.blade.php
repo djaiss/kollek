@@ -1,15 +1,4 @@
-{{--
-  The "Custom catalogues" feature page. Like the rest of the marketing site, the copy is
-  hardcoded next to the markup it belongs to rather than read from a database, and every
-  user facing string goes through __() so the page can be translated. The product captures
-  (type picker, field editor, form layout, the two-vocabulary proof, and the reusable-types
-  settings) are drawn as themed markup rather than screenshots.
-
-  Everything maps to shipped functionality: twelve ready-made CollectionTypes, custom fields
-  of kind text/number/date/yes-no/select/rating, CustomFieldGroups, account-wide reusable
-  types, and JSON import/export of type definitions. Keep it in step with the models if the
-  set of field kinds ever moves.
---}}
+{{-- The "Custom catalogues" feature page of the marketing site. --}}
 
 @php
     // The six custom field kinds. The short code (abc, 123, …) is a UI token, so it stays
@@ -106,8 +95,6 @@
 @endphp
 
 <x-marketing-layout :title="$feature['title']">
-    {{-- SIBLING FEATURE SELECTOR. Mirrors the mega menu so the feature pages cross link
-         without drifting. Hidden on small screens, where the header nav does the job. --}}
     <section class="hidden border-b border-hairline bg-sidebar md:block">
         <div class="mx-auto max-w-[1200px] px-5 py-5 sm:px-8">
             <div class="mb-4 flex items-center justify-between">
@@ -148,7 +135,6 @@
         </div>
     </section>
 
-    {{-- HERO --}}
     <section id="top" class="mx-auto max-w-[1000px] px-5 pt-16 text-center sm:px-8 sm:pt-24">
         <p class="mx-auto mb-5 max-w-[720px] text-[12px] leading-[1.5] font-semibold tracking-[1px] text-muted-soft uppercase">
             {{ __('For people who have ever said “it’s basically the same thing”') }}
@@ -168,7 +154,6 @@
         </div>
     </section>
 
-    {{-- HERO CAPTURE: TYPE PICKER --}}
     <section id="types" class="mx-auto mt-14 max-w-[1060px] scroll-mt-24 px-5 sm:px-8">
         <div class="overflow-hidden rounded-xl border border-hairline bg-canvas shadow-[0_24px_60px_rgba(17,17,17,0.10),0_4px_12px_rgba(17,17,17,0.05)]">
             <div class="flex h-11 items-center gap-x-2 border-b border-hairline-soft bg-sidebar px-4">
@@ -214,7 +199,6 @@
         </div>
     </section>
 
-    {{-- START WITH A HEAD START --}}
     <section class="mx-auto max-w-[760px] px-5 pt-24 text-center sm:px-8 sm:pt-28">
         <h2 class="text-[28px] leading-[1.12] font-semibold tracking-[-1px] text-balance text-ink sm:text-4xl lg:text-[40px] lg:tracking-[-1.2px]">{{ __('Start with a head start.') }}</h2>
         <p class="mx-auto mt-5 text-[17px] leading-relaxed text-pretty text-muted">
@@ -222,7 +206,6 @@
         </p>
     </section>
 
-    {{-- ADD THE DETAILS: FIELD EDITOR --}}
     <section id="fields" class="mx-auto max-w-[1200px] scroll-mt-24 px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-14">
             <div>
@@ -275,7 +258,6 @@
         </div>
     </section>
 
-    {{-- MAKE THE FORM MAKE SENSE: LAYOUT / GROUPS --}}
     <section id="layout" class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-14">
             <div class="order-2 overflow-hidden rounded-2xl border border-hairline bg-canvas shadow-[0_4px_14px_rgba(17,17,17,0.05)] lg:order-1">
@@ -319,7 +301,6 @@
         </div>
     </section>
 
-    {{-- PROOF: SAME APP, TWO VOCABULARIES --}}
     <section id="proof" class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="mx-auto mb-11 max-w-[640px] text-center">
             <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('One app, two vocabularies') }}</p>
@@ -354,7 +335,6 @@
         </div>
     </section>
 
-    {{-- REUSE THE GOOD WORK --}}
     <section id="reuse" class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-14">
             <div>
@@ -388,7 +368,6 @@
         </div>
     </section>
 
-    {{-- PRIMARY CTA --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="rounded-3xl bg-[#101010] px-6 py-16 text-center sm:px-12 sm:py-[72px]">
             <h2 class="mx-auto max-w-[620px] text-[26px] leading-[1.12] font-semibold tracking-[-1px] text-balance text-white sm:text-[34px] lg:text-[40px] lg:tracking-[-1.2px]">
@@ -403,7 +382,6 @@
         </div>
     </section>
 
-    {{-- REQUIRED TRANSPARENCY FOOTER (two equal columns, strong rules, caveats first) --}}
     <section class="mx-auto max-w-[1080px] px-5 pt-24 pb-8 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16">
             <div>

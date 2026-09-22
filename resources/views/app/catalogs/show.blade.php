@@ -70,7 +70,6 @@
                 },
             }"
         >
-            {{-- The view-switch endpoint for the current collection, read by switchCatalogView in app.js. --}}
             <input type="hidden" id="collection-view-endpoint" value="{{ route('collections.item-view.update', $catalog) }}" />
 
             @include('app.catalogs.partials._table-header')
@@ -106,8 +105,6 @@
                 @include('app.catalogs.partials._upgrade-banner')
             @endif
 
-            {{-- An empty category still shows the filter, otherwise there is no way
-                 back to the other categories from it. --}}
             @if ($items->isNotEmpty() || $category)
                 @include('app.catalogs.partials._toolbar')
             @endif
@@ -132,9 +129,6 @@
                     </x-empty-state>
                 </div>
             @else
-                {{-- Which view is visible on first paint is decided here, server side. Alpine
-                     takes over the display once it boots, but until then x-show is inert, so
-                     without this the page would paint the grid whatever the remembered view is. --}}
                 <div x-show="view === '{{ ItemViewEnum::Grid->value }}'" @style(['display: none' => $view !== ItemViewEnum::Grid])>
                     @include('app.catalogs.partials._grid')
                 </div>

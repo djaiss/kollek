@@ -1,10 +1,5 @@
-{{-- Photo details. Everything it shows comes from the row already sent to the page, so
-     opening it costs no request. --}}
+{{-- The side panel showing the details of one photo. --}}
 <template x-if="drawer">
-  {{-- Closing on a click of the backdrop uses .self rather than a .stop on the panel
-       below. A .stop would call stopPropagation() on every click inside the drawer,
-       and Turbo listens for link clicks on the document, so the links in here would
-       fall back to a full page load however they are marked. --}}
   <div
     x-on:click.self="close()"
     x-on:keydown.escape.window="close()"
@@ -65,8 +60,6 @@
               {{ __('Open item') }}
             </a>
 
-            {{-- An item has exactly one cover, so this only ever sets one; taking the role
-                 away without giving it to another photo is not something to offer. --}}
             <template x-if="drawer.isCover">
               <div class="mt-2.5 flex items-center gap-2 rounded-md border border-amber-200 bg-amber-50 px-3 py-2.5 dark:border-amber-900/60 dark:bg-amber-950/40">
                 @svg('lucide-star', 'size-3.5 fill-amber-400 text-amber-400')

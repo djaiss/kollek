@@ -1,6 +1,4 @@
-{{-- `color` paints the square swatch of a collection nav entry, `dot` the round one of a
-     category, `count` the number sitting at the far right of a category, and `shortcut`
-     the keyboard hint sitting in that same place. --}}
+{{-- One entry of the sidebar navigation. --}}
 @props(['href', 'active' => false, 'icon' => null, 'color' => null, 'dot' => null, 'count' => null, 'shortcut' => false])
 
 <a

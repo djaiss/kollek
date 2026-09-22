@@ -11,10 +11,8 @@
       {{ __('Documentation') }}
     </a>
 
-    {{-- Growing spacer so the language selector is pushed to the right edge of the subheader. --}}
     <div class="flex-1"></div>
 
-    {{-- Language selector: mirrors the site language choice, keyed on the page id. --}}
     <div x-data="{ open: false }" class="relative shrink-0" @click.outside="open = false">
       <button
         type="button"

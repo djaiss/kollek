@@ -51,8 +51,6 @@
         </div>
       </div>
 
-      {{-- Which language is being written. Each has its own URL, so the browser
-           back button walks the languages the way a writer expects. --}}
       <x-box>
         <div class="flex flex-wrap items-center gap-2">
           <p class="mr-2 inline-flex items-center gap-1.5 text-[11px] font-semibold tracking-wide text-muted-soft uppercase">
@@ -79,7 +77,6 @@
         </div>
       </x-box>
 
-      {{-- Why this language is not on the public site, and what to do about it. --}}
       @if ($state === null || ! $state->isPublic())
         <x-box>
           <div class="flex flex-wrap items-start justify-between gap-3">
@@ -122,7 +119,6 @@
       @endif
 
       <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
-        {{-- The text, and everything about how it is found --}}
         <div class="space-y-6">
           <x-form method="put" :action="route('instanceAdmin.marketing.blogPosts.translations.update', ['blogPost' => $post->id, 'locale' => $locale])">
             <input type="hidden" name="intent" value="save" />
@@ -130,7 +126,6 @@
             <x-box title="Content · {{ $localeMeta['label'] }}">
               <div class="space-y-5">
                 <x-input id="title" label="Title" :value="old('title', $translation?->title)" :error="$errors->get('title')" required />
-
 
                 <x-textarea id="body" label="Body" :value="old('body', $translation?->body)" :error="$errors->get('body')" rows="20" help="Markdown. Headings become the contents list, and footnotes work." required />
               </div>
@@ -210,7 +205,6 @@
             </div>
           </x-form>
 
-          {{-- Its own form: a file upload cannot share the one above. --}}
           @if ($translation)
             <x-box title="Social card · {{ $localeMeta['label'] }}" description="Shown when the post is shared. Cropped to 1200 by 630. Falls back to the site wide card when empty.">
               <div class="flex flex-wrap items-center gap-3">
@@ -237,7 +231,6 @@
           @endif
         </div>
 
-        {{-- What the entry is, rather than what it says --}}
         <div class="space-y-6">
           <x-form method="put" :action="route('instanceAdmin.marketing.blogPosts.update', $post->id)">
             <input type="hidden" name="intent" value="save" />

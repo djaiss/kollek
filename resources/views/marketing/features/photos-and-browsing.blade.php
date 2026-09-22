@@ -1,14 +1,4 @@
-{{--
-  The "Photos & browsing" feature page. Like the rest of the marketing site, the copy is
-  hardcoded next to the markup it belongs to, and every user facing string goes through __().
-  The captures (a visual collection grid, a multi-image item gallery, the account-wide photo
-  library, and a photo detail card) are drawn as themed markup. Cover tiles are HSL gradients
-  standing in for real cover art; filenames, dimensions and titles stay literal as sample data.
-
-  Everything maps to shipped functionality: items support multiple photos, a main cover, and
-  ordering; the photo library supports account-wide search, cover/extra filters, size sorting,
-  and bulk deletion. Keep it honest with the ItemPhoto model and the library screen.
---}}
+{{-- The "Photos & browsing" feature page of the marketing site. --}}
 
 @php
     // A tile gradient standing in for cover art. Fixed hues (they represent photos, which do
@@ -88,7 +78,6 @@
 @endphp
 
 <x-marketing-layout :title="$feature['title']">
-    {{-- SIBLING FEATURE SELECTOR --}}
     <section class="hidden border-b border-hairline bg-sidebar md:block">
         <div class="mx-auto max-w-[1200px] px-5 py-5 sm:px-8">
             <div class="mb-4 flex items-center justify-between">
@@ -129,7 +118,6 @@
         </div>
     </section>
 
-    {{-- HERO --}}
     <section id="top" class="mx-auto max-w-[1200px] px-5 pt-16 sm:px-8 sm:pt-24">
         <div class="max-w-[760px]">
             <p class="text-[12px] leading-[1.5] font-semibold tracking-[1px] text-muted-soft uppercase">{{ __('Because you recognize the cover before the catalogue number') }}</p>
@@ -144,7 +132,6 @@
             </div>
         </div>
 
-        {{-- HERO COLLECTION GRID CAPTURE --}}
         <div class="mt-13 overflow-hidden rounded-2xl border border-hairline bg-canvas shadow-[0_24px_60px_rgba(17,17,17,0.08),0_4px_12px_rgba(17,17,17,0.04)]">
             <div class="flex h-11 items-center gap-x-2 border-b border-hairline-soft px-4.5">
                 <span class="h-[11px] w-[11px] rounded-full bg-hairline"></span>
@@ -180,7 +167,6 @@
         </div>
     </section>
 
-    {{-- SECTION 1: MULTI-IMAGE GALLERY --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-14">
             <div>
@@ -196,7 +182,6 @@
                 </div>
             </div>
 
-            {{-- item gallery capture --}}
             <div class="rounded-2xl border border-hairline bg-canvas p-5 shadow-[0_24px_60px_rgba(17,17,17,0.08),0_4px_12px_rgba(17,17,17,0.04)]">
                 <div class="mb-4 flex items-center gap-x-2.5">
                     <span class="h-[9px] w-[9px] rounded-full bg-badge-violet"></span>
@@ -230,7 +215,6 @@
         </div>
     </section>
 
-    {{-- SECTION 2: BROWSE WHAT YOU RECOGNIZE --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="mb-10 max-w-[640px]">
             <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('Grid view') }}</p>
@@ -251,7 +235,6 @@
         </div>
     </section>
 
-    {{-- SECTION 3: ONE LIBRARY FOR EVERY IMAGE --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="mb-10 max-w-[640px]">
             <p class="mb-3.5 text-[13px] font-semibold tracking-[0.6px] text-muted-soft uppercase">{{ __('Photo library') }}</p>
@@ -262,7 +245,6 @@
         </div>
 
         <div class="overflow-hidden rounded-2xl border border-hairline bg-canvas shadow-[0_24px_60px_rgba(17,17,17,0.08),0_4px_12px_rgba(17,17,17,0.04)]">
-            {{-- toolbar --}}
             <div class="flex flex-wrap items-center gap-3 border-b border-hairline-soft px-5 py-4 sm:px-6">
                 <div class="flex gap-1 rounded-full border border-hairline bg-card p-[3px]">
                     @foreach ($libFilters as $filter)
@@ -286,7 +268,6 @@
                     @svg('lucide-chevron-down', 'size-3.5 text-muted-soft')
                 </span>
             </div>
-            {{-- grid --}}
             <div class="p-5 sm:p-6">
                 <div class="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-6">
                     @foreach ($libPhotos as $photo)
@@ -319,7 +300,6 @@
         </div>
     </section>
 
-    {{-- SECTION 4: DETAILS + PRIMARY CTA --}}
     <section class="mx-auto max-w-[1200px] px-5 pt-24 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-14">
             <div>
@@ -333,7 +313,6 @@
                 </div>
             </div>
 
-            {{-- detail card capture --}}
             <div class="overflow-hidden rounded-2xl border border-hairline bg-canvas shadow-[0_24px_60px_rgba(17,17,17,0.08),0_4px_12px_rgba(17,17,17,0.04)]">
                 @php($dp = $tile(150))
                 <div class="relative aspect-[16/9] border-b border-hairline-soft" style="background:{{ $dp['bg'] }};">
@@ -362,7 +341,6 @@
         </div>
     </section>
 
-    {{-- REQUIRED TRANSPARENCY FOOTER --}}
     <section class="mx-auto max-w-[1080px] px-5 pt-24 pb-8 sm:px-8 sm:pt-28">
         <div class="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16">
             <div>

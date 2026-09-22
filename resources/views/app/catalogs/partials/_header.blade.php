@@ -44,12 +44,8 @@
 
     @if ($canManage)
         <div class="shrink-0">
-            {{-- The delete button sits inside the menu, so its form lives outside and is reached with form=. --}}
             <x-form method="delete" :action="route('collections.destroy', $catalog->id)" id="delete-collection-form" data-turbo="true" class="hidden" onsubmit="return confirm('{{ __('Delete :name? The collection and everything in it will no longer be accessible.', ['name' => $catalog->name]) }}')"></x-form>
 
-            {{-- An account that has used up its allowance keeps the menu, but the
-                 primary action becomes a disabled button rather than a link: an
-                 anchor cannot be disabled, and the banner above carries the way out. --}}
             <x-button.split
                 :href="$hasReachedItemLimit ? null : route('items.new', $catalog)"
                 :type="$hasReachedItemLimit ? 'button' : 'submit'"
@@ -82,8 +78,6 @@
             </x-button.split>
         </div>
     @else
-        {{-- The menu above belongs to the managers, but reading a collection out
-             is open to any role, so a viewer gets the one action they may take. --}}
         <div class="shrink-0">
             <x-button.secondary :href="route('collections.export.show', $catalog->id)" turbo data-test="export-collection-button">
                 <x-slot:icon>@svg('lucide-download', 'size-4')</x-slot>

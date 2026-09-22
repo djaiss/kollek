@@ -1,9 +1,4 @@
-{{--
-  The insurance coverage held against the copy. Coverage is historical, so a copy
-  gathers records as its policies and insured values change, and only one is
-  normally active per policy. The active record reads first; the expired and
-  cancelled ones behind it are dimmed so the live coverage stands out.
---}}
+{{-- The insurance coverage held against the copy over time. --}}
 
 @use('App\Helpers\Money')
 

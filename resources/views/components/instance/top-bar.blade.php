@@ -1,17 +1,7 @@
-{{-- The instance administration top bar. It only ever renders on the
-     /instance-admin panel (the layout gates it behind the route), so it is the
-     persistent, deliberately loud cue that you are working across every account
-     on the instance rather than inside your own. It carries its own fixed amber
-     treatment rather than the app's neutral tokens, in both light and dark, so
-     it never blends into ordinary app chrome.
-
-     The panel is English only and never translated, so its copy is plain
-     strings rather than __() calls. --}}
+{{-- The top bar of the instance administration panel. --}}
 @php($admin = auth()->user())
 
 <div class="sticky top-0 z-30 flex h-12 items-center gap-3 bg-gradient-to-r from-amber-900 to-amber-700 px-4 text-white lg:px-6">
-    {{-- Mobile menu toggle. The admin bar stands in for the plain mobile top bar
-         on these screens, so it carries the sidebar trigger itself. --}}
     <button
         type="button"
         @click="sidebarOpen = true"

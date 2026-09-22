@@ -1,14 +1,4 @@
-{{--
-  Inline help. A "?" badge next to a label or field that reveals a small popover
-  with a short blurb pulled from docs/help (the HelpSnippets service), keyed by
-  the id prop. Hover previews it, click pins it open (with a close button and
-  outside-click to dismiss). When the snippet points at a documentation page a
-  "Read more" link appears in the footer. An unknown id renders nothing, so a
-  typo never leaves a dead badge behind.
-
-  Usage: <x-help id="settings.general" /> next to a label.
-  Pass align="right" when the badge sits near the right edge of its container.
---}}
+{{-- A question mark badge revealing a short help note next to a label or a field. --}}
 @props([
   'id',
   'align' => 'left',
@@ -59,8 +49,6 @@
       class="flex size-[17px] items-center justify-center rounded-full border border-hairline bg-transparent text-[11px] leading-none font-bold text-muted-soft transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/40 focus-visible:outline-none"
     >?</button>
 
-    {{-- A morph refresh diffs against the server HTML, which would revert the
-         display Alpine sets here and leave the popover hanging open. --}}
     <div
       x-cloak
       data-morph-skip
@@ -70,11 +58,9 @@
       aria-label="{{ $snippet['title'] }}"
       class="absolute top-full z-[70] w-[330px] max-w-[calc(100vw-2rem)] pt-[11px] text-left {{ $isRight ? 'right-[-7px]' : 'left-[-7px]' }}"
     >
-      {{-- caret pointing at the badge --}}
       <div class="absolute top-[5px] size-3 rotate-45 border-t border-l border-hairline bg-canvas {{ $isRight ? 'right-4' : 'left-4' }}"></div>
 
       <div class="relative overflow-hidden rounded-[13px] border border-hairline bg-canvas shadow-xl">
-        {{-- header --}}
         <div class="flex items-center gap-[11px] px-4 pt-[15px] pb-3">
           <span class="flex size-7 shrink-0 items-center justify-center rounded-lg border text-[13px] font-bold text-[var(--color-accent)]" style="background:{{ $accentSoft }}; border-color:{{ $accentBorder }};">?</span>
 
@@ -96,7 +82,6 @@
           </button>
         </div>
 
-        {{-- body --}}
         <div class="px-4 pb-1">
           @foreach($paragraphs as $paragraph)
             <p class="mb-[11px] text-[13.5px] leading-relaxed text-muted">{{ $paragraph }}</p>
@@ -115,7 +100,6 @@
           @endif
         </div>
 
-        {{-- footer --}}
         @if($snippet['url'])
           <div class="flex items-center justify-between gap-3 border-t border-hairline-soft bg-[var(--color-hairline-soft)] px-4 py-3">
             <span class="text-[11.5px] text-muted-soft">{{ __('From the documentation') }}</span>

@@ -1,8 +1,4 @@
-{{--
-  Condition out → condition in. When the copy came back worse than it left, the
-  "in" side turns red and a damage note appears, so possible damage in transit is
-  visible at a glance. Expects: $loan.
---}}
+{{-- The condition a copy left in next to the condition it came back in. --}}
 @php
   $out = $loan->itemConditionOut;
   $in = $loan->itemConditionIn;

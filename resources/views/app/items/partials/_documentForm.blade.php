@@ -1,17 +1,4 @@
-{{--
-  The form behind both attaching and editing a document.
-
-  Attaching takes either an uploaded file or an external link, chosen with the
-  two tabs, so a document is always one or the other and never both. Editing
-  changes only the details: the file or the link itself is replaced by deleting
-  the document and attaching a fresh one, not here.
-
-  The ids are prefixed per form because a panel renders one add form and one edit
-  form per document, and duplicate ids would point every label at the first form.
-
-  Expects: $formId, $action, $method, $submitLabel, $dataTest, $openVar,
-  $document (null when attaching), $documentableType, $documentableId.
---}}
+{{-- The form behind both attaching and editing a document. --}}
 
 @use('App\Enums\DocumentType')
 
@@ -74,7 +61,6 @@
           <button type="button" x-on:click="source = 'url'" x-bind:class="source === 'url' ? 'bg-card text-ink' : 'text-muted'" class="rounded px-3 py-1.5 text-[13px] font-semibold" data-test="{{ $formId }}-source-url">{{ __('Link to a file') }}</button>
         </div>
 
-        {{-- File: a drop zone that also opens the file picker when clicked. --}}
         <div
           x-show="source === 'file'"
           x-on:dragover.prevent="over = true"
@@ -93,7 +79,6 @@
 
         <p x-show="sizeError" x-cloak x-text="sizeError" class="mt-2 text-sm text-error"></p>
 
-        {{-- Link: a plain URL to a file held elsewhere. --}}
         <div x-show="source === 'url'" x-cloak>
           <input name="external_url" type="url" value="{{ old('external_url') }}" placeholder="https://" class="{{ $inputClasses }} !mt-0" data-test="{{ $formId }}-external-url" />
         </div>

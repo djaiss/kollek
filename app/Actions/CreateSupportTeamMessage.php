@@ -65,10 +65,6 @@ class CreateSupportTeamMessage
         ]);
     }
 
-    /**
-     * A team reply moves the conversation to answered and wipes any closure, so
-     * replying to a closed conversation brings it back to life.
-     */
     private function markAnswered(): void
     {
         $this->ticket->status = SupportTicketStatus::Answered;

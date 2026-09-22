@@ -1,12 +1,4 @@
-{{--
-  The valuations of the copy, most recent first, which is the order the copy
-  reads its current worth from. Valuations are append-only, so the normal way to
-  change what a copy is worth is to add a new one rather than edit an old figure:
-  adding leads, and editing is tucked behind each row for fixing a mistake.
-
-  Each row carries a bar of its amount against the highest valuation on the copy,
-  so the run of them reads as how the worth has moved.
---}}
+{{-- The valuations logged against a copy, most recent first. --}}
 
 @use('App\Helpers\Money')
 
@@ -53,8 +45,6 @@
   @endif
 
   @if ($latestValuation)
-    {{-- The current estimated value at a glance: the newest valuation is what it
-         is read from, so it sits above the run. --}}
     <div class="mb-5 flex flex-wrap items-start justify-between gap-4 rounded-xl border border-hairline bg-card/40 px-5 py-4" data-test="current-value-{{ $selectedCopy->id }}">
       <div class="min-w-0">
         <p class="mb-1 text-xs text-muted-soft">{{ __('Current estimated value') }}</p>
@@ -69,8 +59,6 @@
   @endif
 
   @if ($valuations->isNotEmpty())
-    {{-- No overflow-hidden: a help popover opened from a row's edit form needs to
-         escape this card instead of being clipped at its edge. --}}
     <div class="rounded-xl border border-hairline">
       @foreach ($valuations as $valuation)
         @php

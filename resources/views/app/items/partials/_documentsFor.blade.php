@@ -1,16 +1,4 @@
-{{--
-  The documents attached to one record: the copy itself, or a transaction, a
-  valuation, an insurance record and so on. This is included both on the copy's
-  own Documents panel and inside every other record's panel, so it is written
-  once and reused.
-
-  Each entry shows an icon for its kind, its name and type, when it was issued and
-  its size, with an external-link marker when it is a link rather than a stored
-  file. Managers get an add form, an inline edit and a delete that warns the file
-  goes with it.
-
-  Expects: $documentable, $catalog, $item, $selectedCopy, $canManage.
---}}
+{{-- The documents attached to one record, reused by every panel that shows them. --}}
 
 @use('App\Enums\DocumentType')
 

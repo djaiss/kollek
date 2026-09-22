@@ -11,19 +11,12 @@
     $isCollection = $catalog !== null;
 @endphp
 
-{{-- The closed position is a static class rather than an x-cloak plus :class pair. x-cloak
-     would hide the sidebar until Alpine boots, and since it is in flow on desktop that drops
-     it out of the layout and shifts the page once it appears. Alpine only removes
-     -translate-x-full to slide it in on mobile. --}}
 <aside
     data-morph-skip
     :class="{ '-translate-x-full': ! sidebarOpen }"
     class="fixed inset-y-0 left-0 z-40 flex w-60 shrink-0 -translate-x-full flex-col gap-6 border-r border-hairline bg-sidebar px-4 py-5 transition-transform duration-200 lg:sticky lg:top-0 lg:h-screen lg:translate-x-0"
 >
-    {{-- Logo + theme toggle --}}
     <div class="flex items-center justify-between px-2">
-        {{-- The mark is decorative here: the wordmark next to it already names the app,
-             so labelling both would announce it twice. --}}
         <a href="{{ route('dashboard.index') }}" data-turbo="true" class="flex items-center gap-2">
             <x-logo size="26" aria-hidden="true" />
             <x-wordmark height="15" class="text-ink" />
@@ -32,14 +25,8 @@
         <x-theme-toggle class="border border-hairline bg-canvas text-muted hover:text-ink" />
     </div>
 
-    {{-- Only the navigation scrolls. The logo above and the plan card and user block
-         below stay put, so a short viewport never puts the account menu or the way out
-         of the free plan out of reach. min-h-0 is what lets this shrink below the
-         height of its own content: without it a flex child refuses to scroll. --}}
     <div class="flex min-h-0 flex-1 flex-col gap-6 overflow-y-auto">
         @if ($isInstance)
-            {{-- The instance administration panel is English only and never translated,
-                 so its labels are plain strings rather than __() calls. --}}
             <a href="{{ route('dashboard.index') }}" data-turbo="true" class="flex items-center gap-2 px-2 text-[13px] font-medium text-muted transition-colors hover:text-ink">
                 @svg('lucide-arrow-left', 'size-4')
                 Back to app
@@ -135,9 +122,6 @@
                 <x-sidebar-link :href="route('statistics.index', $catalog)" :active="request()->routeIs('statistics.*')" icon="chart-no-axes-combined">{{ __('Statistics') }}</x-sidebar-link>
             </nav>
 
-            {{-- The categories are the navigation of the collection, so they are listed here
-                 rather than hidden behind the screen that manages them. Nesting is flattened:
-                 the tree is what the manage screen is for. --}}
             @if ($categories?->isNotEmpty())
                 <nav class="flex flex-col gap-0.5">
                     <p class="px-2 py-1.5 text-xs font-medium tracking-wide text-muted-soft uppercase">{{ __('Categories') }}</p>
@@ -159,8 +143,6 @@
             </nav>
         @else
             <nav class="flex flex-col gap-0.5">
-                {{-- The shortcut lives on the link itself, so it works from every screen the
-                     sidebar is on and always opens the same page the link does. --}}
                 <x-sidebar-link
                     :href="route('search.index')"
                     :active="request()->routeIs('search.*')"
@@ -172,14 +154,11 @@
                     data-test="sidebar-search"
                 >{{ __('Search') }}</x-sidebar-link>
                 <p class="px-2 pt-4 pb-1.5 text-xs font-medium tracking-wide text-muted-soft uppercase">{{ __('Workspace') }}</p>
-                {{-- Only while the account still wants the screen. Dismissing it takes the link with it. --}}
                 @if ($user->account->show_getting_started)
                     <x-sidebar-link :href="route('gettingStarted.index')" :active="request()->routeIs('gettingStarted.*')" icon="rocket">{{ __('Getting started') }}</x-sidebar-link>
                 @endif
                 <x-sidebar-link :href="route('dashboard.index')" :active="request()->routeIs('dashboard.*')" icon="layout-grid">{{ __('Dashboard') }}</x-sidebar-link>
                 <x-sidebar-link :href="route('collections.index')" :active="request()->routeIs('collections.*')" icon="layers">{{ __('Collections') }}</x-sidebar-link>
-                {{-- A series spans collections rather than living in one, so it sits beside them
-                     in the workspace nav rather than inside a collection. --}}
                 <x-sidebar-link :href="route('series.index')" :active="request()->routeIs('series.*')" icon="library">{{ __('Series') }}</x-sidebar-link>
                 <x-sidebar-link :href="route('locations.index')" :active="request()->routeIs('locations.*')" icon="map-pin">{{ __('Locations') }}</x-sidebar-link>
                 @php($overdueLoans = \App\Models\Loan::query()->forAccount($user->account)->where('status', \App\Enums\LoanStatus::Overdue)->count())
@@ -195,7 +174,6 @@
                 <p class="px-2 pt-4 pb-1.5 text-xs font-medium tracking-wide text-muted-soft uppercase">{{ __('Documentation') }}</p>
                 <x-sidebar-link :href="route('marketing.docs.portal.home.show')" :active="false" icon="book-open">{{ __('Documentation site') }}</x-sidebar-link>
                 <x-sidebar-link :href="route('marketing.docs.api.index')" :active="false" icon="code">{{ __('API Docs') }}</x-sidebar-link>
-                {{-- The support section only exists when the instance turns it on. --}}
                 @if (config('support.enabled'))
                     <x-sidebar-link :href="route('support.tickets.index')" :active="request()->routeIs('support.*')" icon="life-buoy">{{ __('Support') }}</x-sidebar-link>
                 @endif
@@ -203,14 +181,10 @@
         @endif
     </div>
 
-    {{-- The free plan, wherever the user happens to be. Not in the instance
-         administration: that panel looks across every account and belongs to
-         whoever runs the instance, not to the account they are reading. --}}
     @unless ($isInstance)
         <x-plan-usage />
     @endunless
 
-    {{-- User block --}}
     <div x-data="{ open: false }" class="relative border-t border-hairline pt-3">
         <button type="button" @click="open = !open" class="cursor-pointer flex w-full items-center gap-2.5 rounded-md px-2 py-2 transition-colors hover:bg-canvas">
             <x-avatar :user="$user" :size="32" class="size-8 text-xs" />

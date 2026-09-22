@@ -23,7 +23,6 @@
   }"
   x-show="visible"
   data-set-card
-  {{-- Sets have no screen of their own, so account search links here and scrolls to the card. --}}
   id="set-{{ $set->id }}"
   class="scroll-mt-24 rounded-xl border border-hairline bg-canvas px-5 py-4"
   data-test="set-card-{{ $set->id }}"
@@ -74,7 +73,6 @@
     @endif
   </div>
 
-  {{-- Inline edit form --}}
   <div x-show="editing" x-cloak class="mt-4 border-t border-hairline-soft pt-4">
     <x-form method="put" :action="route('sets.update', [$catalog->id, $set->id])" data-test="edit-set-form-{{ $set->id }}" x-target="sets-panel notifications" x-on:ajax:after="editing = document.querySelector('[data-test=&quot;edit-set-form-{{ $set->id }}&quot;] .text-error') !== null">
       <div class="mb-3.5 flex flex-wrap gap-3.5">

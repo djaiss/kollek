@@ -1,10 +1,4 @@
-{{--
-  Where the copy has been stored over time. Each move reads as a period: the
-  copy arrived somewhere, then left for the next place. The open record, with no
-  end, is where the copy is now and reads first. Moving the copy is a dedicated
-  action rather than a field on the copy, so the history and the current location
-  never disagree.
---}}
+{{-- Where the copy has been stored over time. --}}
 
 @php
   $user = auth()->user();

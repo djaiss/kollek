@@ -24,7 +24,6 @@
           visibility: @js(old('visibility', $catalog->visibility->value)),
           selectedTypes: @js(collect(old('collection_type_ids', $selectedTypeIds))->mapWithKeys(fn ($id) => [(string) $id => true])->all()),
         }" class="space-y-7">
-          {{-- Cover --}}
           <div>
             <x-label>{{ __('Cover') }}</x-label>
             <div class="mt-2 flex items-center gap-5">
@@ -41,13 +40,10 @@
             <x-error :messages="$errors->get('emoji')" class="mt-2" />
           </div>
 
-          {{-- Name --}}
           <x-input id="name" :label="__('Name')" :placeholder="__('e.g. Marvel Comics 1990s')" :value="old('name', $catalog->name)" :error="$errors->get('name')" required autofocus data-test="collection-name-input" />
 
-          {{-- Description --}}
           <x-textarea id="description" :label="__('Description')" :placeholder="__('What\'s in this collection?')" rows="3" :value="old('description', $catalog->description)" :error="$errors->get('description')" />
 
-          {{-- Types --}}
           <div>
             <div class="flex items-center gap-2">
               <x-label>{{ __('Types') }}</x-label>
@@ -72,7 +68,6 @@
 
           <div class="h-px bg-hairline-soft"></div>
 
-          {{-- Visibility --}}
           <div>
             <div class="flex items-center gap-2">
               <x-label>{{ __('Visibility') }}</x-label>
@@ -100,7 +95,6 @@
             <x-error :messages="$errors->get('visibility')" class="mt-2" />
           </div>
 
-          {{-- Currency --}}
           <div class="max-w-60">
             <x-select id="currency" :label="__('Valuation currency')" helpId="collections.currency" :options="$currencies" :selected="old('currency', $catalog->currency)" :error="$errors->get('currency')" />
           </div>

@@ -1,8 +1,7 @@
+{{-- One editable custom field. Used for both the fields inside a group and the standalone ones. --}}
 @use('App\Enums\FieldTypeEnum')
 
-{{-- One editable custom field. Used for both the fields inside a group and the standalone ones. --}}
 <div id="field-row-{{ $field->id }}" class="rounded-xl border border-hairline bg-canvas p-4" data-test="field-row-{{ $field->id }}">
-  {{-- Separate action forms for reorder and delete; their buttons live in the row below via the form= attribute. --}}
   <x-form method="put" :action="route('settings.types.fields.order.update', [$type->id, $field->id])" id="field-up-{{ $field->id }}" data-turbo="true" class="hidden">
     <input type="hidden" name="direction" value="up" />
   </x-form>
@@ -12,7 +11,6 @@
   <x-form method="delete" :action="route('settings.types.fields.destroy', [$type->id, $field->id])" id="field-delete-{{ $field->id }}" data-turbo="true" class="hidden" onsubmit="return confirm('{{ __('Delete this custom field? The data stored in it on every item will be permanently deleted. This cannot be undone.') }}')"></x-form>
 
   <x-form method="put" :action="route('settings.types.fields.update', [$type->id, $field->id])" data-turbo="true" onchange="this.requestSubmit()">
-    {{-- Top row: name, type, reorder, delete. Stays fixed even when options appear below. --}}
     <div class="flex items-end gap-2.5">
       <div class="min-w-0 flex-1">
         <label class="mb-1.5 block text-xs font-semibold text-muted-soft">{{ __('Field name') }}</label>
@@ -36,7 +34,6 @@
       <button type="submit" form="field-delete-{{ $field->id }}" aria-label="{{ __('Remove field') }}" data-test="delete-field-{{ $field->id }}" class="flex size-10 shrink-0 cursor-pointer items-center justify-center rounded-md border border-hairline text-muted hover:bg-card">×</button>
     </div>
 
-    {{-- Options for a select field, rendered below the top row. --}}
     @if ($field->field_type === FieldTypeEnum::Select)
       <div class="mt-3.5 border-t border-hairline-soft pt-3.5">
         <label class="mb-2 block text-xs font-semibold text-muted-soft">{{ __('Options') }}</label>

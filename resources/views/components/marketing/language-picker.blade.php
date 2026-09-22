@@ -1,13 +1,6 @@
+{{-- The footer picker offering the current page in another language. --}}
 @props (['links'])
 
-{{--
-  The footer language picker. Every link is the page the visitor is already on, in another
-  language, built by App\ViewModels\MarketingLanguages. The menu opens upwards because the
-  footer sits at the bottom of the page.
-
-  These are ordinary links rather than Turbo visits on purpose: switching language changes
-  the lang attribute on <html>, which a body-only Turbo replacement would leave behind.
---}}
 @php
     $current = collect($links)->firstWhere('current', true) ?? collect($links)->first();
 @endphp

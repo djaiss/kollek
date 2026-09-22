@@ -43,7 +43,6 @@
 
       <main class="flex flex-1 items-center justify-center p-12">
         <div class="flex w-full max-w-[560px] flex-col items-center text-center">
-          {{-- Illustration --}}
           <div class="animate-float relative mb-9">
             <div
               class="flex size-[180px] items-center justify-center overflow-hidden rounded-[28px]"
@@ -57,26 +56,21 @@
             </div>
           </div>
 
-          {{-- Status pill --}}
           <div class="mb-[18px] inline-flex items-center gap-[7px] rounded-full bg-[color-mix(in_oklab,var(--accent),transparent_88%)] px-[13px] py-[5px] text-xs font-semibold text-[var(--accent)]">
             <span class="size-[7px] rounded-full bg-[var(--accent)]"></span>
             {{ __('Error :code · :name', ['code' => $code, 'name' => $name]) }}
           </div>
 
-          {{-- Headline --}}
           <h1 class="mb-3.5 max-w-[460px] text-[34px] leading-[1.12] font-bold tracking-[-0.8px] text-pretty">{{ $headline }}</h1>
 
-          {{-- Body --}}
           <p class="mb-7 max-w-[440px] text-base leading-relaxed text-body text-pretty">{{ $body }}</p>
 
-          {{-- Context card --}}
           @isset($context)
             <div class="mb-7 w-full max-w-[440px] overflow-hidden rounded-xl border border-hairline bg-canvas [&>*:last-child]:border-0">
               {{ $context }}
             </div>
           @endisset
 
-          {{-- Actions --}}
           <div class="flex flex-wrap items-center justify-center gap-3">
             <x-button :href="$primaryHref" turbo>{{ $primaryLabel }}</x-button>
 

@@ -35,7 +35,6 @@
 
   <div class="px-6 py-8 lg:px-12 lg:py-10">
     <div class="mx-auto w-full max-w-5xl space-y-8">
-      {{-- Breadcrumb --}}
       <div class="flex items-center gap-1.5 text-[13px]">
         @if (auth()->user()->isOwner())
           <a href="{{ route('settings.index') }}" data-turbo="true" class="font-medium text-muted-soft transition-colors hover:text-ink">{{ __('Account settings') }}</a>
@@ -61,7 +60,6 @@
           x-data="typeSchemaValidator(@js(['sample' => $sample, 'fieldTypes' => $fieldTypes, 'maxLength' => $maxLength, 'labels' => $validatorLabels]))"
           class="grid grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,340px)]"
         >
-          {{-- Left: the editor, and what we make of what is in it --}}
           <div class="flex flex-col gap-4">
             <div class="overflow-hidden rounded-2xl border transition-colors" :class="editorBorderClass">
               <div class="flex flex-wrap items-center gap-3 border-b border-hairline bg-card px-4 py-2.5">
@@ -95,9 +93,6 @@
               >{{ old('json') }}</textarea>
             </div>
 
-            {{-- What the browser makes of the document, ahead of the server having the final say.
-                 The idle state is rendered server side so the panel still reads as something
-                 without JavaScript, where the server is the only thing validating. --}}
             <div class="rounded-xl border p-4 transition-colors" :class="statusBoxClass" data-test="import-status">
               <div class="flex items-center gap-2.5">
                 <span class="flex size-6 shrink-0 items-center justify-center rounded-full" :class="statusIconClass">
@@ -133,7 +128,6 @@
               </div>
             </div>
 
-            {{-- The server has the last word, so its errors show up here too --}}
             <x-error :messages="$errors->get('json')" data-test="import-server-errors" />
 
             <div class="flex items-center justify-end gap-3">
@@ -150,7 +144,6 @@
             </div>
           </div>
 
-          {{-- Right: how to get a document worth pasting --}}
           <div class="flex flex-col gap-6 lg:sticky lg:top-6">
             <div>
               <h2 class="mb-3 text-xs font-semibold tracking-wide text-muted-soft uppercase">{{ __('How to import') }}</h2>

@@ -1,11 +1,6 @@
+{{-- The collection summary, its charts drawn as table cells and bars for dompdf. --}}
 @use('App\Enums\ExportSection')
 
-{{--
-  The summary. Every chart here is drawn with table cells and a filled bar,
-  because dompdf has neither flexbox nor conic gradients: the donut of the
-  statistics screen becomes a ranked list, and the value line becomes an svg
-  polyline, which is the one drawing primitive dompdf does support.
---}}
 <h2>{{ __('Collection summary') }}</h2>
 
 @php

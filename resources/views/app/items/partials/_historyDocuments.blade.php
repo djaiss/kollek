@@ -1,8 +1,4 @@
-{{--
-  The documents about the copy as a whole: the paperwork that belongs to the
-  object itself rather than to one transaction or valuation. Documents tied to a
-  specific record live in that record's own panel, and show up there.
---}}
+{{-- The documents about the copy as a whole, rather than about one of its records. --}}
 
 @php
   $user = auth()->user();

@@ -1,17 +1,4 @@
-{{--
-  The form behind both adding and editing a valuation.
-
-  The amount is typed in currency units here and stored in cents. Editing is the
-  exception rather than the rule: valuations are historical records, so the
-  normal way to change what a copy is worth is to add a new one. The ids are
-  prefixed per form because the panel renders one of these per copy and one per
-  valuation being edited, and duplicate ids would point every label at the first
-  form.
-
-  Expects: $formId, $action, $method, $openVar, $submitLabel, $dataTest,
-  $valuation (null when adding), $currencies, $catalog, $item, $selectedCopy.
-  When editing, also $deleteAction.
---}}
+{{-- The form behind adding and editing a valuation on a copy. --}}
 
 @use('App\Enums\ValuationConfidence')
 @use('App\Enums\ValuationType')

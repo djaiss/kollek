@@ -40,10 +40,6 @@ class DestroyDocument
         }
     }
 
-    /**
-     * The file is removed only once the row is gone, since deleting a file cannot
-     * be rolled back.
-     */
     private function destroy(): void
     {
         $path = $this->document->path;
@@ -57,9 +53,6 @@ class DestroyDocument
         $this->disk()->delete($path);
     }
 
-    /**
-     * The disk lives here alone so it can be swapped in one place.
-     */
     private function disk(): Filesystem
     {
         return Storage::disk((string) config('filesystems.default'));

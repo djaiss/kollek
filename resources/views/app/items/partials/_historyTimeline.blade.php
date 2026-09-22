@@ -1,14 +1,4 @@
-{{--
-  The unified history: everything that has happened to the copy, newest first,
-  merged from every record below by the BuildCopyHistory service. Nothing is
-  stored here; each entry keeps its own source of truth and links back into the
-  section it came from.
-
-  The meaningful view is the default: routine maintenance, ordinary moves and
-  informal loans stay out until the complete view is asked for. The type filter
-  narrows to chosen sources. Both choices live in the url, so the panel reloads
-  in place and a shared link keeps the same view.
---}}
+{{-- The unified history of the copy, newest first, merged from every other section. --}}
 
 @php
   // Every filter control is a link that reloads the panel, matching how the copy
@@ -52,8 +42,6 @@
 
   @if (! empty($presentSources))
     <div x-show="filtersOpen" class="mb-6 flex flex-wrap items-center justify-between gap-3" data-test="timeline-filters">
-    {{-- Filter by event type. "All" clears the filter; each chip toggles its own
-         source in and out, so several can be combined. --}}
     <div class="flex flex-wrap items-center gap-1.5">
       <a
         href="{{ $timelineUrl($timelineView, []) }}"
@@ -91,8 +79,6 @@
       @endforeach
     </div>
 
-    {{-- The default meaningful view against the complete activity view. Complete
-         adds the routine records the meaningful view leaves out. --}}
     <div class="flex items-center gap-0.5 rounded-lg bg-card p-1" data-test="timeline-view-toggle" role="group" aria-label="{{ __('History detail') }}">
       <a
         href="{{ $timelineUrl('meaningful', $selectedTypes) }}"
@@ -135,7 +121,6 @@
       class="group flex gap-4"
       data-test="history-{{ $entry->key() }}"
     >
-      {{-- The rail: a colour-ringed dot, then a line down to the next entry. --}}
       <div class="flex shrink-0 flex-col items-center pt-[3px]">
         <span class="size-[13px] rounded-full" style="background-color: {{ $tint }}; border: 2.5px solid {{ $color }};" aria-hidden="true"></span>
         @unless ($loop->last)

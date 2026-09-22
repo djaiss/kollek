@@ -23,11 +23,6 @@
               <x-button href="{{ route('login') }}">{{ __('Log in') }}</x-button>
             @else
               <x-form method="post" :action="route('invitations.create', $invitation->token)" class="space-y-4">
-                {{-- This form creates a user, so the password fields are treated the
-                     same way as the ones on the registration screen: a manager should
-                     offer to generate and then save the new password. The email is
-                     fixed by the invitation and only shown, but it is still what a
-                     manager files the saved login under. --}}
                 <x-input id="email" name="email" :label="__('Email')" :value="$invitation->email" disabled :passManagerDisabled="false" autocomplete="username" />
                 <x-input id="first_name" name="first_name" :label="__('First name')" :error="$errors->get('first_name')" required autofocus :passManagerDisabled="false" autocomplete="given-name" />
                 <x-input id="last_name" name="last_name" :label="__('Last name')" :error="$errors->get('last_name')" required :passManagerDisabled="false" autocomplete="family-name" />

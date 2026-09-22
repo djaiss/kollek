@@ -1,10 +1,5 @@
+{{-- How much of the free plan the account has used, in the sidebar. --}}
 @use('App\Services\AccountPlan')
-
-{{--
-  How much of the free plan the account has used, in the sidebar. It only exists
-  on the hosted instance and only while the account is still on the free plan,
-  so a self hosted sidebar never renders it at all.
---}}
 
 @php
   $plan = new AccountPlan(account: auth()->user()->account);

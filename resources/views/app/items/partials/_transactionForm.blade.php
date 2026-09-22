@@ -1,16 +1,4 @@
-{{--
-  The form behind both adding and editing a transaction.
-
-  Money is typed in currency units here and stored in cents, and every amount on
-  a transaction is in the one currency, which is why the selector sits with the
-  totals rather than next to each field. The ids are prefixed per form because
-  the history tab renders one of these per copy and one per transaction being
-  edited, and duplicate ids would point every label at the first form.
-
-  Expects: $formId, $action, $method, $openVar, $submitLabel, $dataTest,
-  $transaction (null when adding), $currencies, $catalog, $item, $selectedCopy.
-  When editing, also $deleteAction.
---}}
+{{-- The form behind adding and editing a transaction on a copy. --}}
 
 @use('App\Enums\TransactionType')
 

@@ -1,16 +1,6 @@
+{{-- The export screen: pick a format and tick what belongs in the file. --}}
 @use('App\Enums\ExportFormat')
 
-{{--
-  The export screen: pick a format, tick what belongs in the file.
-
-  One Alpine component holds the whole selection, so the summary card can report
-  what the current choice comes to before anything is generated. Underneath it is
-  a plain form, and every checkbox carries its own name, so an export still works
-  if Alpine never boots; only the live counts are lost in that case.
-
-  The whole grid sits inside the form, because the button that submits it lives in
-  the summary card on the right.
---}}
 @php
   $counts = $export->counts();
 
@@ -58,9 +48,6 @@
           },
           get isPdf() { return this.format === '{{ ExportFormat::Pdf->value }}'; },
           get fileName() { return this.fileNames[this.format]; },
-          {{-- A rough page count, so the size of the choice is visible before the
-               file is made. The inventory and the register are rows on a page,
-               and an item sheet is a page and a bit. --}}
           get pages() {
               let total = 0;
 

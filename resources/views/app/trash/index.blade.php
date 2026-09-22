@@ -49,7 +49,6 @@
             </x-empty-state>
           </div>
         @else
-          {{-- Type filters and search --}}
           <div class="mt-7 flex flex-wrap items-center gap-2">
             <button
               type="button"
@@ -87,7 +86,6 @@
               data-test="search-trash"
             />
 
-            {{-- Emptying the trash is irreversible, so it asks before going ahead. --}}
             <x-form
               method="delete"
               :action="route('settings.trash.destroy')"
@@ -105,7 +103,6 @@
             </x-form>
           </div>
 
-          {{-- Column headers --}}
           <div class="mt-6 flex items-center gap-4 border-b border-hairline px-1 pb-3 text-xs font-medium tracking-wide text-muted-soft uppercase">
             <span class="min-w-0 flex-1">{{ __('Name') }}</span>
             <span class="w-28 shrink-0">{{ __('Type') }}</span>

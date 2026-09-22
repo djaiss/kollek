@@ -28,7 +28,6 @@
   }"
   x-show="matches($el.dataset.tagName)"
   data-tag-name="{{ $searchable }}"
-  {{-- Tags have no screen of their own, so account search links here and scrolls to the row. --}}
   id="tag-{{ $tag->id }}"
   data-test="tag-row-{{ $tag->id }}"
   class="flex scroll-mt-24 items-center gap-3 border-b border-hairline-soft px-5 py-3 last:border-b-0"

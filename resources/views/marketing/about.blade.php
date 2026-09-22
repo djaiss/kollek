@@ -1,13 +1,4 @@
-{{--
-  Who is behind KolleK. The page is deliberately light on its feet: the "team" is one
-  developer and a set of AI tools, and the page says so rather than dressing it up.
-
-  One thing here is not a settled fact. The launch date at the end of the timeline is a
-  plan rather than a shipped release, and the media kit still describes the status as in
-  development, so the two have to move together. The timeline's years used to be
-  bracketed placeholders with a note under the list; they are real now, and nothing on
-  the page hedges any more.
---}}
+{{-- The public page about who is behind KolleK. --}}
 
 @php
     $github = config('marketing.github_url');
@@ -160,7 +151,6 @@
 @endphp
 
 <x-marketing-layout :title="__('About')">
-  {{-- HERO --}}
   <section class="mx-auto max-w-[1200px] px-5 pt-12 sm:px-8 sm:pt-24">
     <p class="{{ $eyebrow }} mb-6">{{ __('About') }}</p>
 
@@ -187,7 +177,6 @@
     </div>
   </section>
 
-  {{-- TEAM --}}
   <section id="team" class="mx-auto max-w-[1200px] scroll-mt-24 px-5 pt-16 sm:px-8 sm:pt-28">
     <div class="max-w-[640px]">
       <h2 class="{{ $sectionTitle }}">{{ __('Meet the team') }}</h2>
@@ -199,8 +188,6 @@
         <li class="flex flex-col gap-4 rounded-2xl border border-hairline-soft bg-card p-6.5 transition-colors hover:border-hairline">
           <div class="flex items-center gap-3.5">
             @if (! empty($member['photo']))
-              {{-- The name sits right next to it, so the photo is decorative and its alt
-                   stays empty rather than reading the name out a second time. --}}
               <x-image
                 :src="asset($member['photo'])"
                 :srcset="asset($member['photo']) . ', ' . asset(Str::replaceLast('.', '@2x.', $member['photo'])) . ' 2x'"
@@ -234,7 +221,6 @@
     </aside>
   </section>
 
-  {{-- FACTS --}}
   <section class="mx-auto max-w-[1200px] px-5 pt-16 sm:px-8 sm:pt-28">
     <h2 class="{{ $sectionTitle }}">{{ __('Company facts') }}</h2>
     <p class="{{ $sectionLede }} max-w-[560px]">{{ __('Every number here is accurate, which is the part we are quietly proud of.') }}</p>
@@ -249,7 +235,6 @@
     </dl>
   </section>
 
-  {{-- TIMELINE --}}
   <section id="timeline" class="mx-auto max-w-[1200px] scroll-mt-24 px-5 pt-16 sm:px-8 sm:pt-28">
     <div class="max-w-[620px]">
       <h2 class="{{ $sectionTitle }}">{{ __('The road to KolleK') }}</h2>
@@ -269,7 +254,6 @@
     </ol>
   </section>
 
-  {{-- WHY --}}
   <section class="mx-auto max-w-[1200px] px-5 pt-16 sm:px-8 sm:pt-28">
     <div class="grid grid-cols-1 items-start gap-10 lg:grid-cols-2 lg:gap-14">
       <div>
@@ -296,7 +280,6 @@
     </div>
   </section>
 
-  {{-- RECIPE --}}
   <section class="mx-auto max-w-[1200px] px-5 pt-16 sm:px-8 sm:pt-28">
     <div class="rounded-2xl border border-hairline p-7 sm:p-12">
       <h2 class="max-w-[620px] text-[26px] leading-[1.15] font-semibold tracking-[-1px] text-ink sm:text-[34px] sm:tracking-[-1.2px]">
@@ -330,7 +313,6 @@
     </div>
   </section>
 
-  {{-- NOT BUILDING --}}
   <section class="mx-auto max-w-[1200px] px-5 pt-16 sm:px-8 sm:pt-28">
     <h2 class="{{ $sectionTitle }}">{{ __('Currently not on the roadmap') }}</h2>
     <p class="{{ $sectionLede }} max-w-[560px]">{{ __('Saying no is most of the work.') }}</p>
@@ -348,7 +330,6 @@
     </ul>
   </section>
 
-  {{-- OPEN SOURCE --}}
   <section class="mx-auto max-w-[1200px] px-5 pt-16 sm:px-8 sm:pt-28">
     <div class="rounded-3xl bg-[#101010] px-6 py-12 text-white sm:px-14 sm:py-14">
       <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-12">
@@ -384,7 +365,6 @@
     </div>
   </section>
 
-  {{-- FINAL NOTE --}}
   <section class="mx-auto max-w-[1200px] px-5 pt-16 sm:px-8 sm:pt-28">
     <div class="rounded-2xl bg-card px-6 py-14 text-center sm:px-12 sm:py-16">
       <h2 class="mx-auto max-w-[640px] text-[26px] leading-[1.25] font-semibold tracking-[-1px] text-balance text-ink sm:text-[34px] sm:tracking-[-1.1px]">

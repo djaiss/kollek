@@ -87,10 +87,6 @@ class CreateItem
         return $this->item;
     }
 
-    /**
-     * Tags and custom field values are written after the item row itself, so the
-     * search index built when it saved does not have them yet.
-     */
     private function reindexSearch(): void
     {
         $this->item->load(['catalog', 'category', 'set', 'series', 'catalogType', 'tags', 'customFieldValues']);
@@ -251,10 +247,6 @@ class CreateItem
         }
     }
 
-    /**
-     * A rating is a whole number of stars, so anything outside the scale is dropped
-     * rather than stored as junk.
-     */
     private function rating(string|int $value): ?string
     {
         $stars = filter_var($value, FILTER_VALIDATE_INT);
@@ -288,13 +280,6 @@ class CreateItem
         }
     }
 
-    /**
-     * Record what a copy is reckoned to be worth.
-     *
-     * The estimated value is no longer a column on the copy, so a figure given
-     * with the row opens its valuation history rather than being written to the
-     * copy itself.
-     */
     private function valueCopy(Copy $copy, ?int $estimatedValue): void
     {
         if ($estimatedValue === null) {
@@ -313,10 +298,6 @@ class CreateItem
         $this->stampAuthorOn($valuation);
     }
 
-    /**
-     * The photos are added in the order they were given. An item without any
-     * photo yet promotes the first one to cover on its own.
-     */
     private function addPhotos(): void
     {
         foreach ($this->photos as $photo) {

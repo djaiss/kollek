@@ -88,10 +88,8 @@
         },
     }"
   >
-    {{-- The endpoint that remembers which blocks are on, read by saveDashboardSections in app.js. --}}
     <input type="hidden" id="dashboard-sections-endpoint" value="{{ route('dashboard.sections.update') }}" />
 
-    {{-- Header --}}
     <div class="mb-7 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
       <div class="min-w-0">
         <h1 class="text-[28px] font-semibold tracking-tight text-ink">{{ $greeting }}, {{ $firstName }}</h1>
@@ -136,8 +134,6 @@
                 data-test="toggle-section-{{ $section->value }}"
               >
                 <span class="flex-1 text-[13px] font-medium" :class="shows(@js($section->value)) ? 'text-ink' : 'text-muted-soft'">{{ $section->label() }}</span>
-                {{-- The knob follows the page rather than being white, so it stays visible
-                     against the track in both themes. --}}
                 <span class="relative h-[18px] w-8 shrink-0 rounded-full transition-colors" :class="shows(@js($section->value)) ? 'bg-ink' : 'bg-muted-soft'">
                   <span class="absolute top-0.5 size-3.5 rounded-full bg-page shadow-sm transition-all" :class="shows(@js($section->value)) ? 'left-4' : 'left-0.5'"></span>
                 </span>
@@ -155,7 +151,6 @@
       </div>
     </div>
 
-    {{-- Portfolio summary --}}
     <div x-show="shows(@js(DashboardSectionEnum::Summary->value))" @style(['display: none' => $hides(DashboardSectionEnum::Summary)]) class="mb-6 grid grid-cols-2 gap-3 lg:grid-cols-3 xl:grid-cols-6" data-test="dashboard-summary">
       @foreach ($kpis as $kpi)
         <div class="flex flex-col gap-1.5 rounded-xl border border-hairline bg-canvas p-4">
@@ -170,9 +165,7 @@
     </div>
 
     <div class="grid grid-cols-1 gap-6 lg:grid-cols-[1.6fr_1fr] lg:items-start">
-      {{-- LEFT COLUMN --}}
       <div class="flex flex-col gap-6">
-        {{-- Recent additions --}}
         <div x-show="shows(@js(DashboardSectionEnum::Additions->value))" @style(['display: none' => $hides(DashboardSectionEnum::Additions)]) class="overflow-hidden rounded-xl border border-hairline bg-canvas" data-test="dashboard-additions">
           <div class="flex items-center gap-3 border-b border-hairline-soft px-5 py-4">
             <span class="size-2.5 shrink-0 rounded-full bg-brand"></span>
@@ -217,7 +210,6 @@
           @endforelse
         </div>
 
-        {{-- Your collections --}}
         <div x-show="shows(@js(DashboardSectionEnum::Collections->value))" @style(['display: none' => $hides(DashboardSectionEnum::Collections)]) data-test="dashboard-collections">
           <div class="mb-3.5 flex items-center justify-between">
             <h2 class="text-base font-semibold text-ink">{{ __('Your collections') }}</h2>
@@ -266,9 +258,7 @@
         </div>
       </div>
 
-      {{-- RIGHT COLUMN --}}
       <div class="flex flex-col gap-6">
-        {{-- Loan snapshot --}}
         <div x-show="shows(@js(DashboardSectionEnum::Loans->value))" @style(['display: none' => $hides(DashboardSectionEnum::Loans)]) class="overflow-hidden rounded-xl border border-hairline bg-canvas" data-test="dashboard-loans">
           <div class="flex items-center justify-between border-b border-hairline-soft px-5 py-4">
             <h2 class="text-[15px] font-semibold text-ink">{{ __('Loan snapshot') }}</h2>
@@ -292,7 +282,6 @@
           @endif
         </div>
 
-        {{-- Where things are --}}
         <div x-show="shows(@js(DashboardSectionEnum::Locations->value))" @style(['display: none' => $hides(DashboardSectionEnum::Locations)]) class="rounded-xl border border-hairline bg-canvas p-5" data-test="dashboard-locations">
           <h2 class="text-[15px] font-semibold text-ink">{{ __('Where things are') }}</h2>
           <p class="mt-0.5 mb-4 text-[13px] text-muted">{{ __('Estimated value by location.') }}</p>
@@ -314,7 +303,6 @@
           @endif
         </div>
 
-        {{-- Account activity --}}
         <div x-show="shows(@js(DashboardSectionEnum::Activity->value))" @style(['display: none' => $hides(DashboardSectionEnum::Activity)]) class="overflow-hidden rounded-xl border border-hairline bg-canvas" data-test="dashboard-activity">
           <div class="flex items-center justify-between border-b border-hairline-soft px-5 py-4">
             <h2 class="text-[15px] font-semibold text-ink">{{ __('Account activity') }}</h2>

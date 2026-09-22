@@ -12,11 +12,8 @@ use Illuminate\Support\Facades\DB;
 
 /**
  * Rebuild the search hashes of one record from its own text and from the few
- * things around it a user would search it by.
- *
- * This is bookkeeping the application does for itself rather than something a
- * user asks for, so it takes no user and checks no role. Whoever is allowed to
- * change the record is the one who decides it runs.
+ * things around it a user would search it by. This is bookkeeping the
+ * application does for itself, so it takes no user and checks no role.
  */
 class IndexSearchable
 {

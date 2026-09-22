@@ -17,19 +17,6 @@ use Illuminate\Support\Str;
 /**
  * Write one language of a blog entry, creating it if this is the first time
  * anybody has written that language.
- *
- * Two things happen around the edit that are easy to forget by hand, which is
- * why they happen here:
- *
- * Renaming a live entry would break every link made to it, so the old slug is
- * kept and permanently redirected. A slug can therefore come back around: if an
- * entry is renamed back to what it was, the redirect that would now point at
- * itself is dropped.
- *
- * And when the English source changes, every translation written from the old
- * text is now describing something that has moved. They are flagged outdated,
- * which takes them off the public site until somebody has looked at them again,
- * rather than leaving readers with a version nobody has checked.
  */
 class UpsertBlogPostTranslation
 {
@@ -72,10 +59,6 @@ class UpsertBlogPostTranslation
         }
     }
 
-    /**
-     * Only a slug that has actually been published needs a redirect. Renaming a
-     * draft leaves nothing behind, because nothing was ever linked.
-     */
     private function recordOldSlug(): void
     {
         $existing = $this->blogPost->translationFor($this->locale);
@@ -123,10 +106,6 @@ class UpsertBlogPostTranslation
             ->delete();
     }
 
-    /**
-     * The English text is the source; a language written from it starts life
-     * waiting to be proofread rather than live.
-     */
     private function initialState(): BlogTranslationState
     {
         return $this->isSource() ? BlogTranslationState::Source : BlogTranslationState::InReview;

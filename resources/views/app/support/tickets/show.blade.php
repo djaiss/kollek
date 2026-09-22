@@ -20,9 +20,7 @@
         {{ __('Back to conversations') }}
       </a>
 
-      {{-- Thread card --}}
       <div class="overflow-hidden rounded-2xl border border-hairline bg-canvas shadow-xs">
-        {{-- Header --}}
         <div class="border-b border-hairline-soft px-6 py-5">
           <div class="flex items-start justify-between gap-4">
             <div class="min-w-0 flex-1">
@@ -44,7 +42,6 @@
             </span>
           </div>
 
-          {{-- Actions --}}
           <div class="mt-4 flex flex-wrap items-center gap-2">
             @if ($ticket->status !== SupportTicketStatus::Closed)
               <x-form method="put" action="{{ route('support.tickets.update', $ticket) }}">
@@ -68,13 +65,9 @@
           </div>
         </div>
 
-        {{-- Messages --}}
         <div class="px-6 pt-6">
           @foreach ($ticket->messages->sortBy('created_at') as $message)
             <div class="flex gap-3.5 pb-6">
-              {{-- A team reply is shown as "Support" rather than the administrator who
-                   wrote it: the user is talking to the instance, not to a person, and
-                   the avatar route would refuse a user outside their own account. --}}
               @if ($message->is_from_team)
                 <x-avatar :name="__('Support')" :size="32" class="size-9 shrink-0 bg-ink text-sm text-canvas" />
               @else
@@ -100,7 +93,6 @@
           @endforeach
         </div>
 
-        {{-- Footer: reply composer, sent confirmation, or closed notice --}}
         <div class="px-6 pt-1 pb-6">
           @if ($ticket->status === SupportTicketStatus::Closed)
             <div class="ml-[52px] flex items-start gap-3 rounded-xl border border-hairline bg-card p-4 text-sm text-muted">
@@ -122,7 +114,6 @@
             </div>
           @else
             <div x-data="{ sent: {{ session('reply_sent') ? 'true' : 'false' }}, draft: @js(old('body', '')) }" class="ml-[52px]">
-              {{-- Reply composer --}}
               <x-form x-show="!sent" method="post" action="{{ route('support.tickets.messages.create', $ticket) }}" class="rounded-2xl border border-hairline bg-canvas focus-within:border-accent">
                 <textarea
                   id="body"
@@ -147,7 +138,6 @@
                 </div>
               </x-form>
 
-              {{-- Sent confirmation --}}
               <div x-show="sent" x-cloak>
                 <div class="flex items-center gap-4 rounded-2xl border border-success/30 bg-success/5 px-6 py-5">
                   <div class="flex size-12 shrink-0 items-center justify-center rounded-full border border-success/30 bg-success/10">

@@ -3,7 +3,6 @@
     $totalMinutes = collect($entries)->sum('readingMinutes');
   @endphp
 
-  {{-- Hero --}}
   <section class="mx-auto max-w-[1200px] px-5 pt-16 sm:px-8 sm:pt-24">
     <p class="mb-6 text-[12px] font-semibold tracking-[1.4px] text-muted-soft uppercase">{{ __('Blog') }}</p>
     <h1 class="max-w-[820px] text-[32px] leading-[1.04] font-semibold tracking-[-1px] text-balance text-ink sm:text-5xl lg:text-[64px] lg:tracking-[-2.4px]">{{ __('Every post we have ever written, catalogued.') }}</h1>
@@ -28,9 +27,6 @@
     </dl>
   </section>
 
-  {{-- The catalogue. The whole list is rendered and the shelf filter runs in
-       the browser: the page is held by the CDN as one document for everybody,
-       so filtering on the server would mean one cached copy per shelf. --}}
   <section id="archive" class="mx-auto max-w-[1200px] px-5 pt-16 sm:px-8 sm:pt-24" x-data="{ shelf: 'all' }">
     <div class="flex flex-wrap items-end justify-between gap-6 border-b border-hairline pb-5">
       <div role="group" aria-label="{{ __('Filter by shelf') }}" class="flex flex-wrap gap-2">
@@ -74,8 +70,6 @@
         @endforeach
       </ol>
 
-      {{-- Only shown once a shelf is chosen, so the catalogue does not carry a
-           "clear" control when there is nothing to clear. --}}
       <button type="button" x-show="shelf !== 'all'" x-cloak @click="shelf = 'all'" class="mt-7 inline-flex items-center gap-2.5 rounded-md border border-hairline px-4 py-2.5 text-sm font-semibold text-ink transition-colors hover:bg-sidebar">
         @svg ('lucide-x', 'size-3.5 text-muted-soft')
         {{ __('Show the whole catalogue') }}

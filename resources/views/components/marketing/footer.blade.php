@@ -8,8 +8,6 @@
         </div>
         <p class="max-w-60 text-sm leading-relaxed">{{ __('The open source collection manager that belongs to you.') }}</p>
 
-        {{-- The picker keeps the visitor on the page they are reading, so it needs the
-             current request rather than just the list of languages. --}}
         @php
             $languages = app(\App\ViewModels\MarketingLanguages::class);
         @endphp
@@ -76,8 +74,6 @@
           <p class="mb-4 text-[13px] font-semibold text-white">{{ $column['title'] }}</p>
           <div class="flex flex-col gap-y-3">
             @foreach ($column['links'] as $link)
-              {{-- Drive the in app links through Turbo; the GitHub and placeholder
-                   links point off site (or nowhere) and are left alone. --}}
               <a href="{{ $link['url'] }}" @if (str_starts_with($link['url'], config('app.url'))) data-turbo="true" @endif class="text-sm text-[#a1a1aa] transition-colors hover:text-white">{{ $link['label'] }}</a>
             @endforeach
           </div>

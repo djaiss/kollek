@@ -15,11 +15,8 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Say how far along one language of a blog entry is: mark a translation
- * proofread so readers start seeing it, or take it back off the site.
- *
- * English cannot be moved. It is the source by definition, and the fallback
- * every other locale relies on, so demoting it would leave the entry with
- * nothing to show anybody.
+ * proofread so readers start seeing it, or take it back off the site. English
+ * cannot be moved.
  */
 class UpdateBlogPostTranslationState
 {

@@ -1,15 +1,4 @@
-{{--
-  The media kit. Like the terms and the privacy policy, the copy here is deliberately not
-  translated: it is boilerplate a journalist copies and pastes verbatim, and a translated
-  version of it would be a different quote. The chrome around it still follows the visitor's
-  language, so a reader on a translated page is told why before they start.
-
-  Every claim on this page is one the codebase can back up. Where the product is not there
-  yet (the managed instance, the downloadable assets) the page says so rather than
-  describing a plan as a fact. The logo slots are placeholders on purpose, waiting for the
-  real files. The screenshots section is commented out further down for the same reason,
-  and nothing above promises screenshots while it is.
---}}
+{{-- The media kit, the boilerplate and assets a journalist copies from. --}}
 
 @php
     $updated = '27 July 2026';
@@ -79,8 +68,6 @@
 @endphp
 
 <x-marketing-layout title="Media kit">
-  {{-- The hatched fill behind every asset slot that has no file yet. Both colours are
-       theme tokens, so the placeholders follow light and dark like everything else. --}}
   <style>
     .media-slot {
         background-image: repeating-linear-gradient(
@@ -94,14 +81,12 @@
   </style>
 
   <div class="mx-auto max-w-[1200px] px-5 pt-10 sm:px-8 sm:pt-16">
-    {{-- The kit itself is English only, whatever language the site is being read in. --}}
     <div class="flex items-start gap-3 rounded-lg border border-hairline bg-canvas px-4 py-3">
       @svg('lucide-languages', 'mt-0.5 size-4 shrink-0 text-muted')
       <p class="text-sm text-muted">{{ __('This page is only available in English.') }}</p>
     </div>
   </div>
 
-  {{-- HERO --}}
   <section id="top" class="mx-auto max-w-[1200px] scroll-mt-24 px-5 pt-12 sm:px-8 sm:pt-16">
     <div class="grid grid-cols-1 items-end gap-12 lg:grid-cols-[1.35fr_1fr] lg:gap-20">
       <div>
@@ -133,7 +118,6 @@
     </div>
   </section>
 
-  {{-- 01 BOILERPLATE --}}
   <section id="boilerplate" class="mx-auto max-w-[1200px] scroll-mt-24 px-5 pt-16 sm:px-8 sm:pt-24">
     <div class="{{ $sectionHeading }}">
       <span class="{{ $sectionNumber }}">01</span>
@@ -165,7 +149,6 @@
     </div>
   </section>
 
-  {{-- 02 KEY FACTS --}}
   <section id="facts" class="mx-auto max-w-[1200px] scroll-mt-24 px-5 pt-16 sm:px-8 sm:pt-24">
     <div class="{{ $sectionHeading }}">
       <span class="{{ $sectionNumber }}">02</span>
@@ -186,7 +169,6 @@
     </div>
   </section>
 
-  {{-- 03 NUMBERS --}}
   <section id="numbers" class="mx-auto max-w-[1200px] scroll-mt-24 px-5 pt-16 sm:px-8 sm:pt-24">
     <div class="{{ $sectionHeading }}">
       <span class="{{ $sectionNumber }}">03</span>
@@ -209,7 +191,6 @@
     </p>
   </section>
 
-  {{-- 04 LOGOS --}}
   <section id="assets" class="mx-auto max-w-[1200px] scroll-mt-24 px-5 pt-16 sm:px-8 sm:pt-24">
     <div class="{{ $sectionHeading }}">
       <span class="{{ $sectionNumber }}">04</span>
@@ -280,7 +261,6 @@
     </div>
   </section> --}}
 
-  {{-- 06 FOUNDER --}}
   <section id="founder" class="mx-auto max-w-[1200px] scroll-mt-24 px-5 pt-16 sm:px-8 sm:pt-24">
     <div class="{{ $sectionHeading }}">
       <span class="{{ $sectionNumber }}">05</span>
@@ -323,7 +303,6 @@
     </div>
   </section>
 
-  {{-- 07 LINKS --}}
   <section id="links" class="mx-auto max-w-[1200px] scroll-mt-24 px-5 pt-16 sm:px-8 sm:pt-24">
     <div class="{{ $sectionHeading }}">
       <span class="{{ $sectionNumber }}">06</span>
@@ -345,11 +324,8 @@
     </div>
   </section>
 
-  {{-- 08 CONTACT AND USAGE --}}
   <section id="contact" class="mx-auto max-w-[1200px] scroll-mt-24 px-5 pt-16 sm:px-8 sm:pt-24">
     <div class="grid grid-cols-1 gap-12 rounded-2xl bg-card px-6 py-12 sm:px-12 sm:py-14 lg:grid-cols-2 lg:gap-14">
-      {{-- The address is never written into the page, so the copy button reads it back off
-           the link, which the component below has filled in long before anybody clicks. --}}
       <div @if ($pressEmail) x-data="copyToClipboard()" @endif>
         <p class="mb-4 font-mono text-[11px] tracking-[1.2px] text-muted-soft uppercase">Press contact</p>
         <h2 class="text-[28px] leading-[1.1] font-semibold tracking-[-1.2px] text-ink sm:text-[34px]">One inbox. One person.</h2>

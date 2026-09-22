@@ -14,7 +14,6 @@
   editEmoji: @js($location->emoji ?? '📦'),
 }" class="border-b border-hairline-soft last:border-b-0">
   <div class="flex min-h-14 items-stretch {{ $depth === 0 ? 'bg-card/40' : '' }}">
-    {{-- Locations have no screen of their own, so account search links here and scrolls to the row. --}}
     <div id="location-{{ $location->id }}" class="flex flex-1 items-center gap-3 py-2.5 pr-4 scroll-mt-24" style="padding-left: {{ 16 + $depth * 32 }}px" data-test="location-row-{{ $location->id }}">
       <div class="flex w-7 shrink-0 items-center justify-center">
         @if ($hasChildren)
@@ -54,7 +53,6 @@
     </div>
   </div>
 
-  {{-- Inline edit form --}}
   <div x-show="editing" x-cloak class="border-t border-hairline-soft bg-card/40 p-4" style="padding-left: calc({{ 16 + $depth * 32 }}px + 30px)">
     <x-form method="put" :action="route('locations.update', $location->id)" data-test="edit-location-form-{{ $location->id }}" x-target="locations-tree notifications" x-on:ajax:after="editing = document.querySelector('[data-test=&quot;edit-location-form-{{ $location->id }}&quot;] .text-error') !== null">
       <div class="mb-3 flex flex-wrap gap-3.5">

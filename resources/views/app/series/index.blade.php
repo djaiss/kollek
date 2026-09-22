@@ -47,7 +47,6 @@
         @endif
       </div>
 
-      {{-- The two concepts sound alike, so the difference is spelled out rather than left to be discovered. --}}
       <div class="mt-6 flex flex-col gap-4 rounded-xl border border-hairline bg-sidebar px-4.5 py-4 sm:flex-row sm:gap-3.5">
         <div class="min-w-0 flex-1">
           <div class="mb-1.5 flex items-center gap-2">
@@ -68,7 +67,6 @@
         </div>
       </div>
 
-      {{-- Add series panel --}}
       <div id="add-series-panel" x-show="showAddForm" x-cloak class="mt-6 rounded-xl border border-hairline bg-canvas p-6">
         <div class="text-base font-semibold text-ink">{{ __('New series') }}</div>
         <p class="mt-0.5 mb-4 text-[13px] text-muted">{{ __('Name the franchise. Items from any collection in the account can then be linked to it.') }}</p>
@@ -100,7 +98,6 @@
 
       <div id="series-panel">
         @if ($series->isEmpty())
-          {{-- Empty state, with a worked example so the concept lands before anyone commits to it. --}}
           <div class="mt-7 flex flex-col items-center rounded-xl border border-hairline px-6 py-14 text-center" data-test="no-series">
             <div class="mb-5 flex size-16 items-center justify-center rounded-xl bg-card">
               <x-lucide-library class="size-7 text-ink" />

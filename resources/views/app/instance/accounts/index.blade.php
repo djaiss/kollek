@@ -12,11 +12,7 @@
         <p class="mt-1 text-sm text-muted">{{ $accounts->total() }} of {{ $totalCount }} accounts</p>
       </div>
 
-      {{-- Filters. Account and people names are encrypted, so the search can only
-           look at email addresses. --}}
       <form method="GET" action="{{ route('instanceAdmin.accounts.index') }}" class="flex flex-col gap-3 sm:flex-row sm:items-center">
-        {{-- The role is chosen through the links below, so it has to ride along
-             with the search or submitting the form would silently drop it. --}}
         @if ($role !== null)
           <input type="hidden" name="role" value="{{ $role }}" />
         @endif

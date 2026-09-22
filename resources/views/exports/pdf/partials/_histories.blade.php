@@ -1,10 +1,6 @@
+{{-- The histories of a copy: where it has been, its loans, its upkeep, and the merged line. --}}
 @use('App\Helpers\ImpreciseDate')
 
-{{--
-  The histories that are lists of their own shape rather than rows of catalogue
-  fields: where a copy has been, who has borrowed it, what has been done to it,
-  and the one line that merges all of it.
---}}
 @php
   $histories = $copy['histories'];
 
