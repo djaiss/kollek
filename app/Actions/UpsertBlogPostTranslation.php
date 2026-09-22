@@ -42,11 +42,10 @@ class UpsertBlogPostTranslation
         private readonly BlogPost $blogPost,
         private readonly string $locale,
         private readonly string $title,
-        private readonly string $excerpt,
+        private readonly string $metaDescription,
         private readonly string $body,
         private readonly string $slug,
         private readonly ?string $metaTitle = null,
-        private readonly ?string $metaDescription = null,
         private readonly ?string $focusKeyword = null,
     ) {}
 
@@ -101,14 +100,13 @@ class UpsertBlogPostTranslation
 
         $this->sourceChanged = $this->isSource()
             && $existing !== null
-            && ($existing->title !== $this->title || $existing->excerpt !== $this->excerpt || $existing->body !== $this->body);
+            && ($existing->title !== $this->title || $existing->body !== $this->body);
 
         $this->translation = $this->blogPost->translations()->updateOrCreate(
             ['locale' => $this->locale],
             [
                 'slug' => $this->newSlug(),
                 'title' => $this->title,
-                'excerpt' => $this->excerpt,
                 'body' => $this->body,
                 'meta_title' => $this->metaTitle,
                 'meta_description' => $this->metaDescription,

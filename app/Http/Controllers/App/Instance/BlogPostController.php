@@ -56,7 +56,7 @@ class BlogPostController extends Controller
     {
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
-            'excerpt' => ['required', 'string', 'max:1000'],
+            'meta_description' => ['required', 'string', 'max:500'],
             'body' => ['required', 'string'],
             'shelf' => ['required', 'string', Rule::in(array_keys(BlogShelf::options()))],
             'slug' => ['nullable', 'string', 'max:255'],
@@ -65,7 +65,7 @@ class BlogPostController extends Controller
         $post = new CreateBlogPost(
             user: $request->user(),
             title: $validated['title'],
-            excerpt: $validated['excerpt'],
+            metaDescription: $validated['meta_description'],
             body: $validated['body'],
             shelf: BlogShelf::from($validated['shelf']),
             slug: $validated['slug'] ?? null,

@@ -32,7 +32,7 @@ class CreateBlogPost
     public function __construct(
         private readonly User $user,
         private readonly string $title,
-        private readonly string $excerpt,
+        private readonly string $metaDescription,
         private readonly string $body,
         private readonly BlogShelf $shelf,
         private readonly ?string $slug = null,
@@ -75,7 +75,7 @@ class CreateBlogPost
             'locale' => config('docs.default_locale'),
             'slug' => $this->slug !== null && $this->slug !== '' ? Str::slug($this->slug) : Str::slug($this->title),
             'title' => $this->title,
-            'excerpt' => $this->excerpt,
+            'meta_description' => $this->metaDescription,
             'body' => $this->body,
             'state' => BlogTranslationState::Source,
         ]);

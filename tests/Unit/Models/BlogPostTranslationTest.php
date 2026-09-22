@@ -49,10 +49,9 @@ it('prefers the meta title when one was written', function () {
     expect($translation->metaTitle())->toBe('The Dundies, an awards ceremony');
 });
 
-it('falls back to the excerpt when no meta description was written', function () {
+it('reads the meta description written for it', function () {
     $translation = BlogPostTranslation::factory()->create([
-        'excerpt' => 'An awards ceremony.',
-        'meta_description' => null,
+        'meta_description' => 'An awards ceremony.',
     ]);
 
     expect($translation->metaDescription())->toBe('An awards ceremony.');

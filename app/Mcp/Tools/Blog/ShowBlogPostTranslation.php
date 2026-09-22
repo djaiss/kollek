@@ -41,7 +41,6 @@ class ShowBlogPostTranslation extends Tool
             'state' => $translation->state->value,
             'note' => $translation->state->note(),
             'title' => $translation->title,
-            'excerpt' => $translation->excerpt,
             'body' => $translation->body,
             'slug' => $translation->slug,
             'meta_title' => $translation->meta_title,

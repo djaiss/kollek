@@ -26,7 +26,7 @@ function publishedEntry(string $slug = 'the-dundies'): BlogPost
         'locale' => 'en',
         'slug' => $slug,
         'title' => 'The Dundies',
-        'excerpt' => 'An awards ceremony.',
+        'meta_description' => 'An awards ceremony.',
         'body' => 'The original body.',
         'state' => BlogTranslationState::Source,
     ]);
@@ -44,7 +44,7 @@ it('writes a language that did not exist yet', function () {
         blogPost: $post,
         locale: 'fr_FR',
         title: 'Les Dundies',
-        excerpt: 'Une remise de prix.',
+        metaDescription: 'Une remise de prix.',
         body: 'Le corps.',
         slug: 'les-dundies',
     )->execute();
@@ -68,7 +68,7 @@ it('keeps the state of a language it is editing', function () {
         blogPost: $post->refresh(),
         locale: 'fr_FR',
         title: 'Les Dundies',
-        excerpt: 'Une remise de prix.',
+        metaDescription: 'Une remise de prix.',
         body: 'Un corps corrigé.',
         slug: 'les-dundies',
     )->execute();
@@ -86,7 +86,7 @@ it('keeps the old slug of a published entry as a redirect', function () {
         blogPost: $post,
         locale: 'en',
         title: 'The Dundies',
-        excerpt: 'An awards ceremony.',
+        metaDescription: 'An awards ceremony.',
         body: 'The original body.',
         slug: 'the-dundie-awards',
     )->execute();
@@ -113,7 +113,7 @@ it('leaves no redirect behind when a draft is renamed', function () {
         blogPost: $post->refresh(),
         locale: 'en',
         title: 'Second draft',
-        excerpt: 'Still working on it.',
+        metaDescription: 'Still working on it.',
         body: 'Body.',
         slug: 'second-draft',
     )->execute();
@@ -131,7 +131,7 @@ it('drops a redirect that would point at itself when a slug comes back around', 
         blogPost: $post,
         locale: 'en',
         title: 'The Dundies',
-        excerpt: 'An awards ceremony.',
+        metaDescription: 'An awards ceremony.',
         body: 'The original body.',
         slug: 'the-dundie-awards',
     )->execute();
@@ -141,7 +141,7 @@ it('drops a redirect that would point at itself when a slug comes back around', 
         blogPost: $post->refresh(),
         locale: 'en',
         title: 'The Dundies',
-        excerpt: 'An awards ceremony.',
+        metaDescription: 'An awards ceremony.',
         body: 'The original body.',
         slug: 'the-dundies',
     )->execute();
@@ -172,7 +172,7 @@ it('flags every other language outdated when the english source changes', functi
         blogPost: $post->refresh(),
         locale: 'en',
         title: 'The Dundies',
-        excerpt: 'An awards ceremony.',
+        metaDescription: 'An awards ceremony.',
         body: 'A rewritten body.',
         slug: 'the-dundies',
     )->execute();
@@ -199,7 +199,7 @@ it('leaves the other languages alone when the english edit changed nothing', fun
         blogPost: $post->refresh(),
         locale: 'en',
         title: 'The Dundies',
-        excerpt: 'An awards ceremony.',
+        metaDescription: 'An awards ceremony.',
         body: 'The original body.',
         slug: 'the-dundies',
     )->execute();
@@ -226,7 +226,7 @@ it('does not flag anything outdated when a translation is edited', function () {
         blogPost: $post->refresh(),
         locale: 'fr_FR',
         title: 'Les Dundies',
-        excerpt: 'Une remise de prix.',
+        metaDescription: 'Une remise de prix.',
         body: 'Le corps.',
         slug: 'les-dundies',
     )->execute();
@@ -248,7 +248,7 @@ it('logs the edit', function () {
         blogPost: $post,
         locale: 'en',
         title: 'The Dundies',
-        excerpt: 'An awards ceremony.',
+        metaDescription: 'An awards ceremony.',
         body: 'A rewritten body.',
         slug: 'the-dundies',
     )->execute();
@@ -265,7 +265,7 @@ it('refuses a locale the instance does not offer', function () {
         blogPost: publishedEntry(),
         locale: 'nl_NL',
         title: 'De Dundies',
-        excerpt: 'Een prijsuitreiking.',
+        metaDescription: 'Een prijsuitreiking.',
         body: 'Body.',
         slug: 'de-dundies',
     )->execute();
@@ -280,7 +280,7 @@ it('refuses to let somebody who is not an instance administrator write', functio
         blogPost: publishedEntry(),
         locale: 'en',
         title: 'Beets',
-        excerpt: 'Beets.',
+        metaDescription: 'Beets.',
         body: 'Beets.',
         slug: 'beets',
     )->execute();

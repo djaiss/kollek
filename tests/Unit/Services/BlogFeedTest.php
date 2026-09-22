@@ -18,7 +18,7 @@ function feedEntry(): BlogPost
         'locale' => 'en',
         'slug' => 'the-dundies',
         'title' => 'The Dundies',
-        'excerpt' => 'An awards ceremony.',
+        'meta_description' => 'An awards ceremony.',
         'body' => "Opening.\n\n## A heading\n\nMore.",
     ]);
 
@@ -32,6 +32,13 @@ it('builds a well formed rss document', function () {
 
     expect(simplexml_load_string($xml))->not->toBeFalse()
         ->and($xml)->toContain('<title>The Dundies</title>');
+});
+
+it('describes an item with its meta description', function () {
+    feedEntry();
+
+    expect(app(BlogFeed::class)->forLocale('en'))
+        ->toContain('<description>An awards ceremony.</description>');
 });
 
 it('carries the whole entry rather than a teaser', function () {

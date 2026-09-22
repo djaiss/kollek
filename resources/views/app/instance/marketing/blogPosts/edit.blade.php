@@ -131,7 +131,6 @@
               <div class="space-y-5">
                 <x-input id="title" label="Title" :value="old('title', $translation?->title)" :error="$errors->get('title')" required />
 
-                <x-textarea id="excerpt" label="Excerpt" :value="old('excerpt', $translation?->excerpt)" :error="$errors->get('excerpt')" rows="3" help="Aim for 70 to 160 characters: it is the standfirst and the fallback meta description." required />
 
                 <x-textarea id="body" label="Body" :value="old('body', $translation?->body)" :error="$errors->get('body')" rows="20" help="Markdown. Headings become the contents list, and footnotes work." required />
               </div>
@@ -184,7 +183,7 @@
                 <div class="space-y-5">
                   <x-input id="meta_title" label="Meta title" :value="old('meta_title', $translation?->meta_title)" :error="$errors->get('meta_title')" help="30 to 60 characters. Falls back to the headline when empty." />
 
-                  <x-textarea id="meta_description" label="Meta description" :value="old('meta_description', $translation?->meta_description)" :error="$errors->get('meta_description')" rows="3" help="70 to 160 characters. Falls back to the excerpt when empty." />
+                  <x-textarea id="meta_description" label="Meta description" :value="old('meta_description', $translation?->meta_description)" :error="$errors->get('meta_description')" rows="3" help="70 to 160 characters. It is the description tag, and the line that sells the entry in the feed and in search results." required />
 
                   <x-input id="focus_keyword" label="Focus keyword" :value="old('focus_keyword', $translation?->focus_keyword)" :error="$errors->get('focus_keyword')" help="A writing aid only. Nothing is done with it beyond the check below." />
 

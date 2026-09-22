@@ -20,7 +20,7 @@ function entryWithSource(): BlogPost
         'blog_post_id' => $post->id,
         'locale' => 'en',
         'title' => 'The Dundies',
-        'excerpt' => 'An awards ceremony.',
+        'meta_description' => 'An awards ceremony.',
         'body' => 'The body.',
     ]);
 
@@ -39,6 +39,7 @@ it('starts a language off from the english text', function () {
 
     expect($translation->locale)->toBe('fr_FR')
         ->and($translation->title)->toBe('The Dundies')
+        ->and($translation->meta_description)->toBe('An awards ceremony.')
         ->and($translation->body)->toBe('The body.');
 });
 

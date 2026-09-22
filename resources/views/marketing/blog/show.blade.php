@@ -45,7 +45,6 @@
     </div>
 
     <h1 class="mt-4 max-w-[860px] text-[32px] leading-[1.08] font-semibold tracking-[-1px] text-balance text-ink sm:text-[44px] lg:tracking-[-1.6px]">{{ $translation->title }}</h1>
-    <p class="mt-5 max-w-[720px] text-[17px] leading-[1.6] text-pretty text-muted sm:text-[19px]">{{ $translation->excerpt }}</p>
 
     <div class="mt-7 flex items-center gap-3 border-b border-hairline pb-8">
       <span aria-hidden="true" class="flex size-10 shrink-0 items-center justify-center rounded-full bg-card text-sm font-semibold text-ink">{{ Str::upper(Str::substr($post->author_name, 0, 1)) }}</span>

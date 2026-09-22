@@ -91,7 +91,7 @@ class LlmsTxt
                 }
 
                 $url = route('marketing.blog.show', ['locale' => $urlLocale, 'slug' => $translation->slug]);
-                $lines[] = '- ['.$translation->title.']('.$url.'): '.$translation->excerpt;
+                $lines[] = '- ['.$translation->title.']('.$url.'): '.$translation->metaDescription();
             }
         }
 

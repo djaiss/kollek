@@ -68,7 +68,7 @@ class BlogFeed
             .'<guid isPermaLink="false">'.$this->escape($post->reference()).'</guid>'
             .'<pubDate>'.$post->published_at->toRfc2822String().'</pubDate>'
             .'<category>'.$this->escape($post->shelf->label()).'</category>'
-            .'<description>'.$this->escape($translation->excerpt).'</description>'
+            .'<description>'.$this->escape($translation->metaDescription()).'</description>'
             .'<content:encoded xmlns:content="http://purl.org/rss/1.0/modules/content/">'
             .'<![CDATA['.$this->body($translation).']]>'
             .'</content:encoded>'
