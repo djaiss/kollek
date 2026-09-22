@@ -11,24 +11,36 @@ UI verification.
 Iris is the camera. Do not introduce Playwright, Puppeteer, Selenium, or custom
 browser automation solely to take screenshots.
 
+## The host
+
+Whoever installs the project chooses the host it is served under, so never write one
+into a command. Read it from the environment and let the shell fill it in:
+
+```bash
+APP_URL=$(grep '^APP_URL=' .env | cut -d '=' -f2- | tr -d '"')
+```
+
+Every example below writes `"$APP_URL"` for that reason. Keep the quotes: the value
+carries a scheme and may carry a port.
+
 ## Taking screenshots
 
 For a standard desktop screenshot:
 
 ```bash
-iris http://localhost:3000 --scale 1 -o /tmp/screenshot.png
+iris "$APP_URL" --scale 1 -o /tmp/screenshot.png
 ```
 
 For a full-page screenshot:
 
 ```bash
-iris --full http://localhost:3000 --scale 1 -o /tmp/screenshot.png
+iris --full "$APP_URL" --scale 1 -o /tmp/screenshot.png
 ```
 
 For a specific element:
 
 ```bash
-iris http://localhost:3000 \
+iris "$APP_URL" \
   --selector '#target' \
   --padding 24 \
   --scale 1 \
@@ -38,20 +50,20 @@ iris http://localhost:3000 \
 For mobile:
 
 ```bash
-iris --size iphone http://localhost:3000 --scale 1 -o /tmp/screenshot.png
+iris --size iphone "$APP_URL" --scale 1 -o /tmp/screenshot.png
 ```
 
 For dark mode:
 
 ```bash
-iris --dark http://localhost:3000 --scale 1 -o /tmp/screenshot.png
+iris --dark "$APP_URL" --scale 1 -o /tmp/screenshot.png
 ```
 
 If the page depends on asynchronously rendered content, wait for a meaningful
 element instead of adding arbitrary delays:
 
 ```bash
-iris http://localhost:3000 \
+iris "$APP_URL" \
   --wait-for '[data-page-ready]' \
   --scale 1 \
   -o /tmp/screenshot.png
@@ -65,41 +77,17 @@ Iris opens a URL and nothing else. It carries no cookie and no header, and each 
 a fresh browser, so signing in and then capturing does not work: the session does not survive from
 one capture to the next.
 
-Mint a signed link instead. It signs the user in and lands on the screen you want, in one URL.
+There is no way around that today. The project signs a developer in through
+`spatie/laravel-login-link`, the button rendered by `<x-login-link>` on the sign in screen, and that
+posts a form to `laravel-login-link-login`. Iris only issues a GET, so it cannot press it, and no
+command mints a link that signs somebody in from a URL.
 
-1. Switch it on once, in `.env`:
+So capture what is served to a signed out visitor: the marketing site, the documentation portal, the
+sign in and registration screens, the error pages. For a screen behind the sign in, say so in the
+pull request and describe the change in a bullet instead of attaching a shot of it.
 
-```dotenv
-MONICA_SCREENSHOT_LINK_ENABLED=true
-```
-
-2. Mint a link for the screen you want:
-
-```bash
-php artisan monica:screenshot-link monica.geller@centralperk.example --to=/settings/account/relationship-types
-```
-
-3. Give the link to Iris, exactly as it was printed:
-
-```bash
-iris --scale 1 --size 1440x1420 '<the link>' -o /tmp/relationship-types.png
-```
-
-The signature covers the host, so `APP_URL` has to name the host you are opening. Herd serves the
-project directory, `http://erica.test`, and a link minted for any other host answers
-`403 Invalid signature`.
-
-The link expires in five minutes, so mint a new one when it goes stale. It only works on a
-development instance: the route is registered outside production only, the setting is off unless
-somebody writes it, the host has to be `localhost`, a loopback address or a `.test` one, and the
-link is signed with the application key, so nobody who cannot already run the application can mint
-one.
-
-Turn the setting back off when you are done anyway. It costs nothing and it is one fewer thing
-resting on the other three.
-
-The example account signs in as `monica.geller@centralperk.example`. Rebuild it with
-`php artisan migrate:fresh --seed` if the instance holds nothing.
+Giving Iris a signed in screen would mean adding a signed, development only GET route that logs a
+user in and redirects. Nobody has written one. Do not improvise one to get a screenshot.
 
 ## Screens that scroll
 
@@ -144,7 +132,7 @@ Use these Iris presets when appropriate:
 Use explicit dimensions when the task requires a particular viewport:
 
 ```bash
-iris --size 1280x720 http://localhost:3000 --scale 1 -o /tmp/screenshot.png
+iris --size 1280x720 "$APP_URL" --scale 1 -o /tmp/screenshot.png
 ```
 
 Default to `--scale 1` for agent verification because it keeps screenshots
@@ -190,7 +178,7 @@ to the pull request with GitHub CLI, as the
 When debugging a failed capture, use `--json`:
 
 ```bash
-iris http://localhost:3000 \
+iris "$APP_URL" \
   --scale 1 \
   --json \
   -o /tmp/screenshot.png
