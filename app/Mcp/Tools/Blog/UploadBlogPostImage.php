@@ -23,6 +23,7 @@ class UploadBlogPostImage extends Tool
             'blog_post_id' => ['required', 'integer'],
             'content' => ['required', 'string'],
             'alt' => ['required', 'string', 'max:255'],
+            'sha256' => ['sometimes', 'string', 'size:64'],
         ]);
 
         $post = BlogPost::query()->findOrFail($validated['blog_post_id']);
@@ -34,6 +35,7 @@ class UploadBlogPostImage extends Tool
             user: $user,
             blogPost: $post,
             content: $validated['content'],
+            sha256: $validated['sha256'] ?? null,
         )->execute();
 
         $url = route('marketing.blog.image.show', [
@@ -55,7 +57,8 @@ class UploadBlogPostImage extends Tool
     {
         return [
             'blog_post_id' => $schema->integer()->description('The id of the entry the picture belongs to, as returned by list-blog-posts.')->required(),
-            'content' => $schema->string()->description('The picture itself, base64 encoded. A jpeg, png or webp, of no more than 5 MB once decoded. Anything wider or taller than 1600 pixels is scaled down to it.')->required(),
+            'content' => $schema->string()->description('The picture itself, base64 encoded. A jpeg, png or webp, of no more than 5 MB once decoded. Anything wider or taller than 1600 pixels is scaled down to it. Send it whole: a string rebuilt from several pieces of command output is usually cut short, and only part of a picture is refused.')->required(),
+            'sha256' => $schema->string()->description('The sha256 of the picture before it was base64 encoded, lowercase hex. Optional, but send it whenever you can: it is what catches a picture that arrived cut short, and the answer then says so instead of storing something broken.'),
             'alt' => $schema->string()->max(255)->description('What the picture shows, in a few words. It goes in the returned Markdown, and it is what somebody reading with a screen reader gets instead of the picture.')->required(),
         ];
     }

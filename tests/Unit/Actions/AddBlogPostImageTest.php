@@ -152,3 +152,106 @@ it('logs the upload', function () {
 
     Queue::assertPushedOn('low', LogUserAction::class, fn (LogUserAction $job): bool => $job->action === UserActionEnum::BlogPostImageUpload);
 });
+
+function detailedPngBytes(int $width = 900, int $height = 600): string
+{
+    $image = imagecreatetruecolor($width, $height);
+
+    for ($x = 0; $x < $width; $x += 3) {
+        imagefilledrectangle($image, $x, 0, $x + 2, $height - 1, imagecolorallocate($image, $x % 255, 90, 160));
+    }
+
+    ob_start();
+    imagepng($image);
+    $bytes = (string) ob_get_clean();
+    imagedestroy($image);
+
+    return $bytes;
+}
+
+it('refuses a picture whose data was cut short', function () {
+    Storage::fake(config('filesystems.default'));
+    $michael = $this->createUser(['is_instance_administrator' => true]);
+    $bytes = detailedPngBytes();
+
+    expect(fn () => new AddBlogPostImage(
+        user: $michael,
+        blogPost: BlogPost::factory()->create(),
+        content: base64_encode(substr($bytes, 0, (int) (strlen($bytes) * 0.6))),
+    )->execute())->toThrow(InvalidArgumentException::class);
+});
+
+it('refuses a picture whose pieces arrived out of order', function () {
+    Storage::fake(config('filesystems.default'));
+    $michael = $this->createUser(['is_instance_administrator' => true]);
+    $encoded = base64_encode(detailedPngBytes());
+    $pieces = str_split($encoded, (int) ceil(strlen($encoded) / 6));
+
+    expect(fn () => new AddBlogPostImage(
+        user: $michael,
+        blogPost: BlogPost::factory()->create(),
+        content: $pieces[0].$pieces[1].$pieces[3].$pieces[2].$pieces[4].$pieces[5],
+    )->execute())->toThrow(InvalidArgumentException::class);
+});
+
+it('stores nothing when a picture is cut short', function () {
+    Storage::fake(config('filesystems.default'));
+    $michael = $this->createUser(['is_instance_administrator' => true]);
+    $bytes = detailedPngBytes();
+
+    try {
+        new AddBlogPostImage(
+            user: $michael,
+            blogPost: BlogPost::factory()->create(),
+            content: base64_encode(substr($bytes, 0, (int) (strlen($bytes) * 0.6))),
+        )->execute();
+    } catch (InvalidArgumentException) {
+        // the action refuses it, and nothing should have reached the disk
+    }
+
+    expect(Storage::disk(config('filesystems.default'))->allFiles())->toBeEmpty();
+});
+
+it('refuses a picture that does not match the checksum given for it', function () {
+    Storage::fake(config('filesystems.default'));
+    $michael = $this->createUser(['is_instance_administrator' => true]);
+
+    expect(fn () => new AddBlogPostImage(
+        user: $michael,
+        blogPost: BlogPost::factory()->create(),
+        content: base64Image(),
+        sha256: hash('sha256', 'a different picture entirely'),
+    )->execute())->toThrow(InvalidArgumentException::class);
+});
+
+it('stores a picture that matches the checksum given for it', function () {
+    Queue::fake();
+    Storage::fake(config('filesystems.default'));
+    $michael = $this->createUser(['is_instance_administrator' => true]);
+    $bytes = detailedPngBytes(320, 240);
+
+    $path = new AddBlogPostImage(
+        user: $michael,
+        blogPost: BlogPost::factory()->create(),
+        content: base64_encode($bytes),
+        sha256: hash('sha256', $bytes),
+    )->execute();
+
+    Storage::disk(config('filesystems.default'))->assertExists($path);
+});
+
+it('accepts a checksum written in upper case', function () {
+    Queue::fake();
+    Storage::fake(config('filesystems.default'));
+    $michael = $this->createUser(['is_instance_administrator' => true]);
+    $bytes = detailedPngBytes(320, 240);
+
+    $path = new AddBlogPostImage(
+        user: $michael,
+        blogPost: BlogPost::factory()->create(),
+        content: base64_encode($bytes),
+        sha256: strtoupper(hash('sha256', $bytes)),
+    )->execute();
+
+    Storage::disk(config('filesystems.default'))->assertExists($path);
+});

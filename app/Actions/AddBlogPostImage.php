@@ -14,7 +14,9 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\Exceptions\DecoderException;
 use Intervention\Image\ImageManager;
+use Intervention\Image\Interfaces\ImageInterface;
 use InvalidArgumentException;
 
 /**
@@ -37,16 +39,17 @@ class AddBlogPostImage
 
     private const int MAX_EDGE = 1600;
 
-    private string $bytes;
-
     private string $mimeType;
 
     private string $path;
+
+    private ImageInterface $image;
 
     public function __construct(
         private readonly User $user,
         private readonly BlogPost $blogPost,
         private readonly string $content,
+        private readonly ?string $sha256 = null,
     ) {}
 
     public function execute(): string
@@ -71,6 +74,13 @@ class AddBlogPostImage
             throw new InvalidArgumentException('The image must be base64 encoded');
         }
 
+        if ($this->sha256 !== null && ! hash_equals(strtolower($this->sha256), hash('sha256', $bytes))) {
+            throw new InvalidArgumentException(
+                'The image does not match the checksum given for it, so it arrived altered or incomplete. '
+                .'Send the whole base64 string again in one piece.'
+            );
+        }
+
         if (strlen($bytes) > self::MAX_SIZE_IN_BYTES) {
             throw new InvalidArgumentException('The image must not be larger than 5 MB');
         }
@@ -89,21 +99,30 @@ class AddBlogPostImage
             throw new InvalidArgumentException('The image must be a jpeg, png or webp');
         }
 
-        $this->bytes = $bytes;
+        // getimagesizefromstring only reads the header, so a picture whose data is
+        // cut short passes every check above. Decoding it here is what proves the
+        // rest of it arrived, and it is the copy store() goes on to write.
+        try {
+            $this->image = new ImageManager(new Driver)->decodeBinary($bytes);
+        } catch (DecoderException) {
+            throw new InvalidArgumentException(
+                'The image header was read but the rest of it could not be, so it arrived incomplete or '
+                .'corrupted. Send the whole base64 string again in one piece.'
+            );
+        }
+
         $this->mimeType = $mimeType;
     }
 
     private function store(): void
     {
-        $image = new ImageManager(new Driver)->decodeBinary($this->bytes);
-
         $this->path = 'blog/'.$this->blogPost->id.'/body/'
             .Str::uuid()->toString().'.'.self::ALLOWED_MIME_TYPES[$this->mimeType];
 
         // Scaled down and never up, so a small picture keeps its own size.
         $this->disk()->put(
             $this->path,
-            (string) $image->scaleDown(self::MAX_EDGE, self::MAX_EDGE)->encodeUsingMediaType($this->mimeType),
+            (string) $this->image->scaleDown(self::MAX_EDGE, self::MAX_EDGE)->encodeUsingMediaType($this->mimeType),
         );
     }
 
